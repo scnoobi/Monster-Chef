@@ -11,16 +11,17 @@ public class AreaGen : MonoBehaviour {
     public float scale;
     public int seed;
     public Texture2D maskTex;
-    public int areaID;
-    public int nDoors;
+    public AreaNode node;
 
     public GameObject wallPrefab;
-    public GameObject doors;
+    public GameObject doorPrefab;
     public Texture2D tileTexture;
 
+    public WorldGen world;
     private float[,] map;
-    private GameObject[,] tileMap;
+    public GameObject[,] tileMap;
     private List<GameObject> walls;
+    private List<GameObject> doors;
     float inNum;
 
     struct Pos {
@@ -40,6 +41,7 @@ public class AreaGen : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        doors = new List<GameObject>();
         walls = new List<GameObject>();
         map = new float[height, weight];
         if (seed == -1)
@@ -48,7 +50,17 @@ public class AreaGen : MonoBehaviour {
         createShape();
         addWalls();
         addDoors();
+        if (world.previousArea !=null)
+            spawnCharacterOnCorrectDoor(world.previousArea.GetComponent<AreaGen>());
 	}
+
+    void OnEnable()
+    {
+        if (world != null)
+            spawnCharacterOnCorrectDoor(world.previousArea.GetComponent<AreaGen>());
+    }
+
+    public List<GameObject> getDoors() { return doors; }
 
     void createShape() {
         for (int i = 0; i < weight; i++)
@@ -103,11 +115,55 @@ public class AreaGen : MonoBehaviour {
     {
         int doorsSpawned = 0;
         List<Pos> posOfEdges = detectEdges();
-        while (doorsSpawned < nDoors) {
+        List<GameObject> wallsToRemove = new List<GameObject>();
+        while (doorsSpawned < node.getConnections().Count)
+        {
             int edge = (int)(Random.value * (posOfEdges.Count - 1));
             Pos edgePos= posOfEdges[edge];
-            Instantiate(doors, new Vector3(edgePos.i * tile.GetComponent<Renderer>().bounds.max.x,
-                edgePos.j * tile.GetComponent<Renderer>().bounds.max.y, 0), doors.transform.rotation);
+
+            float offsetX = 0, offsetZ = 0;
+
+            bool blockIsEdgeLeft = (edgePos.i == 0) || tileMap[edgePos.i - 1, edgePos.j] == null;
+            bool blockIsEdgeRight = (edgePos.i == weight - 1) || tileMap[edgePos.i + 1, edgePos.j] == null;
+            bool blockIsEdgeTop = (edgePos.j == height - 1)  || tileMap[edgePos.i, edgePos.j + 1] == null;
+            bool blockIsEdgeDown = (edgePos.j == 0) || tileMap[edgePos.i, edgePos.j - 1] == null;
+
+            if (blockIsEdgeLeft)
+            {
+                offsetX += tile.GetComponent<Renderer>().bounds.max.x / 2;
+            }else
+            if (blockIsEdgeRight)
+            {
+                offsetX -= tile.GetComponent<Renderer>().bounds.max.x / 2;
+            }
+            else
+            if (blockIsEdgeTop)
+            {
+                offsetZ -= tile.GetComponent<Renderer>().bounds.max.y / 2;
+            }
+            else
+            if (blockIsEdgeDown)
+            {
+                offsetZ += tile.GetComponent<Renderer>().bounds.max.y/2;
+            }
+
+            Vector3 posToSpawnDoor = new Vector3(edgePos.i * tile.GetComponent<Renderer>().bounds.max.x + offsetX,
+                edgePos.j * tile.GetComponent<Renderer>().bounds.max.y + offsetZ, 0);
+
+            foreach(GameObject wallInDoorPlace in walls){
+                if (wallInDoorPlace.transform.position == posToSpawnDoor)
+                {
+                    wallsToRemove.Add(wallInDoorPlace);
+                }
+            }
+
+            GameObject door = (GameObject)Instantiate(doorPrefab, posToSpawnDoor , doorPrefab.transform.rotation);
+            door.transform.parent = this.transform;
+            door.GetComponent<Door>().nextArea = node.getConnections()[doorsSpawned].id;
+            door.GetComponent<Door>().area = this;
+            door.GetComponent<Door>().i = edgePos.i;
+            door.GetComponent<Door>().j = edgePos.j;
+            doors.Add(door);
             doorsSpawned++;
         }
     }
@@ -120,6 +176,59 @@ public class AreaGen : MonoBehaviour {
                 GameObject.Destroy(tileMap[i, j]);
             }
         }
+    }
+
+    public void spawnCharacterOnCorrectDoor(AreaGen prevArea)
+    {
+        if (prevArea == null)
+            return;
+        foreach (GameObject door in doors)
+        {
+            float offsetX = 0f;
+            float offsetZ = 0f;
+            Door doorScript = door.GetComponent<Door>();
+
+            if (!(doorScript.GetComponent<Door>().nextArea == prevArea.node.id))
+                continue;
+
+            bool blockIsEdgeLeft = (doorScript.i == 0) || tileMap[doorScript.i - 1, doorScript.j] == null;
+            bool blockIsEdgeRight = (doorScript.i == weight - 1) || tileMap[doorScript.i + 1, doorScript.j] == null;
+            bool blockIsEdgeDown = (doorScript.j == 0) || tileMap[doorScript.i, doorScript.j - 1] == null;
+            bool blockIsEdgeTop  = (doorScript.j == height - 1) || tileMap[doorScript.i, doorScript.j + 1] == null;
+
+            Debug.Log(doorScript.i + " " + doorScript.j + " : " + blockIsEdgeLeft.ToString() + blockIsEdgeRight.ToString() + blockIsEdgeTop.ToString() + blockIsEdgeDown.ToString());
+
+
+            if (blockIsEdgeLeft)
+            {
+                offsetX += tile.GetComponent<Renderer>().bounds.max.x *2 ;
+                offsetZ += tile.GetComponent<Renderer>().bounds.max.y / 2;
+            } else
+            if (blockIsEdgeRight)
+            {
+                offsetX -= tile.GetComponent<Renderer>().bounds.max.x;
+                offsetZ += tile.GetComponent<Renderer>().bounds.max.y / 2;
+            }
+            else
+            if (blockIsEdgeTop)
+            {
+                offsetZ -= tile.GetComponent<Renderer>().bounds.max.y;
+                offsetX += tile.GetComponent<Renderer>().bounds.max.x / 2;
+            }
+            else
+            if (blockIsEdgeDown)
+            {
+                offsetZ += tile.GetComponent<Renderer>().bounds.max.y * 2;
+                offsetX += tile.GetComponent<Renderer>().bounds.max.x / 2;
+            }
+
+            world.player.transform.position = door.transform.position + new Vector3(offsetX, offsetZ, 0);
+        }
+    }
+
+
+    public void TriggerNextArea(int idOfNextArea) {
+        world.generateNextArea(idOfNextArea);
     }
 
     void Update()

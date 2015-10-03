@@ -11,6 +11,9 @@ public class TopDownController : MonoBehaviour {
 
     float h;
     float v;
+    private bool justWentTroughDoor = false;
+    private float doorWalkingCooldown = .5f;
+    private float doorWalkingTimer = 0f;
 
 	// Use this for initialization
 	void Start () {
@@ -25,57 +28,87 @@ public class TopDownController : MonoBehaviour {
         transform.Translate(direction.normalized * maxSpeed * Time.deltaTime);
 	}
 
+    void touchedDoor(RaycastHit2D hit)
+    {
+        if (!justWentTroughDoor)
+        {
+            hit.collider.GetComponent<Door>().NextArea();
+            justWentTroughDoor = true;
+        }
+    }
 
     void raycastCollisionDetection() {
-        RaycastHit2D hitUp, hitDwn, hitL, hitR;
+        if (justWentTroughDoor)
+            if (doorWalkingCooldown < Time.deltaTime + doorWalkingTimer)
+            {
+                justWentTroughDoor = false;
+                doorWalkingTimer = 0f;
+            }
+            else
+                doorWalkingTimer += Time.deltaTime;
 
-        hitUp = Physics2D.Raycast(transform.position, Vector2.up, lookAhead);
-        hitDwn = Physics2D.Raycast(transform.position, Vector2.down, lookAhead);
-        hitL = Physics2D.Raycast(transform.position, Vector2.left, lookAhead);
-        hitR = Physics2D.Raycast(transform.position, Vector2.right, lookAhead);
+        RaycastHit2D[] hitUp, hitDwn, hitL, hitR;
+
+        hitUp = Physics2D.RaycastAll(transform.position, Vector2.up, lookAhead);
+        hitDwn = Physics2D.RaycastAll(transform.position, Vector2.down, lookAhead);
+        hitL = Physics2D.RaycastAll(transform.position, Vector2.left, lookAhead);
+        hitR = Physics2D.RaycastAll(transform.position, Vector2.right, lookAhead);
         
         Debug.DrawRay(transform.position, Vector2.up * lookAhead);
         Debug.DrawRay(transform.position, Vector2.down * lookAhead);
         Debug.DrawRay(transform.position, Vector2.left * lookAhead);
         Debug.DrawRay(transform.position, Vector2.right * lookAhead);
 
-        if (hitUp.collider != null && !hitUp.collider.isTrigger)
+        foreach (RaycastHit2D hit in hitUp)
         {
-            Debug.Log("U");
-            /*
-            float distance = Mathf.Abs(hitUp.point.y - transform.position.y);
-            float heightError = GetComponent<SpriteRenderer>().bounds.size.y/2 - distance;
-            if (heightError > 0)*/
+            if (hit.collider != null && !hit.collider.isTrigger)
+            {
                 v = Mathf.Min(0, v);
+            }
+            else if (hit.collider != null && hit.collider.tag.Equals("Door"))
+            {
+
+                touchedDoor(hit);
+            }
         }
 
-        if (hitDwn.collider != null && !hitDwn.collider.isTrigger)
+        foreach (RaycastHit2D hit in hitDwn)
         {
-            Debug.Log("D");
-            /*
-            float distance = Mathf.Abs(hitUp.point.y - transform.position.y);
-            float heightError = GetComponent<SpriteRenderer>().bounds.size.y/2 - distance;
-            if (heightError > 0)*/
+            if (hit.collider != null && !hit.collider.isTrigger)
+            {
                 v = Mathf.Max(0, v);
+            }
+            else if (hit.collider != null && hit.collider.tag.Equals("Door"))
+            {
+
+                touchedDoor(hit);
+            }
         }
 
-        if (hitL.collider != null && !hitL.collider.isTrigger)
+        foreach (RaycastHit2D hit in hitL)
         {
-            Debug.Log("L");
-           /* float distance = Mathf.Abs(hitL.point.x - transform.position.x);
-            float heightError = GetComponent<SpriteRenderer>().bounds.size.x / 2 - distance;
-            if (heightError > 0)*/
-            h = Mathf.Max(0, h);
+            if (hit.collider != null && !hit.collider.isTrigger)
+            {
+                h = Mathf.Max(0, h);
+            }
+            else if (hit.collider != null && hit.collider.tag.Equals("Door"))
+            {
+
+                touchedDoor(hit);
+            }
         }
 
-        if (hitR.collider != null && !hitR.collider.isTrigger)
+        foreach (RaycastHit2D hit in hitR)
         {
-            Debug.Log("R");
-            /* float distance = Mathf.Abs(hitL.point.x - transform.position.x);
-            float heightError = GetComponent<SpriteRenderer>().bounds.size.x / 2 - distance;
-            if (heightError > 0)*/
-                
+            if (hit.collider != null && !hit.collider.isTrigger)
+            {
                 h = Mathf.Min(0, h);
+            }
+            else if (hit.collider != null && hit.collider.tag.Equals("Door"))
+            {
+
+                touchedDoor(hit);
+            }
         }
 
         /*
