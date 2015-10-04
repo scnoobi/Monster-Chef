@@ -20,8 +20,8 @@ public class WorldGen : MonoBehaviour {
         areaCache = new List<GameObject>();
         generateMap();
         generateConnections();
-       // printWorld();
         generateNextArea(0);
+        printWorld();
         player = GameObject.FindGameObjectWithTag("Player");
 	}
 
@@ -39,32 +39,35 @@ public class WorldGen : MonoBehaviour {
     }
 
     void generateConnections() {
-        List<AreaNode> worldDisconnected = world;
         int maxNConnects = 1;
+        for (int i = 0; i < world.Count; i++) {
+            if (i + 1 <= world.Count - 1)
+            {
+                world[i].addConnection(world[i + 1]);
+                world[i + 1].addConnection(world[i]);
+            }
+        }
         for (int i = 0; i < world.Count; i++)
         {
-            maxNConnects = Mathf.Max(1, (int)((Random.value - Random.value) * maxNumConnections));
+            float u1 = Random.value;//these are uniform(0,1) random doubles
+            float u2 = Random.value;
+            float randStdNormal = Mathf.Sqrt(-2.0f * Mathf.Log(u1)) *
+                         Mathf.Sin(2.0f * Mathf.PI * u2); //random normal(0,1)
+            float randNormal = 0 + 1 * randStdNormal;
+            
+            maxNConnects = Mathf.Max(1, Mathf.Abs((int)(randNormal * maxNumConnections)));
+            maxNConnects = Mathf.Min(maxNConnects, maxNumConnections);
             while (world[i].getConnections().Count < maxNConnects)
             {
-                int selectedNode;
-                if (world[i].getConnections().Count == 0 && worldDisconnected.Count > 0)
-                    selectedNode = (int)(Random.value * (world.Count - 1));//Random.Range(worldDisconnected[0].id, worldDisconnected[worldDisconnected.Count - 1].id);
-                else
-                    selectedNode = (int)(Random.value * (world.Count - 1));
+                int selectedNode = (int)(Random.value * (world.Count - 1));
 
-                if (!world[i].getConnections().Contains(world[selectedNode]) && selectedNode != i)
+                if (!world[i].getConnections().Contains(world[selectedNode]) && selectedNode != i && world[selectedNode].getConnections().Count < maxNConnects)
                 {
                     world[i].addConnection(world[selectedNode]);
                     world[selectedNode].addConnection(world[i]);
-
-                    if (worldDisconnected.Contains(world[i]))
-                        worldDisconnected.Remove(world[i]);
-                    if (worldDisconnected.Contains(world[selectedNode]))
-                        worldDisconnected.Remove(world[selectedNode]);
                 }
             }
         }
-        //TODO: check if all areas are reachable
     }
 
     public void generateNextArea(int idOfNextArea) {

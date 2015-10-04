@@ -144,7 +144,7 @@ public class AreaGen : MonoBehaviour {
             else
             if (blockIsEdgeDown)
             {
-                offsetZ += tile.GetComponent<Renderer>().bounds.max.y/2;
+                offsetZ += tile.GetComponent<Renderer>().bounds.max.y;
             }
 
             Vector3 posToSpawnDoor = new Vector3(edgePos.i * tile.GetComponent<Renderer>().bounds.max.x + offsetX,
