@@ -21,7 +21,7 @@ public class WorldGen : MonoBehaviour {
         generateMap();
         generateConnections();
         generateNextArea(0);
-        printWorld();
+        //printWorld();
         player = GameObject.FindGameObjectWithTag("Player");
 	}
 
@@ -40,14 +40,27 @@ public class WorldGen : MonoBehaviour {
 
     void generateConnections() {
         int maxNConnects = 1;
-        for (int i = 0; i < world.Count; i++) {
-            if (i + 1 <= world.Count - 1)
+        List<AreaNode> mixedWorld = new List<AreaNode>(world);
+
+        for (int k = 0; k < mixedWorld.Count; k++)
+        {
+            AreaNode temp = mixedWorld[k];
+            int randomIndex = Random.Range(k, mixedWorld.Count);
+            mixedWorld[k] = mixedWorld[randomIndex];
+            mixedWorld[randomIndex] = temp;
+        }
+
+        for (int i = 0; i < mixedWorld.Count; i++)
+        {
+            if (i + 1 <= mixedWorld.Count - 1)
             {
-                world[i].addConnection(world[i + 1]);
-                world[i + 1].addConnection(world[i]);
+                mixedWorld[i].addConnection(mixedWorld[i + 1]);
+                mixedWorld[i + 1].addConnection(mixedWorld[i]);
             }
         }
-        for (int i = 0; i < world.Count; i++)
+
+
+        for (int i = 0; i < mixedWorld.Count; i++)
         {
             float u1 = Random.value;//these are uniform(0,1) random doubles
             float u2 = Random.value;
@@ -57,15 +70,17 @@ public class WorldGen : MonoBehaviour {
             
             maxNConnects = Mathf.Max(1, Mathf.Abs((int)(randNormal * maxNumConnections)));
             maxNConnects = Mathf.Min(maxNConnects, maxNumConnections);
-            while (world[i].getConnections().Count < maxNConnects)
+            while (mixedWorld[i].getConnections().Count < maxNConnects)
             {
-                int selectedNode = (int)(Random.value * (world.Count - 1));
+                int selectedNode = (int)(Random.value * (mixedWorld.Count - 1));
 
-                if (!world[i].getConnections().Contains(world[selectedNode]) && selectedNode != i && world[selectedNode].getConnections().Count < maxNConnects)
+                if (!mixedWorld[i].getConnections().Contains(mixedWorld[selectedNode]) && selectedNode != i && mixedWorld[selectedNode].getConnections().Count < maxNConnects)
                 {
-                    world[i].addConnection(world[selectedNode]);
-                    world[selectedNode].addConnection(world[i]);
+                    mixedWorld[i].addConnection(mixedWorld[selectedNode]);
+                    mixedWorld[selectedNode].addConnection(mixedWorld[i]);
                 }
+                else
+                    break;
             }
         }
     }

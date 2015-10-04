@@ -106,7 +106,6 @@ public class TopDownController : MonoBehaviour {
             }
             else if (hit.collider != null && hit.collider.tag.Equals("Door"))
             {
-
                 touchedDoor(hit);
             }
         }
