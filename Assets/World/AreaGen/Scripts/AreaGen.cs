@@ -12,12 +12,15 @@ public class AreaGen : MonoBehaviour {
     public int seed;
     public Texture2D maskTex;
     public AreaNode node;
+    public WorldGen.biome chosenBiome;
 
     public GameObject wallPrefab;
     public GameObject doorPrefab;
+    public GameObject fillerPrefab;
     public Texture2D tileTexture;
 
     public WorldGen world;
+    public TextureLoader texLoader;
     private float[,] map;
     public GameObject[,] tileMap;
     private List<GameObject> walls;
@@ -43,6 +46,7 @@ public class AreaGen : MonoBehaviour {
 	void Start () {
         doors = new List<GameObject>();
         walls = new List<GameObject>();
+        texLoader = GameObject.FindGameObjectWithTag("TextureLoader").GetComponent<TextureLoader>();
         map = new float[height, weight];
         if (seed == -1)
             seed = (int)(Random.value*1000f);
@@ -231,14 +235,23 @@ public class AreaGen : MonoBehaviour {
         world.generateNextArea(idOfNextArea);
     }
 
-    void Update()
+    public void fillAreaWithFillers()
     {
-        if (Input.GetKeyDown(KeyCode.G)) {
-            Debug.Log("apocalyppse");
-            destroyShape();
-            tileMap = new GameObject[height, weight];
-            createShape();
+        Sprite[] biomeFillers;
+        switch (chosenBiome) { 
+        
+            case WorldGen.biome.Forest:
+                biomeFillers = texLoader.forestFillers;
+                break;
+
+            default:
+                return;
         }
 
+        Instantiate(fillerPrefab, transform.position, fillerPrefab.transform.rotation);
     }
+
+
+
+
 }
