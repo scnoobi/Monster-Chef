@@ -3,10 +3,8 @@ using System.Collections;
 
 public class Wall : MonoBehaviour {
 
-    public bool onTheLeft;
-    public bool onTheRight;
-    public bool onTop;
-    public bool onBottom;
+    public int i;
+    public int j;
 
 	// Use this for initialization
 	void Start () {

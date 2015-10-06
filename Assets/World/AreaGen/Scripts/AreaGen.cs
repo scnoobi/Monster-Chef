@@ -20,6 +20,7 @@ public class AreaGen : MonoBehaviour {
 
     public WorldGen world;
     public PrefabLoader texLoader;
+    private List<Pos> posOfEdges;
     private float[,] map;
     public GameObject[,] tileMap;
     private List<GameObject> walls;
@@ -84,9 +85,9 @@ public class AreaGen : MonoBehaviour {
 
     List<Pos> detectEdges() {
         List<Pos> posOfEdges = new List<Pos>();
-        for (int i = 0; i < weight; i++)
+        for (int i = 0; i < height; i++)
         {
-            for (int j = 0; j < height; j++)
+            for (int j = 0; j < weight ; j++)
             {
                 if(tileMap[i, j] != null){
                     bool blockIsEdgeLeft = (i==0) || tileMap[i - 1, j] == null;
@@ -94,32 +95,59 @@ public class AreaGen : MonoBehaviour {
                     bool blockIsEdgeTop = (j == 0) || tileMap[i , j - 1] == null;
                     bool blockIsEdgeDown = (j == height - 1) || tileMap[i , j + 1] == null;
 
-                    if(blockIsEdgeLeft || blockIsEdgeRight || blockIsEdgeTop || blockIsEdgeDown)
-                        posOfEdges.Add(new Pos(i, j, blockIsEdgeLeft, blockIsEdgeRight, blockIsEdgeTop, blockIsEdgeDown));
 
-                    foreach(Pos p in posOfEdges)
-                        tileMap[p.i, p.j].GetComponent<SpriteRenderer>().color = Color.red;
+                    if (blockIsEdgeLeft || blockIsEdgeRight || blockIsEdgeTop || blockIsEdgeDown)
+                    {
+                        posOfEdges.Add(new Pos(i, j, blockIsEdgeLeft, blockIsEdgeRight, blockIsEdgeTop, blockIsEdgeDown));
+                        GameObject delete = tileMap[i, j];
+                        GameObject.Destroy(delete);
+                    }
                 }
             }
+        }
+        foreach (Pos p in posOfEdges)
+        {
+            tileMap[p.i, p.j] = null;
         }
         return posOfEdges;
     }
 
+    void printArea() {
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < weight; j++)
+            { Debug.Log(i +" "+ j+ " "+ tileMap[i,j]); }
+        }
+    }
+
     void addWalls()
     {
-        List<Pos> posOfEdges = detectEdges();
+        posOfEdges = detectEdges();
         foreach (Pos p in posOfEdges) {
-            GameObject wall = (GameObject)Instantiate(wallPrefab, new Vector3(p.i * tile.GetComponent<Renderer>().bounds.max.x,
-                p.j * tile.GetComponent<Renderer>().bounds.max.y, 0), wallPrefab.transform.rotation);
-            wall.transform.parent = this.transform;
-            walls.Add(wall);
+
+            bool hasTileOnTop  = ((p.j != height - 1) && tileMap[p.i, p.j + 1] != null);
+            bool hasTileOnBottom = ((p.j != 0) && tileMap[p.i, p.j - 1] != null);
+            bool hasTileOnRight = ((p.i != weight - 1) && tileMap[p.i + 1, p.j] != null);
+            bool hasTileOnleft = ((p.i != 0) && tileMap[p.i - 1, p.j] != null);
+
+            //Debug.Log( p.i + " " + p.j+ " "+  hasTileOnleft + " " + hasTileOnRight +" "+ hasTileOnTop +" " +hasTileOnBottom);
+            bool hasAtleastOneTileNear = hasTileOnleft || hasTileOnRight || hasTileOnBottom || hasTileOnTop;
+            
+            if (hasAtleastOneTileNear)
+            {
+                GameObject wall = (GameObject)Instantiate(wallPrefab, new Vector3(p.i * tile.GetComponent<Renderer>().bounds.max.x,
+                    p.j * tile.GetComponent<Renderer>().bounds.max.y, 0), wallPrefab.transform.rotation);
+                wall.transform.parent = this.transform;
+                wall.GetComponent<Wall>().i = p.i;
+                wall.GetComponent<Wall>().j = p.j;
+                walls.Add(wall);
+            }
         }
     }
 
     void addDoors()     // remove Walls from under.... or change so they arnt even placed there... maybe place the doors first and only then the walls
     {
         int doorsSpawned = 0;
-        List<Pos> posOfEdges = detectEdges();
         List<GameObject> wallsToRemove = new List<GameObject>();
         while (doorsSpawned < node.getConnections().Count)
         {
