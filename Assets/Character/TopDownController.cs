@@ -21,6 +21,7 @@ public class TopDownController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+        lookAhead = maxSpeed * Time.deltaTime;
         h = Input.GetAxisRaw("Horizontal");
         v = Input.GetAxisRaw("Vertical");
         raycastCollisionDetection();
@@ -47,17 +48,26 @@ public class TopDownController : MonoBehaviour {
             else
                 doorWalkingTimer += Time.deltaTime;
 
-        RaycastHit2D[] hitUp, hitDwn, hitL, hitR;
+        RaycastHit2D[] hitUp, hitDwn, hitL, hitR, hitUL, hitUR, hitDL, hitDR;
 
         hitUp = Physics2D.RaycastAll(transform.position, Vector2.up, lookAhead);
         hitDwn = Physics2D.RaycastAll(transform.position, Vector2.down, lookAhead);
         hitL = Physics2D.RaycastAll(transform.position, Vector2.left, lookAhead);
         hitR = Physics2D.RaycastAll(transform.position, Vector2.right, lookAhead);
+        hitUL = Physics2D.RaycastAll(transform.position, new Vector2(0.5f, 0.5f).normalized, lookAhead);
+        hitDL = Physics2D.RaycastAll(transform.position, new Vector2(-0.5f, 0.5f).normalized, lookAhead);
+        hitUR = Physics2D.RaycastAll(transform.position, new Vector2(0.5f, -0.5f).normalized, lookAhead);
+        hitDR = Physics2D.RaycastAll(transform.position, new Vector2(-0.5f, -0.5f).normalized, lookAhead);
         
-        Debug.DrawRay(transform.position, Vector2.up * lookAhead);
-        Debug.DrawRay(transform.position, Vector2.down * lookAhead);
-        Debug.DrawRay(transform.position, Vector2.left * lookAhead);
-        Debug.DrawRay(transform.position, Vector2.right * lookAhead);
+        Debug.DrawRay(transform.position, Vector2.up * lookAhead, Color.red);
+        Debug.DrawRay(transform.position, Vector2.down * lookAhead, Color.red);
+        Debug.DrawRay(transform.position, Vector2.left * lookAhead, Color.red);
+        Debug.DrawRay(transform.position, Vector2.right * lookAhead, Color.red);
+
+        Debug.DrawRay(transform.position, new Vector2(0.5f, 0.5f).normalized * lookAhead, Color.red);
+        Debug.DrawRay(transform.position, new Vector2(-0.5f, 0.5f).normalized * lookAhead, Color.red);
+        Debug.DrawRay(transform.position, new Vector2(0.5f, -0.5f).normalized * lookAhead, Color.red);
+        Debug.DrawRay(transform.position, new Vector2(-0.5f, -0.5f).normalized * lookAhead, Color.red);
 
         foreach (RaycastHit2D hit in hitUp)
         {
