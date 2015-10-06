@@ -16,11 +16,10 @@ public class AreaGen : MonoBehaviour {
 
     public GameObject wallPrefab;
     public GameObject doorPrefab;
-    public GameObject fillerPrefab;
     public Texture2D tileTexture;
 
     public WorldGen world;
-    public TextureLoader texLoader;
+    public PrefabLoader texLoader;
     private float[,] map;
     public GameObject[,] tileMap;
     private List<GameObject> walls;
@@ -44,9 +43,10 @@ public class AreaGen : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        chosenBiome = WorldGen.biome.Forest;
         doors = new List<GameObject>();
         walls = new List<GameObject>();
-        texLoader = GameObject.FindGameObjectWithTag("TextureLoader").GetComponent<TextureLoader>();
+        texLoader = GameObject.FindGameObjectWithTag("PrefabLoader").GetComponent<PrefabLoader>();
         map = new float[height, weight];
         if (seed == -1)
             seed = (int)(Random.value*1000f);
@@ -54,6 +54,7 @@ public class AreaGen : MonoBehaviour {
         createShape();
         addWalls();
         addDoors();
+        fillAreaWithFillers();
         if (world.previousArea !=null)
             spawnCharacterOnCorrectDoor(world.previousArea.GetComponent<AreaGen>());
 	}
@@ -237,7 +238,7 @@ public class AreaGen : MonoBehaviour {
 
     public void fillAreaWithFillers()
     {
-        Sprite[] biomeFillers;
+        GameObject[] biomeFillers;
         switch (chosenBiome) { 
         
             case WorldGen.biome.Forest:
@@ -247,8 +248,8 @@ public class AreaGen : MonoBehaviour {
             default:
                 return;
         }
-
-        Instantiate(fillerPrefab, transform.position, fillerPrefab.transform.rotation);
+        Vector3 spawnPos = new Vector3(0,0,0);
+        GameObject fillerToSpawn = (GameObject)Instantiate(biomeFillers[0], spawnPos, biomeFillers[0].transform.rotation);
     }
 
 
