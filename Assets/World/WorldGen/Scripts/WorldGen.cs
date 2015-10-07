@@ -38,6 +38,17 @@ public class WorldGen : MonoBehaviour {
         }
     }
 
+    Connection.Direction reverseDirection(int direction) {
+        int newDirection;
+        if (direction % 2 == 0)
+            newDirection = direction + 1;
+        else
+            newDirection = direction - 1;
+
+        //Debug.Log("Given " + (Connection.Direction)direction + " i will appear on " + (Connection.Direction)newDirection);
+        return (Connection.Direction)newDirection;
+    }
+
     void generateConnections() {
         int maxNConnects = 1;
         List<AreaNode> mixedWorld = new List<AreaNode>(world);
@@ -54,8 +65,9 @@ public class WorldGen : MonoBehaviour {
         {
             if (i + 1 <= mixedWorld.Count - 1)
             {
-                mixedWorld[i].addConnection(mixedWorld[i + 1]);
-                mixedWorld[i + 1].addConnection(mixedWorld[i]);
+                int direction = (int)(Random.value * 4);
+                mixedWorld[i].addConnection(new Connection(mixedWorld[i + 1],(Connection.Direction) direction));
+                mixedWorld[i + 1].addConnection(new Connection(mixedWorld[i], reverseDirection(direction)));
             }
         }
 
@@ -74,10 +86,11 @@ public class WorldGen : MonoBehaviour {
             {
                 int selectedNode = (int)(Random.value * (mixedWorld.Count - 1));
 
-                if (!mixedWorld[i].getConnections().Contains(mixedWorld[selectedNode]) && selectedNode != i && mixedWorld[selectedNode].getConnections().Count < maxNConnects)
+                if (!mixedWorld[i].getConnections().Exists(x => x.getNode() == mixedWorld[selectedNode]) && selectedNode != i && mixedWorld[selectedNode].getConnections().Count < maxNConnects)
                 {
-                    mixedWorld[i].addConnection(mixedWorld[selectedNode]);
-                    mixedWorld[selectedNode].addConnection(mixedWorld[i]);
+                    int direction = (int)(Random.value * 4);
+                    mixedWorld[i].addConnection(new Connection(mixedWorld[selectedNode], (Connection.Direction)direction));
+                    mixedWorld[selectedNode].addConnection(new Connection(mixedWorld[i], reverseDirection(direction)));
                 }
                 else
                     break;
@@ -127,7 +140,7 @@ public class WorldGen : MonoBehaviour {
         {
             for (int j = 0; j < world[i].getConnections().Count; j++)
             {
-                Debug.Log(i + " ----> " + world[i].getConnections()[j].id);
+                Debug.Log(i + " ----> " + world[i].getConnections()[j].getNode().id);
             }
         }
     }

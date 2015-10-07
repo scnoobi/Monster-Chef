@@ -6,6 +6,7 @@ public class Door : MonoBehaviour {
     public int nextArea;
     public AreaGen area;
     public int i, j;
+    public Connection.Direction chosenDirection;
 
 	// Use this for initialization
 	void Start () {

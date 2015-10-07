@@ -4,25 +4,26 @@ using System.Collections.Generic;
 
 public class AreaNode  {
 
-    List<AreaNode> connections;
+    List<Connection> connections;
     public int id;
     //biome biomeOfArea;
 
     public AreaNode() {
-        connections = new List<AreaNode>();
+        connections = new List<Connection>();
     }
 
     public bool hasNode(int idToCheck)
     {
         bool hasNode = false;
-        foreach (AreaNode n in connections) {
-            if (n.id == idToCheck)
+        foreach (Connection n in connections)
+        {
+            if (n.getNode().id == idToCheck)
                 hasNode = true;
         }
         return hasNode;
     }
 
-    public void addConnection(AreaNode areaNode) { connections.Add(areaNode); }
+    public void addConnection(Connection connect) { connections.Add(connect); }
 
-    public List<AreaNode> getConnections() { return connections; }
+    public List<Connection> getConnections() { return connections; }
 }

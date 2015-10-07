@@ -112,13 +112,9 @@ public class AreaGen : MonoBehaviour {
         return posOfEdges;
     }
 
-    void printArea() {
-        for (int i = 0; i < height; i++)
-        {
-            for (int j = 0; j < weight; j++)
-            { Debug.Log(i +" "+ j+ " "+ tileMap[i,j]); }
-        }
-    }
+    void detectIslands() { }
+
+    void fuseIslands() { }
 
     void addWalls()
     {
@@ -150,31 +146,44 @@ public class AreaGen : MonoBehaviour {
         int doorsSpawned = 0;
         List<GameObject> wallsToRemove = new List<GameObject>();
         while (doorsSpawned < node.getConnections().Count)
-        {
+        { 
             int edge = (int)(Random.value * (posOfEdges.Count - 1));
             Pos edgePos= posOfEdges[edge];
 
             float offsetX = 0, offsetZ = 0;
 
-            bool blockIsEdgeLeft = (edgePos.i == 0) || tileMap[edgePos.i - 1, edgePos.j] == null;
-            bool blockIsEdgeRight = (edgePos.i == weight - 1) || tileMap[edgePos.i + 1, edgePos.j] == null;
-            bool blockIsEdgeTop = (edgePos.j == height - 1)  || tileMap[edgePos.i, edgePos.j + 1] == null;
-            bool blockIsEdgeDown = (edgePos.j == 0) || tileMap[edgePos.i, edgePos.j - 1] == null;
+            bool blockIsEdgeLeft = (edgePos.i == 0) || map[edgePos.i - 1, edgePos.j] > threshold;
+            bool blockIsEdgeRight = (edgePos.i == weight - 1) || map[edgePos.i + 1, edgePos.j] > threshold;
+            bool blockIsEdgeTop = (edgePos.j == height - 1) || map[edgePos.i, edgePos.j + 1] > threshold;
+            bool blockIsEdgeDown = (edgePos.j == 0) || map[edgePos.i, edgePos.j - 1] > threshold;
+
+
+            bool correctPlacement = false;
+            correctPlacement |= (blockIsEdgeLeft && node.getConnections()[doorsSpawned].getDecidedDirection() == Connection.Direction.left);
+            correctPlacement |= (blockIsEdgeRight && node.getConnections()[doorsSpawned].getDecidedDirection() == Connection.Direction.right);
+            correctPlacement |= (blockIsEdgeTop && node.getConnections()[doorsSpawned].getDecidedDirection() == Connection.Direction.top);
+            correctPlacement |= (blockIsEdgeDown && node.getConnections()[doorsSpawned].getDecidedDirection() == Connection.Direction.down);
+
+
+            if (!correctPlacement)
+                continue;
+
+            Debug.Log(edgePos.i + " " + edgePos.j + " : " + blockIsEdgeLeft.ToString() + blockIsEdgeRight.ToString() + blockIsEdgeTop.ToString() + blockIsEdgeDown.ToString());
 
             if (blockIsEdgeLeft)
             {
                 offsetX += tile.GetComponent<Renderer>().bounds.max.x / 2;
-            }else
+            }
             if (blockIsEdgeRight)
             {
                 offsetX -= tile.GetComponent<Renderer>().bounds.max.x / 2;
             }
-            else
+            
             if (blockIsEdgeTop)
             {
                 offsetZ -= tile.GetComponent<Renderer>().bounds.max.y / 2;
             }
-            else
+            
             if (blockIsEdgeDown)
             {
                 offsetZ += tile.GetComponent<Renderer>().bounds.max.y;
@@ -183,19 +192,13 @@ public class AreaGen : MonoBehaviour {
             Vector3 posToSpawnDoor = new Vector3(edgePos.i * tile.GetComponent<Renderer>().bounds.max.x + offsetX,
                 edgePos.j * tile.GetComponent<Renderer>().bounds.max.y + offsetZ, 0);
 
-            foreach(GameObject wallInDoorPlace in walls){
-                if (wallInDoorPlace.transform.position == posToSpawnDoor)
-                {
-                    wallsToRemove.Add(wallInDoorPlace);
-                }
-            }
-
             GameObject door = (GameObject)Instantiate(doorPrefab, posToSpawnDoor , doorPrefab.transform.rotation);
             door.transform.parent = this.transform;
-            door.GetComponent<Door>().nextArea = node.getConnections()[doorsSpawned].id;
+            door.GetComponent<Door>().nextArea = node.getConnections()[doorsSpawned].getNode().id;
             door.GetComponent<Door>().area = this;
             door.GetComponent<Door>().i = edgePos.i;
             door.GetComponent<Door>().j = edgePos.j;
+            door.GetComponent<Door>().chosenDirection = node.getConnections()[doorsSpawned].getDecidedDirection();
             doors.Add(door);
             doorsSpawned++;
         }
@@ -208,6 +211,16 @@ public class AreaGen : MonoBehaviour {
             {
                 GameObject.Destroy(tileMap[i, j]);
             }
+        }
+    }
+
+
+    void printArea()
+    {
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < weight; j++)
+            { Debug.Log(i + " " + j + " " + tileMap[i, j]); }
         }
     }
 
@@ -224,32 +237,24 @@ public class AreaGen : MonoBehaviour {
             if (!(doorScript.GetComponent<Door>().nextArea == prevArea.node.id))
                 continue;
 
-            bool blockIsEdgeLeft = (doorScript.i == 0) || tileMap[doorScript.i - 1, doorScript.j] == null;
-            bool blockIsEdgeRight = (doorScript.i == weight - 1) || tileMap[doorScript.i + 1, doorScript.j] == null;
-            bool blockIsEdgeDown = (doorScript.j == 0) || tileMap[doorScript.i, doorScript.j - 1] == null;
-            bool blockIsEdgeTop  = (doorScript.j == height - 1) || tileMap[doorScript.i, doorScript.j + 1] == null;
-
-            Debug.Log(doorScript.i + " " + doorScript.j + " : " + blockIsEdgeLeft.ToString() + blockIsEdgeRight.ToString() + blockIsEdgeTop.ToString() + blockIsEdgeDown.ToString());
-
-
-            if (blockIsEdgeLeft)
+            if (doorScript.GetComponent<Door>().chosenDirection == Connection.Direction.left)
             {
                 offsetX += tile.GetComponent<Renderer>().bounds.max.x *2 ;
                 offsetZ += tile.GetComponent<Renderer>().bounds.max.y / 2;
             } else
-            if (blockIsEdgeRight)
+                if (doorScript.GetComponent<Door>().chosenDirection == Connection.Direction.right)
             {
                 offsetX -= tile.GetComponent<Renderer>().bounds.max.x;
                 offsetZ += tile.GetComponent<Renderer>().bounds.max.y / 2;
             }
             else
-            if (blockIsEdgeTop)
+                    if (doorScript.GetComponent<Door>().chosenDirection == Connection.Direction.top)
             {
                 offsetZ -= tile.GetComponent<Renderer>().bounds.max.y;
                 offsetX += tile.GetComponent<Renderer>().bounds.max.x / 2;
             }
             else
-            if (blockIsEdgeDown)
+                        if (doorScript.GetComponent<Door>().chosenDirection == Connection.Direction.down)
             {
                 offsetZ += tile.GetComponent<Renderer>().bounds.max.y * 2;
                 offsetX += tile.GetComponent<Renderer>().bounds.max.x / 2;
