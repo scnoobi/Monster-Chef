@@ -13,6 +13,7 @@ public class AreaGen : MonoBehaviour {
     public Texture2D maskTex;
     public AreaNode node;
     public WorldGen.biome chosenBiome;
+    public float islandSizeThreshold = 45;
 
     public GameObject wallPrefab;
     public GameObject doorPrefab;
@@ -27,6 +28,7 @@ public class AreaGen : MonoBehaviour {
     private List<GameObject> doors;
     float inNum;
 
+
     struct Pos {
         public int i, j;
         public bool left, right, top, bottom;
@@ -40,6 +42,16 @@ public class AreaGen : MonoBehaviour {
             this.top = t;
             this.bottom = b;
         }
+
+        public Pos(int i, int j)
+        {
+            this.i = i;
+            this.j = j;
+            this.left = false;
+            this.right = false;
+            this.top = false;
+            this.bottom = false;
+        }
     }
 
 	// Use this for initialization
@@ -49,15 +61,19 @@ public class AreaGen : MonoBehaviour {
         walls = new List<GameObject>();
         texLoader = GameObject.FindGameObjectWithTag("PrefabLoader").GetComponent<PrefabLoader>();
         map = new float[height, weight];
+        seed = 875;
         if (seed == -1)
             seed = (int)(Random.value*1000f);
         tileMap = new GameObject[height, weight];
         createShape();
         addWalls();
+        detectIslands();
         addDoors();
         fillAreaWithFillers();
-        if (world.previousArea !=null)
+        if (world.previousArea != null)
             spawnCharacterOnCorrectDoor(world.previousArea.GetComponent<AreaGen>());
+        else
+            spawnCharacterFirstArea();
 	}
 
     void OnEnable()
@@ -112,9 +128,160 @@ public class AreaGen : MonoBehaviour {
         return posOfEdges;
     }
 
-    void detectIslands() { }
+    void detectIslands() {
+        int size = 0;
+        List<Pos> island = new List<Pos>();
+        List<Pos> deleteThese = new List<Pos>();
+        List<Pos> fuseThese = new List<Pos>();
+        int[,] checkedMap = new int[height, weight];
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < weight; j++)
+            {
+                checkedMap[i, j] = 0;
+            }
+        }
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < weight ; j++)
+            {
+                if (tileMap[i, j] != null && checkedMap[i, j]==0){
+                    checkedMap[i, j] = 1;
+                    island = new List<Pos>();
+                    size = fillIsland(i, j, checkedMap, island);
+                    if (size < islandSizeThreshold)
+                    {
+                        Debug.Log("delete " + island.Count);
+                        deleteThese.InsertRange(deleteThese.Count, island);
+                    }
+                    else { 
+                        Debug.Log("islands with size " + size);
+                        fuseThese.Add(island[0]);
+                    }
+                }
+            }
+        }
+        deleteIsland(deleteThese);
+        fuseIslands(fuseThese);
+    }
 
-    void fuseIslands() { }
+    void deleteIsland(List<Pos> deleteThese) {
+        foreach (Pos delete in deleteThese)
+        {
+            GameObject.Destroy(tileMap[delete.i, delete.j]);
+            tileMap[delete.i, delete.j] = null;
+            if (walls.Count > 0)
+            {
+                foreach (GameObject wall in walls)
+                {
+                    if (wall.GetComponent<Wall>().i == delete.i + 1 || wall.GetComponent<Wall>().i == delete.i - 1 || wall.GetComponent<Wall>().i == delete.i)
+                        if (wall.GetComponent<Wall>().j == delete.j + 1 || wall.GetComponent<Wall>().j == delete.j - 1 || wall.GetComponent<Wall>().j == delete.j)
+                        {
+                            GameObject.Destroy(wall);
+                            for (int i = posOfEdges.Count - 1; i >= 0; i--)
+                            {
+                                if (wall.GetComponent<Wall>().i == posOfEdges[i].i && wall.GetComponent<Wall>().j == posOfEdges[i].j)
+                                    posOfEdges.RemoveAt(i);
+                            }
+                        }
+                }
+            }
+        }
+    }
+
+    void fuseIslands(List<Pos> islandRepresentatives)
+    {
+        List<List<Pos>> segmentedposOfEdges = new List<List<Pos>>();
+        Pos closestEdgePoint = new Pos(int.MaxValue,int.MaxValue);
+        foreach (Pos representative in islandRepresentatives)
+        {
+            foreach (Pos edge in posOfEdges)
+            {
+                Vector2 rep = new Vector2(representative.i, representative.j);
+                if (Vector2.Distance(rep, new Vector2(closestEdgePoint.i, closestEdgePoint.j)) > Vector2.Distance(rep, new Vector2(edge.i, edge.j)))
+                    closestEdgePoint = edge;
+            }
+
+            List<Pos> edgeOfIsland = new List<Pos>();
+            foreach (Pos edge in posOfEdges)
+            {
+                bool sameColumn = edge.i == closestEdgePoint.i;
+                bool sameLine = edge.j == closestEdgePoint.j;
+                bool left = edge.i == closestEdgePoint.i - 1;
+                bool right = edge.i == closestEdgePoint.i + 1;
+                bool down = edge.j == closestEdgePoint.j + 1;
+                bool up = edge.j == closestEdgePoint.j - 1;
+
+                bool leftStraight = left && sameColumn;
+                bool rightStraight = right && sameColumn;
+                bool downStraight = down && sameLine;
+                bool upStraight = up && sameLine;
+                bool leftDiagonalUp = left && up;
+                bool leftDiagonalDown = left && down;
+                bool rightDiagonalUp = right && up;
+                bool rightDiagonalDown = right && down;
+
+                if (leftStraight || rightStraight || downStraight || upStraight || leftDiagonalUp || leftDiagonalDown || rightDiagonalUp || rightDiagonalDown) {
+                    edgeOfIsland.Add(closestEdgePoint);
+                    closestEdgePoint = edge;
+                }
+            }
+            segmentedposOfEdges.Add(edgeOfIsland);
+        }
+        List<Pos> relatedNodes = new List<Pos>();
+        Pos pos1 = new Pos(-1,-1), pos2 = new Pos(-1,-1);
+        int i = 0;
+        float distance = float.MaxValue;
+        foreach (Pos edge in segmentedposOfEdges[i]) {
+            foreach (Pos edge2 in segmentedposOfEdges[i+1])
+            {
+                float testDistance = Vector2.Distance(new Vector2(edge.i,edge.j), new Vector2(edge2.i,edge2.j));
+                if (distance > testDistance)
+                {
+                    distance = testDistance;
+                    pos1 = edge;
+                    pos2 = edge2;
+                }
+            }
+            relatedNodes.Add(pos1);
+            relatedNodes.Add(pos2);
+        }
+
+        int j = 0, k = 0;
+        for (i = 0; i < relatedNodes.Count; i += 2)
+        {
+            do
+            {
+            } while (tileMap[j, k] == null);
+        }
+    }
+
+    int fillIsland(int i, int j, int[,] checkedMap, List<Pos> island)
+    {
+        int size = checkedMap[i, j];
+        island.Add(new Pos(i, j));
+        if (i < height - 1 && tileMap[i + 1, j] != null && checkedMap[i + 1, j]==0)
+        {
+            checkedMap[i + 1, j] = checkedMap[i , j]+1;
+            size = Mathf.Max(fillIsland(i + 1, j, checkedMap, island),size);
+        }
+        if (i > 0 && tileMap[i - 1, j] != null && checkedMap[i - 1, j] == 0)
+        {
+            checkedMap[i - 1, j] = checkedMap[i, j] + 1;
+            size = Mathf.Max(fillIsland(i - 1, j, checkedMap, island), size);
+        }
+        if (j < weight - 1 && tileMap[i, j + 1] != null && checkedMap[i, j + 1] == 0)
+        {
+            checkedMap[i, j + 1] = checkedMap[i, j] + 1; ;
+            size = Mathf.Max(fillIsland(i, j + 1, checkedMap, island), size);
+        }
+        if (j > 0 && tileMap[i, j - 1] != null && checkedMap[i, j - 1] == 0)
+        {
+            checkedMap[i, j - 1] = checkedMap[i, j] + 1;
+            size = Mathf.Max(fillIsland(i, j - 1, checkedMap, island), size);
+        }
+        return size;
+    }
 
     void addWalls()
     {
@@ -168,7 +335,7 @@ public class AreaGen : MonoBehaviour {
             if (!correctPlacement)
                 continue;
 
-            Debug.Log(edgePos.i + " " + edgePos.j + " : " + blockIsEdgeLeft.ToString() + blockIsEdgeRight.ToString() + blockIsEdgeTop.ToString() + blockIsEdgeDown.ToString());
+            //Debug.Log(edgePos.i + " " + edgePos.j + " : " + blockIsEdgeLeft.ToString() + blockIsEdgeRight.ToString() + blockIsEdgeTop.ToString() + blockIsEdgeDown.ToString());
 
             if (blockIsEdgeLeft)
             {
@@ -213,7 +380,6 @@ public class AreaGen : MonoBehaviour {
             }
         }
     }
-
 
     void printArea()
     {
@@ -264,6 +430,17 @@ public class AreaGen : MonoBehaviour {
         }
     }
 
+    public void spawnCharacterFirstArea()
+    {
+        for (int i = height/2; i < height; i++)
+        {
+            for (int j = weight/2; j < weight; j++)
+            {
+                if (tileMap[i, j] != null)
+                    world.player.transform.position = tileMap[i, j].transform.position;
+            }
+        }
+    }
 
     public void TriggerNextArea(int idOfNextArea) {
         world.generateNextArea(idOfNextArea);
@@ -283,6 +460,7 @@ public class AreaGen : MonoBehaviour {
         }
         Vector3 spawnPos = new Vector3(0,0,0);
         GameObject fillerToSpawn = (GameObject)Instantiate(biomeFillers[0], spawnPos, biomeFillers[0].transform.rotation);
+        fillerToSpawn.transform.parent = transform;
     }
 
 
