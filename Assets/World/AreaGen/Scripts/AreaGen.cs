@@ -228,7 +228,7 @@ public class AreaGen : MonoBehaviour {
             }
             segmentedposOfEdges.Add(edgeOfIsland);
         }
-        List<Pos> relatedNodes = new List<Pos>();
+        List<Pos> closestNodes = new List<Pos>();
         Pos pos1 = new Pos(-1,-1), pos2 = new Pos(-1,-1);
         int i = 0;
         float distance = float.MaxValue;
@@ -243,17 +243,73 @@ public class AreaGen : MonoBehaviour {
                     pos2 = edge2;
                 }
             }
-            relatedNodes.Add(pos1);
-            relatedNodes.Add(pos2);
+            closestNodes.Add(pos1);
+            closestNodes.Add(pos2);
         }
+        getLineBetweenIslands(closestNodes);
+    }
 
+    List<List<Pos>> getLineBetweenIslands(List<Pos> closestNodes)
+    {
+        List<List<Pos>>  allLines = new List<List<Pos>>();
         int j = 0, k = 0;
-        for (i = 0; i < relatedNodes.Count; i += 2)
+        for (int i = 0; i < closestNodes.Count; i += 2)
         {
-            do
+            List<Pos> line = new List<Pos>();
+            int x = closestNodes[i].i;
+            int y = closestNodes[i].j;
+            int dx = x - closestNodes[i + 1].i;
+            int dy = y - closestNodes[i + 1].j;
+            bool inverted = false;
+            int step = (int)Mathf.Sign(dx);
+            int gradientStep = (int)Mathf.Sign(dy);
+            int longest = Mathf.Abs(dx);
+            int shortest = Mathf.Abs(dy);
+
+            if (longest < shortest)
             {
-            } while (tileMap[j, k] == null);
+                inverted = true;
+                longest = shortest;
+                shortest = Mathf.Abs(dx);
+                step = gradientStep;
+                gradientStep = (int)Mathf.Sign(dx);
+            }
+
+            int gradientAccumulation = longest / 2;
+            for (int l = 0; l < longest; l++)
+            {
+                line.Add(new Pos(x, y));
+                if (inverted)
+                {
+                    y += step;
+                }
+                else
+                {
+                    x += step;
+                }
+                gradientAccumulation += shortest;
+                if (gradientAccumulation >= longest)
+                {
+                    if (inverted)
+                    {
+                        x += gradientStep;
+                    }
+                    else
+                    {
+                        y += gradientStep;
+                    }
+                }
+            }
+            allLines.Add(line);
+            Debug.DrawLine(new Vector2(line[0].i, line[0].j), new Vector2(line[line.Count - 1].i, line[line.Count - 1].j), Color.red, 10.0f, true);
         }
+        return allLines;
+    }
+
+    void createPassageWayBetweenTwoCloseNodes(List<List<Pos>> allLines)
+    {
+
+
     }
 
     int fillIsland(int i, int j, int[,] checkedMap, List<Pos> island)
