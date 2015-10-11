@@ -170,7 +170,7 @@ public class AreaGen : MonoBehaviour {
                 if (grid[i, j].gridType == tileTypes.debug)
                 {
                    Gizmos.color = grid[i, j].debugColor;
-                   Gizmos.DrawCube(new Vector3(i * tile.GetComponent<Renderer>().bounds.max.x, j * tile.GetComponent<Renderer>().bounds.max.y, 0), new Vector3(0.5f, 0.5f, 0.5f));
+                   Gizmos.DrawCube(new Vector3(i * tile.GetComponent<Renderer>().bounds.max.x, j * tile.GetComponent<Renderer>().bounds.max.y, 0), new Vector3(1f, 1f, 1f));
                 }
             }
         }
@@ -358,7 +358,7 @@ public class AreaGen : MonoBehaviour {
         {
             foreach (Pos edge in edgesOfIslands[i])
             {
-                grid[edge.i, edge.j].setDebug(colors[i]);
+                //grid[edge.i, edge.j].setDebug(colors[i]);
             }
         }
         for (int i = 0; i < edgesOfIslands.Count - 1; i++)
@@ -376,8 +376,13 @@ public class AreaGen : MonoBehaviour {
                     }
                 }
             }
+            grid[pos1.i, pos1.j].setDebug(colors[i]);
+            grid[pos2.i, pos2.j].setDebug(colors[i]);
             closestNodes.Add(pos1);
             closestNodes.Add(pos2);
+            Debug.DrawLine(new Vector2(pos1.i * tile.GetComponent<Renderer>().bounds.max.x, pos1.j * tile.GetComponent<Renderer>().bounds.max.y),
+                new Vector2(pos2.i * tile.GetComponent<Renderer>().bounds.max.x, pos2.j * tile.GetComponent<Renderer>().bounds.max.y),
+                Color.green, 50.0f, true);
         }
 
         getLineBetweenIslands(closestNodes);
@@ -386,13 +391,14 @@ public class AreaGen : MonoBehaviour {
     List<List<Pos>> getLineBetweenIslands(List<Pos> closestNodes)
     {
         List<List<Pos>>  allLines = new List<List<Pos>>();
+        List<Pos> line;
         for (int i = 0; i < closestNodes.Count; i += 2)
         {
-            List<Pos> line = new List<Pos>();
+            line = new List<Pos>();
             int x = closestNodes[i].i;
             int y = closestNodes[i].j;
-            int dx = x - closestNodes[i + 1].i;
-            int dy = y - closestNodes[i + 1].j;
+            int dx =  closestNodes[i + 1].i - x;
+            int dy =  closestNodes[i + 1].j - y;
             Debug.Log("dx " + dx);
             Debug.Log("dy " + dy);
             bool inverted = false;
@@ -404,9 +410,9 @@ public class AreaGen : MonoBehaviour {
             if (longest < shortest)
             {
                 inverted = true;
-                longest = shortest;
+                longest = Mathf.Abs(dy);
                 shortest = Mathf.Abs(dx);
-                step = gradientStep;
+                step = (int)Mathf.Sign(dy);
                 gradientStep = (int)Mathf.Sign(dx);
             }
 
@@ -433,11 +439,14 @@ public class AreaGen : MonoBehaviour {
                     {
                         y += gradientStep;
                     }
+                    gradientAccumulation -= longest;
                 }
             }
             allLines.Add(line);
             Debug.Log("lineSize"+line.Count);
-            Debug.DrawLine(new Vector2(line[0].i, line[0].j), new Vector2(line[line.Count - 1].i, line[line.Count - 1].j), Color.red, 10.0f, true);
+            Debug.DrawLine(new Vector2(line[0].i * tile.GetComponent<Renderer>().bounds.max.x, line[0].j * tile.GetComponent<Renderer>().bounds.max.y),
+                new Vector2(line[line.Count - 1].i * tile.GetComponent<Renderer>().bounds.max.x, line[line.Count - 1].j * tile.GetComponent<Renderer>().bounds.max.y),
+                Color.red, 50.0f, true);
         }
         return allLines;
     }
