@@ -6,7 +6,7 @@ public class AreaNode  {
 
     List<Connection> connections;
     public int id;
-    //biome biomeOfArea;
+    WorldGen.biome biomeOfArea;
 
     public AreaNode() {
         connections = new List<Connection>();
