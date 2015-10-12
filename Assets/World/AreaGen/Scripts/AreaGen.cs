@@ -29,6 +29,7 @@ public class AreaGen : MonoBehaviour {
     public GameObject[,] tileMap;
     private List<GridNode> walls;
     private List<GameObject> doors;
+    List<List<Pos>> allLinesBetweenIslands;
     float inNum;
 
 
@@ -93,7 +94,7 @@ public class AreaGen : MonoBehaviour {
         walls = new List<GridNode>();
         texLoader = GameObject.FindGameObjectWithTag("PrefabLoader").GetComponent<PrefabLoader>();
         map = new float[height, weight];
-        seed = 875;
+        //seed = 875;
         if (seed == -1)
             seed = (int)(Random.value*1000f);
         grid = new GridNode[height, weight];
@@ -102,8 +103,9 @@ public class AreaGen : MonoBehaviour {
         createShape();
         posOfEdges = detectEdges();
         detectIslands();
-        addWalls();
         addDoors();
+        createPassageWayBetweenTwoCloseNodes(allLinesBetweenIslands);
+        addWalls();
         createMap();
         fillAreaWithFillers();
 
@@ -251,7 +253,6 @@ public class AreaGen : MonoBehaviour {
                     }
                     else { 
                         Debug.Log("islands with size " + size);
-                        Debug.Log("fist val "+islandEdges[0].toString());
                         fuseThese.Add(islandEdges);
                     }
                 }
@@ -354,13 +355,6 @@ public class AreaGen : MonoBehaviour {
         Pos pos1 = new Pos(-1,-1), pos2 = new Pos(-1,-1);
         float distance = float.MaxValue;
         Color[] colors = { Color.red, Color.green, Color.cyan };
-        for (int i = 0; i < edgesOfIslands.Count; i++)
-        {
-            foreach (Pos edge in edgesOfIslands[i])
-            {
-                //grid[edge.i, edge.j].setDebug(colors[i]);
-            }
-        }
         for (int i = 0; i < edgesOfIslands.Count - 1; i++)
         {
             foreach (Pos edge in edgesOfIslands[i])
@@ -380,12 +374,8 @@ public class AreaGen : MonoBehaviour {
             grid[pos2.i, pos2.j].setDebug(colors[i]);
             closestNodes.Add(pos1);
             closestNodes.Add(pos2);
-            Debug.DrawLine(new Vector2(pos1.i * tile.GetComponent<Renderer>().bounds.max.x, pos1.j * tile.GetComponent<Renderer>().bounds.max.y),
-                new Vector2(pos2.i * tile.GetComponent<Renderer>().bounds.max.x, pos2.j * tile.GetComponent<Renderer>().bounds.max.y),
-                Color.green, 50.0f, true);
         }
-
-        getLineBetweenIslands(closestNodes);
+        allLinesBetweenIslands = getLineBetweenIslands(closestNodes);
     }
 
     List<List<Pos>> getLineBetweenIslands(List<Pos> closestNodes)
@@ -394,56 +384,37 @@ public class AreaGen : MonoBehaviour {
         List<Pos> line;
         for (int i = 0; i < closestNodes.Count; i += 2)
         {
+            int x0 = closestNodes[i].i;
+            int y0 = closestNodes[i].j;
+            int x1 = closestNodes[i + 1].i;
+            int y1 = closestNodes[i + 1].j;
+            int dx = Mathf.Abs(x1 - x0);
+            int dy = Mathf.Abs(y1 - y0);
+            int x = x0;
+            int y = y0;
+            int n = 1 + dx + dy;
+            int x_inc = (x1 > x0) ? 1 : -1;
+            int y_inc = (y1 > y0) ? 1 : -1;
+            int error = dx - dy;
+            dx *= 2;
+            dy *= 2;
             line = new List<Pos>();
-            int x = closestNodes[i].i;
-            int y = closestNodes[i].j;
-            int dx =  closestNodes[i + 1].i - x;
-            int dy =  closestNodes[i + 1].j - y;
-            Debug.Log("dx " + dx);
-            Debug.Log("dy " + dy);
-            bool inverted = false;
-            int step = (int)Mathf.Sign(dx);
-            int gradientStep = (int)Mathf.Sign(dy);
-            int longest = Mathf.Abs(dx);
-            int shortest = Mathf.Abs(dy);
-
-            if (longest < shortest)
-            {
-                inverted = true;
-                longest = Mathf.Abs(dy);
-                shortest = Mathf.Abs(dx);
-                step = (int)Mathf.Sign(dy);
-                gradientStep = (int)Mathf.Sign(dx);
-            }
-
-            int gradientAccumulation = longest / 2;
-            for (int l = 0; l < longest; l++)
+            for (; n > 0; --n)
             {
                 line.Add(new Pos(x, y));
-                if (inverted)
+
+                if (error > 0)
                 {
-                    y += step;
+                    x += x_inc;
+                    error -= dy;
                 }
                 else
                 {
-                    x += step;
-                }
-                gradientAccumulation += shortest;
-                if (gradientAccumulation >= longest)
-                {
-                    if (inverted)
-                    {
-                        x += gradientStep;
-                    }
-                    else
-                    {
-                        y += gradientStep;
-                    }
-                    gradientAccumulation -= longest;
+                    y += y_inc;
+                    error += dx;
                 }
             }
             allLines.Add(line);
-            Debug.Log("lineSize"+line.Count);
             Debug.DrawLine(new Vector2(line[0].i * tile.GetComponent<Renderer>().bounds.max.x, line[0].j * tile.GetComponent<Renderer>().bounds.max.y),
                 new Vector2(line[line.Count - 1].i * tile.GetComponent<Renderer>().bounds.max.x, line[line.Count - 1].j * tile.GetComponent<Renderer>().bounds.max.y),
                 Color.red, 50.0f, true);
@@ -453,7 +424,6 @@ public class AreaGen : MonoBehaviour {
 
     void createPassageWayBetweenTwoCloseNodes(List<List<Pos>> allLines)
     {
-
 
     }
 
