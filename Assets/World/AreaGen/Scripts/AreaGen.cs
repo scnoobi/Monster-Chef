@@ -93,7 +93,7 @@ public class AreaGen : MonoBehaviour {
         doors = new List<GameObject>();
         texLoader = GameObject.FindGameObjectWithTag("PrefabLoader").GetComponent<PrefabLoader>();
         map = new float[height, weight];
-        seed = 15; //islands BUG TEST TODO
+        //seed = 15; //islands BUG TEST TODO
         //seed = 875; //islands
         //seed = 35; //walls
         if (seed == -1)
@@ -348,6 +348,7 @@ public class AreaGen : MonoBehaviour {
             {
                 foreach (Pos edge2 in edgesOfIslands[i + 1])
                 {
+
                     float testDistance = Vector2.Distance(new Vector2(edge.i, edge.j), new Vector2(edge2.i, edge2.j));
                     if (distance > testDistance)
                     {
@@ -359,6 +360,8 @@ public class AreaGen : MonoBehaviour {
             }
             closestNodes.Add(pos1);
             closestNodes.Add(pos2);
+            pos1 = new Pos(-1, -1);  pos2 = new Pos(-1, -1);
+            distance = float.MaxValue;
         }
         allLinesBetweenIslands = getLineBetweenIslands(closestNodes);
     }
@@ -373,6 +376,7 @@ public class AreaGen : MonoBehaviour {
             int y0 = closestNodes[i].j;
             int x1 = closestNodes[i + 1].i;
             int y1 = closestNodes[i + 1].j;
+
             int dx = Mathf.Abs(x1 - x0);
             int dy = Mathf.Abs(y1 - y0);
             int x = x0;
@@ -400,10 +404,12 @@ public class AreaGen : MonoBehaviour {
                 }
             }
             /*
+            Debug.Log("start "+line[0].toString());
+            Debug.Log("end "+line[line.Count - 1].toString());
             Debug.DrawLine(new Vector2(line[0].i * tile.GetComponent<Renderer>().bounds.max.x, line[0].j * tile.GetComponent<Renderer>().bounds.max.y),
     new Vector2(line[line.Count - 1].i * tile.GetComponent<Renderer>().bounds.max.x, line[line.Count - 1].j * tile.GetComponent<Renderer>().bounds.max.y),
     Color.red, 50.0f, true);
-             * */
+             */
             allLines.Add(line);
         }
         return allLines;
