@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour {
-    //List<Item> items;
+    Item[,] items;
 
 	// Use this for initialization
 	void Start () {
