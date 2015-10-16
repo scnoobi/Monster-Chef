@@ -24,12 +24,12 @@ public class TopDownController : MonoBehaviour {
         lookAhead = maxSpeed * Time.deltaTime;
         h = Input.GetAxisRaw("Horizontal");
         v = Input.GetAxisRaw("Vertical");
-        //if (v != 0 || h != 0 )
-        //{
+        if (v != 0 || h != 0 )
+        {
             raycastCollisionDetection();
             Vector2 direction = new Vector2(h, v);
             transform.Translate(direction.normalized * maxSpeed * Time.deltaTime);
-        //}
+        }
 	}
 
     void touchedDoor(RaycastHit2D hit)
