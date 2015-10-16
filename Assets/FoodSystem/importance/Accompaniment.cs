@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Accompaniment : MonoBehaviour {
+public class Accompaniment : Ingredient {
 
 	// Use this for initialization
 	void Start () {

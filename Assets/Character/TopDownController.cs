@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class TopDownController : MonoBehaviour {
 
     public float maxSpeed = 10f;
@@ -9,31 +10,20 @@ public class TopDownController : MonoBehaviour {
     public GameObject cookingMenu;
     bool onAMenu = false;
 
-    private bool colliding = false;
-    private float lookAhead = 0.5f;
+    private Vector2 playerMovement;
 
-    float h;
-    float v;
-    private bool justWentTroughDoor = false;
-    private float doorWalkingCooldown = .5f;
-    private float doorWalkingTimer = 0f;
+    private Rigidbody2D myRig;
+    private Inventory inv;
 
-	// Use this for initialization
-	void Start () {
+    void Start()
+    {
+        myRig = GetComponent<Rigidbody2D>();
+        inv = inventoryMenu.AddComponent<Inventory>();
 	}
 
 	// Update is called once per frame
 	void Update () {
-        lookAhead = maxSpeed * Time.deltaTime;
-        h = Input.GetAxisRaw("Horizontal");
-        v = Input.GetAxisRaw("Vertical");
-        if (v != 0 || h != 0 )
-        {
-            raycastCollisionDetection();
-            Vector2 direction = new Vector2(h, v);
-            transform.Translate(direction.normalized * maxSpeed * Time.deltaTime);
-        }
-
+        playerMovement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         if (Input.GetButtonDown("Fire1"))
         {
@@ -48,7 +38,7 @@ public class TopDownController : MonoBehaviour {
         {
             Debug.Log(" Inventory");
             inventoryMenu.SetActive(!inventoryMenu.activeSelf);
-            onAMenu = true;
+            onAMenu = !onAMenu;
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
@@ -58,129 +48,23 @@ public class TopDownController : MonoBehaviour {
         {
             Debug.Log("open cooking menu");
             cookingMenu.SetActive(!cookingMenu.activeSelf);
-            onAMenu = true;
+            onAMenu = !onAMenu;
         }
 
 	}
 
-    void touchedDoor(RaycastHit2D hit)
+    void FixedUpdate()
     {
-        if (!justWentTroughDoor)
-        {
-            hit.collider.GetComponent<Door>().NextArea();
-            justWentTroughDoor = true;
-        }
+        myRig.MovePosition(myRig.position + playerMovement.normalized * maxSpeed * Time.deltaTime);
     }
 
-    bool collidedWithItself(RaycastHit2D hit) {
-        return hit.transform.tag.Equals("Player");
-    }
-
-    bool collidedWithDoor(RaycastHit2D hit)
+    void OnCollisionEnter2D(Collision2D coll)
     {
-        return hit.transform.tag.Equals("Door");
+        if (coll.gameObject.tag == "PickUp" && !inv.isInventoryFull())
+        {
+            inv.items.Add(coll.gameObject.GetComponent<Item>());
+            Destroy(coll.gameObject);
+        }
     }
 
-    bool collidedWithPickup(RaycastHit2D hit)
-    {
-        return hit.transform.tag.Equals("PickUp");
-    }
-
-    void raycastCollisionDetection() {
-        if (justWentTroughDoor)
-            if (doorWalkingCooldown < Time.deltaTime + doorWalkingTimer)
-            {
-                justWentTroughDoor = false;
-                doorWalkingTimer = 0f;
-            }
-            else
-                doorWalkingTimer += Time.deltaTime;
-
-        RaycastHit2D[] hitUp, hitDwn, hitL, hitR, hitUL, hitUR, hitDL, hitDR;
-        lookAhead = maxSpeed * Time.deltaTime;
-
-        Vector3 startUp = new Vector3(GetComponent<BoxCollider2D>().bounds.center.x, GetComponent<BoxCollider2D>().bounds.max.y);
-        Vector3 startDown =  new Vector3(GetComponent<BoxCollider2D>().bounds.center.x, GetComponent<BoxCollider2D>().bounds.min.y);
-        Vector3 startLeft = new Vector3(GetComponent<BoxCollider2D>().bounds.min.x, GetComponent<BoxCollider2D>().bounds.center.y);
-        Vector3 startRight =  new Vector3(GetComponent<BoxCollider2D>().bounds.max.x, GetComponent<BoxCollider2D>().bounds.center.y);
-
-
-        hitUp = Physics2D.RaycastAll( startUp, Vector2.up, lookAhead );
-        hitDwn = Physics2D.RaycastAll(startDown, Vector2.down, lookAhead );
-        hitL = Physics2D.RaycastAll(startLeft, Vector2.left, lookAhead );
-        hitR = Physics2D.RaycastAll(startRight, Vector2.right, lookAhead );
-
-        Debug.DrawRay(startUp, Vector2.up * (lookAhead ), Color.red);
-        Debug.DrawRay(startDown, Vector2.down * (lookAhead ), Color.red);
-        Debug.DrawRay(startLeft, Vector2.left * (lookAhead ), Color.red);
-        Debug.DrawRay(startRight, Vector2.right * (lookAhead ), Color.red);
-
-
-        /*
-hitUL = Physics2D.RaycastAll(transform.position, new Vector2(0.5f, 0.5f).normalized, lookAhead);
-hitDL = Physics2D.RaycastAll(transform.position, new Vector2(-0.5f, 0.5f).normalized, lookAhead);
-hitUR = Physics2D.RaycastAll(transform.position, new Vector2(0.5f, -0.5f).normalized, lookAhead);
-hitDR = Physics2D.RaycastAll(transform.position, new Vector2(-0.5f, -0.5f).normalized, lookAhead);
- *         Debug.DrawRay(transform.position, new Vector2(0.5f, 0.5f).normalized * lookAhead, Color.red);
-Debug.DrawRay(transform.position, new Vector2(-0.5f, 0.5f).normalized * lookAhead, Color.red);
-Debug.DrawRay(transform.position, new Vector2(0.5f, -0.5f).normalized * lookAhead, Color.red);
-Debug.DrawRay(transform.position, new Vector2(-0.5f, -0.5f).normalized * lookAhead, Color.red);
-*/
-
-        foreach (RaycastHit2D hit in hitUp)
-        {
-            bool filterCollisions = !collidedWithPickup(hit) && !collidedWithItself(hit);
-            if (hit.collider != null && !hit.collider.isTrigger && filterCollisions)
-            {
-                v = Mathf.Min(0, v);
-            }
-            else if (hit.collider != null && collidedWithDoor(hit))
-            {
-
-                touchedDoor(hit);
-            }
-        }
-
-        foreach (RaycastHit2D hit in hitDwn)
-        {
-            bool filterCollisions = !collidedWithPickup(hit) && !collidedWithItself(hit);
-            if (filterCollisions && hit.collider != null && !hit.collider.isTrigger)
-            {
-                v = Mathf.Max(0, v);
-            }
-            else if (hit.collider != null && collidedWithDoor(hit))
-            {
-
-                touchedDoor(hit);
-            }
-        }
-
-        foreach (RaycastHit2D hit in hitL)
-        {
-            bool filterCollisions = !collidedWithPickup(hit) && !collidedWithItself(hit);
-            if (filterCollisions && hit.collider != null && !hit.collider.isTrigger)
-            {
-                h = Mathf.Max(0, h);
-            }
-            else if (hit.collider != null && collidedWithDoor(hit))
-            {
-
-                touchedDoor(hit);
-            }
-        }
-
-        foreach (RaycastHit2D hit in hitR)
-        {
-            bool filterCollisions = !collidedWithPickup(hit) && !collidedWithItself(hit);
-            if (filterCollisions && hit.collider != null && !hit.collider.isTrigger)
-            {
-                h = Mathf.Min(0, h);
-            }
-            else if (hit.collider != null && collidedWithDoor(hit))
-            {
-                touchedDoor(hit);
-            }
-        }
-
-    }
 }

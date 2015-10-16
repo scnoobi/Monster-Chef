@@ -13,6 +13,12 @@ public class Door : MonoBehaviour {
 	
 	}
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag.Equals("Player"))
+            NextArea();
+    }
+
     public void NextArea() {
         area.TriggerNextArea(nextArea);
     }
