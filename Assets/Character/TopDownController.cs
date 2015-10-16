@@ -5,6 +5,9 @@ public class TopDownController : MonoBehaviour {
 
     public float maxSpeed = 10f;
     Vector2 direction = new Vector2(0f, 0f);
+    public GameObject inventoryMenu;
+    public GameObject cookingMenu;
+    bool onAMenu = false;
 
     private bool colliding = false;
     private float lookAhead = 0.5f;
@@ -30,6 +33,34 @@ public class TopDownController : MonoBehaviour {
             Vector2 direction = new Vector2(h, v);
             transform.Translate(direction.normalized * maxSpeed * Time.deltaTime);
         }
+
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Debug.Log("do attack");
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Debug.Log("interact");
+        }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            Debug.Log(" Inventory");
+            inventoryMenu.SetActive(!inventoryMenu.activeSelf);
+            onAMenu = true;
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            Debug.Log("open map");
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            Debug.Log("open cooking menu");
+            cookingMenu.SetActive(!cookingMenu.activeSelf);
+            onAMenu = true;
+        }
+
 	}
 
     void touchedDoor(RaycastHit2D hit)
@@ -39,6 +70,20 @@ public class TopDownController : MonoBehaviour {
             hit.collider.GetComponent<Door>().NextArea();
             justWentTroughDoor = true;
         }
+    }
+
+    bool collidedWithItself(RaycastHit2D hit) {
+        return hit.transform.tag.Equals("Player");
+    }
+
+    bool collidedWithDoor(RaycastHit2D hit)
+    {
+        return hit.transform.tag.Equals("Door");
+    }
+
+    bool collidedWithPickup(RaycastHit2D hit)
+    {
+        return hit.transform.tag.Equals("PickUp");
     }
 
     void raycastCollisionDetection() {
@@ -84,11 +129,12 @@ Debug.DrawRay(transform.position, new Vector2(-0.5f, -0.5f).normalized * lookAhe
 
         foreach (RaycastHit2D hit in hitUp)
         {
-            if (!hit.collider.tag.Equals("Player") && hit.collider != null && !hit.collider.isTrigger )
+            bool filterCollisions = !collidedWithPickup(hit) && !collidedWithItself(hit);
+            if (hit.collider != null && !hit.collider.isTrigger && filterCollisions)
             {
                 v = Mathf.Min(0, v);
             }
-            else if (!hit.collider.tag.Equals("Player") && hit.collider != null && hit.collider.tag.Equals("Door"))
+            else if (hit.collider != null && collidedWithDoor(hit))
             {
 
                 touchedDoor(hit);
@@ -97,11 +143,12 @@ Debug.DrawRay(transform.position, new Vector2(-0.5f, -0.5f).normalized * lookAhe
 
         foreach (RaycastHit2D hit in hitDwn)
         {
-            if (!hit.collider.tag.Equals("Player") && hit.collider != null && !hit.collider.isTrigger)
+            bool filterCollisions = !collidedWithPickup(hit) && !collidedWithItself(hit);
+            if (filterCollisions && hit.collider != null && !hit.collider.isTrigger)
             {
                 v = Mathf.Max(0, v);
             }
-            else if (!hit.collider.tag.Equals("Player") && hit.collider != null && hit.collider.tag.Equals("Door"))
+            else if (hit.collider != null && collidedWithDoor(hit))
             {
 
                 touchedDoor(hit);
@@ -110,11 +157,12 @@ Debug.DrawRay(transform.position, new Vector2(-0.5f, -0.5f).normalized * lookAhe
 
         foreach (RaycastHit2D hit in hitL)
         {
-            if (!hit.collider.tag.Equals("Player") && hit.collider != null && !hit.collider.isTrigger)
+            bool filterCollisions = !collidedWithPickup(hit) && !collidedWithItself(hit);
+            if (filterCollisions && hit.collider != null && !hit.collider.isTrigger)
             {
                 h = Mathf.Max(0, h);
             }
-            else if (!hit.collider.tag.Equals("Player") && hit.collider != null && hit.collider.tag.Equals("Door"))
+            else if (hit.collider != null && collidedWithDoor(hit))
             {
 
                 touchedDoor(hit);
@@ -123,11 +171,12 @@ Debug.DrawRay(transform.position, new Vector2(-0.5f, -0.5f).normalized * lookAhe
 
         foreach (RaycastHit2D hit in hitR)
         {
-            if (!hit.collider.tag.Equals("Player") && hit.collider != null && !hit.collider.isTrigger)
+            bool filterCollisions = !collidedWithPickup(hit) && !collidedWithItself(hit);
+            if (filterCollisions && hit.collider != null && !hit.collider.isTrigger)
             {
                 h = Mathf.Min(0, h);
             }
-            else if (!hit.collider.tag.Equals("Player") && hit.collider != null && hit.collider.tag.Equals("Door"))
+            else if (hit.collider != null && collidedWithDoor(hit))
             {
                 touchedDoor(hit);
             }

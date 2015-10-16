@@ -1,21 +1,12 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
+using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-public class Item {
-    public int height;
-    public int weight;
-    public string itemLabel;
+public abstract class Item : MonoBehaviour
+{
 
-    public Item(int h, int w) { 
-        height = h;
-        weight = w;
-    }
 
-    public Item(int h, int w, string itemLabel)
-    {
-        height = h;
-        weight = w;
-        this.itemLabel = itemLabel;
-    }
 
 }

@@ -17,24 +17,6 @@ public class Character : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
-        if(Input.GetButtonDown("Fire1")){
-            Debug.Log("do attack");
-        }
 
-        if(Input.GetKeyDown(KeyCode.E)){
-            Debug.Log("do attack");
-        }
-        if(Input.GetKeyDown(KeyCode.I)){
-            Debug.Log("open Inventory");
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            Debug.Log("open map");
-        }
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            Debug.Log("open cooking menu");
-        }
 	}
 }

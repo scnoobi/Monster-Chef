@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class Food : MonoBehaviour {
+public abstract class Food : Item {
 
     public struct taste
     {
