@@ -18,7 +18,7 @@ public class TopDownController : MonoBehaviour {
     void Start()
     {
         myRig = GetComponent<Rigidbody2D>();
-        inv = inventoryMenu.AddComponent<Inventory>();
+        inv = inventoryMenu.GetComponent<Inventory>();
 	}
 
 	// Update is called once per frame
@@ -62,7 +62,7 @@ public class TopDownController : MonoBehaviour {
     {
         if (coll.gameObject.tag == "PickUp" && !inv.isInventoryFull())
         {
-            inv.items.Add(coll.gameObject.GetComponent<Item>());
+            inv.addItemToInventory(coll.gameObject.GetComponent<Sprite>(), coll.gameObject.GetComponent<Item>());
             Destroy(coll.gameObject);
         }
     }

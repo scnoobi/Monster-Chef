@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Ingredient : Food
+public abstract class Ingredient : Food
 {
 
 	// Use this for initialization

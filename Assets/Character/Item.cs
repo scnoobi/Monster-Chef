@@ -1,12 +1,18 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 public abstract class Item : MonoBehaviour
 {
+    public int size;
 
+    void Start()
+    {
 
+    }
+
+    void Update()
+    {
+
+    }
 
 }
