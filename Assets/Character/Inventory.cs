@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,48 +8,97 @@ public class Inventory : MonoBehaviour {
     GameObject slotPanel;
     public GameObject inventorySlotPrefab;
     public GameObject inventoryItemPrefab;
-    public int size = 48;
+    public const int SIZE_OF_INVENTORY = 64;
+    public const int SIDE_OF_INVENTORY = 8;
 
     public List<Item> items = new List<Item>();
     public List<GameObject> slots = new List<GameObject>();
-    public List<bool> slotsFilled = new List<bool>();
+    public List<bool> slotsEmpty = new List<bool>();
 
-    void Start() {
-        Debug.Log(inventoryItemPrefab.name);
-        Debug.Log(inventorySlotPrefab.name);
+    public void Start()
+    {
         inventoryPanel = this.gameObject;
         slotPanel = transform.GetChild(0).gameObject;
-        
-        for (int i = 0; i < size; i++)
+
+        for (int i = 0; i < SIZE_OF_INVENTORY; i++)
         {
             GameObject slot = (GameObject)Instantiate(inventorySlotPrefab);
             slots.Add(slot);
             slot.transform.SetParent(slotPanel.transform);
-            slotsFilled.Add(false);
+            slotsEmpty.Add(true);
         }
+        this.gameObject.SetActive(false);
     }
 
-    public bool isInventoryFull()
+    public bool isInventoryFull(Item itemToPut, ref int posEmpty)
     {
-        return items.Count == size;
+        if (items.Count == SIZE_OF_INVENTORY)
+            return true;
+        for (int i = 0; i < slotsEmpty.Count; i++)
+        {
+            if (slotsEmpty[i] && checkPositionsAreEmpty(itemToPut, i))
+            {
+                posEmpty = i;
+                return false;
+            }
+        }
+        return true;
     }
 
-    public void addItemToInventory(Sprite img, Item item) {
+    public bool addItemToInventory(Sprite img, Item item) {
+
+        int posEmpty = -1;
+        if (isInventoryFull(item, ref posEmpty))
+            return false;
+
         items.Add(item);
         GameObject invItem = (GameObject)Instantiate(inventoryItemPrefab);
-        for (int i = 0; i < size; i++)
+        invItem.transform.SetParent(slots[MapGridToList(posEmpty, 0)].transform);
+        invItem.transform.localPosition = Vector2.zero;
+        invItem.GetComponent<Image>().sprite = img;
+        for (int i = posEmpty; i < posEmpty + item.sizeX; i++)
         {
-            if (!slotsFilled[i])
+            for (int j = 0; j < item.sizeY; j++)
             {
-                invItem.transform.SetParent(slots[i].transform);
-                invItem.transform.localPosition = Vector2.zero;
-                Debug.Log(invItem.transform.parent.name);
-                slotsFilled[i] = true;
-                break;
+                slots[MapGridToList(i,j)].GetComponent<Image>().color = Color.red;
+                slotsEmpty[MapGridToList(i,j)] = false;
+            }
+        }
+        return true;
+    }
+
+    public void check() {
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                Debug.Log(MapGridToList(i, j));
             }
         }
     }
 
+    public bool checkPositionsAreEmpty(Item item, int i)
+    {
+        int initI = i;
+        bool isEmpty = true;
+        for (; i < initI + item.sizeX; i++)
+        {
+            for (int j = 0; j < item.sizeY; j++)
+            {
+                isEmpty &= checkPosOfGrid(i, j);
+            } 
+        }
+        return isEmpty;
+    }
+
+    public bool checkPosOfGrid(int i, int j) {
+        return slotsEmpty[MapGridToList( i,  j)];
+    }
+
+    public int MapGridToList(int i, int j)
+    {
+        return i + j * SIDE_OF_INVENTORY;
+    }
 
 
 }

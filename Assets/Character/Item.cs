@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 public abstract class Item : MonoBehaviour
 {
-    public int size;
+    public int sizeX;
+    public int sizeY;
 
     void Start()
     {

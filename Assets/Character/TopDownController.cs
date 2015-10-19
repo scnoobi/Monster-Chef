@@ -34,16 +34,19 @@ public class TopDownController : MonoBehaviour {
         {
             Debug.Log("interact");
         }
+
         if (Input.GetKeyDown(KeyCode.I))
         {
             Debug.Log(" Inventory");
             inventoryMenu.SetActive(!inventoryMenu.activeSelf);
             onAMenu = !onAMenu;
         }
+
         if (Input.GetKeyDown(KeyCode.M))
         {
             Debug.Log("open map");
         }
+
         if (Input.GetKeyDown(KeyCode.C))
         {
             Debug.Log("open cooking menu");
@@ -60,10 +63,10 @@ public class TopDownController : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.gameObject.tag == "PickUp" && !inv.isInventoryFull())
+        if (coll.gameObject.tag == "PickUp")
         {
-            inv.addItemToInventory(coll.gameObject.GetComponent<Sprite>(), coll.gameObject.GetComponent<Item>());
-            Destroy(coll.gameObject);
+           if(inv.addItemToInventory(coll.gameObject.GetComponent<SpriteRenderer>().sprite, coll.gameObject.GetComponent<Item>()))
+                Destroy(coll.gameObject);
         }
     }
 
