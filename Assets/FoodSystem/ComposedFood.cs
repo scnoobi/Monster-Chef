@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class ComposedFood : Food
 {
-
     List<Food> foodParts;
 
 	// Use this for initialization

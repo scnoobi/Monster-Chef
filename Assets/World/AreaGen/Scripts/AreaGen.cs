@@ -31,7 +31,7 @@ public class AreaGen : MonoBehaviour {
     List<List<Pos>> allLinesBetweenIslands;
     float inNum;
 
-
+    //struct that holds 2 indexes for position in a matrix
     struct Pos {
         public int i, j;
         public bool left, right, top, bottom;
@@ -61,6 +61,7 @@ public class AreaGen : MonoBehaviour {
         }
     }
 
+    //struct that works as an abstraction for a tile/gridnode
     class GridNode{
 
         public Pos pos;
@@ -84,18 +85,13 @@ public class AreaGen : MonoBehaviour {
             debugMode = true;
             debugColor = color;
         }
-
     }
 
-	// Use this for initialization
 	void Start () {
         chosenBiome = WorldGen.biome.Forest;
         doors = new List<GameObject>();
         texLoader = GameObject.FindGameObjectWithTag("PrefabLoader").GetComponent<PrefabLoader>();
         map = new float[height, weight];
-        //seed = 15; //islands BUG TEST TODO
-        //seed = 875; //islands
-        //seed = 35; //walls
         if (seed == -1)
             seed = (int)(Random.value*1000f);
         grid = new GridNode[height, weight];
@@ -116,6 +112,7 @@ public class AreaGen : MonoBehaviour {
             spawnCharacterFirstArea();
 	}
 
+    //when an area is enabled means the character just got into it and should spawn on the correct door
     void OnEnable()
     {
         if (world != null)
@@ -124,6 +121,7 @@ public class AreaGen : MonoBehaviour {
 
     public List<GameObject> getDoors() { return doors; }
 
+    //use perlin noise, load it into a matrix and depending on a values load it with a walkable gridNode or an empty gridNode
     void createShape() {
         for (int i = 0; i < weight; i++)
         {
@@ -142,6 +140,7 @@ public class AreaGen : MonoBehaviour {
         }
     }
 
+    //goes through the matrix with all the gridNode and if has type walkable, instantiates a walkable gameObject, if type is wall, instantiates a wall gameObject
     void createMap() {
         for (int i = 0; i < weight; i++)
         {
@@ -157,28 +156,12 @@ public class AreaGen : MonoBehaviour {
                         GameObject wall = (GameObject)Instantiate(wallPrefab, new Vector3(i * tile.GetComponent<Renderer>().bounds.max.x,
                             j * tile.GetComponent<Renderer>().bounds.max.y, 0), wallPrefab.transform.rotation);
                         wall.transform.parent = this.transform;
-                        wall.GetComponent<Wall>().i = i;
-                        wall.GetComponent<Wall>().j = j;
                     }
             }
         }
     }
 
-    void OnDrawGizmos()
-    {
-        for (int i = 0; i < weight; i++)
-        {
-            for (int j = 0; j < height; j++)
-            {
-                if (grid[i, j].debugMode)
-                {
-                   Gizmos.color = grid[i, j].debugColor;
-                   Gizmos.DrawCube(new Vector3(i * tile.GetComponent<Renderer>().bounds.max.x, j * tile.GetComponent<Renderer>().bounds.max.y, 0), new Vector3(1f, 1f, 1f));
-                }
-            }
-        }
-    }
-
+    //detects the edges of the map
     List<Pos> detectEdges()
     {
         List<Pos> posOfEdges = new List<Pos>();
@@ -220,6 +203,7 @@ public class AreaGen : MonoBehaviour {
         return posOfEdges;
     }
 
+    //detects if there are separate landmasses
     void detectIslands() {
         int size = 0;
         List<Pos> island = new List<Pos>();
@@ -246,11 +230,9 @@ public class AreaGen : MonoBehaviour {
                     size = fillIsland(i, j, checkedMap, island, islandEdges);
                     if (size < islandSizeThreshold)
                     {
-                        Debug.Log("delete " + island.Count);
                         deleteThese.InsertRange(deleteThese.Count, island);
                     }
                     else { 
-                        Debug.Log("islands with size " + size);
                         fuseThese.Add(islandEdges);
                     }
                 }
@@ -260,6 +242,7 @@ public class AreaGen : MonoBehaviour {
         fuseIslands(fuseThese);
     }
 
+    //recursively fills an island and find the edges of that specific island
     int fillIsland(int i, int j, int[,] checkedMap, List<Pos> island, List<Pos> islandEdges)
     {
         int size = checkedMap[i, j];
@@ -323,6 +306,7 @@ public class AreaGen : MonoBehaviour {
         return size;
     }
 
+    //delete a specific island
     void deleteIsland(List<Pos> deleteThese) {
         foreach (Pos delete in deleteThese)
         {
@@ -337,6 +321,7 @@ public class AreaGen : MonoBehaviour {
         }
     }
 
+    //fuse all islands
     void fuseIslands(List<List<Pos>> edgesOfIslands)
     {
         List<Pos> closestNodes = new List<Pos>();
@@ -366,6 +351,7 @@ public class AreaGen : MonoBehaviour {
         allLinesBetweenIslands = getLineBetweenIslands(closestNodes);
     }
 
+    //get a line between the closest two wall points
     List<List<Pos>> getLineBetweenIslands(List<Pos> closestNodes)
     {
         List<List<Pos>>  allLines = new List<List<Pos>>();
@@ -415,6 +401,7 @@ public class AreaGen : MonoBehaviour {
         return allLines;
     }
 
+    //get lines between islands and create a passageway with walkable nodes
     void createPassageWayBetweenTwoCloseNodes(List<List<Pos>> allLines)
     {
         int radius = 4;
@@ -427,6 +414,7 @@ public class AreaGen : MonoBehaviour {
         }
     }
 
+    //make a walkable circle
     void drawCircle(Pos pos, int r) {
 
         for (int x = -r; x <= r; x++) {
@@ -570,6 +558,7 @@ public class AreaGen : MonoBehaviour {
         }
     }
 
+    //first area the character does not come from other doors so spawn inside in an walkable tile
     public void spawnCharacterFirstArea()
     {
         for (int i = height/2; i < height; i++)
@@ -582,10 +571,12 @@ public class AreaGen : MonoBehaviour {
         }
     }
 
+
     public void TriggerNextArea(int idOfNextArea) {
         world.generateNextArea(idOfNextArea);
     }
 
+    //TODO
     public void fillAreaWithFillers()
     {
         GameObject[] biomeFillers;
@@ -603,7 +594,20 @@ public class AreaGen : MonoBehaviour {
         fillerToSpawn.transform.parent = transform;
     }
 
-
+    void OnDrawGizmos()
+    {
+        for (int i = 0; i < weight; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                if (grid[i, j].debugMode)
+                {
+                    Gizmos.color = grid[i, j].debugColor;
+                    Gizmos.DrawCube(new Vector3(i * tile.GetComponent<Renderer>().bounds.max.x, j * tile.GetComponent<Renderer>().bounds.max.y, 0), new Vector3(1f, 1f, 1f));
+                }
+            }
+        }
+    }
 
 
 }

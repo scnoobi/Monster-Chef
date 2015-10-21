@@ -3,6 +3,7 @@ using System.Collections;
 
 public abstract class Food : Item {
 
+    //structure of taste
     public struct taste
     {
         int saltyness;
@@ -28,7 +29,7 @@ public abstract class Food : Item {
         }
     }
 
-    public enum cookingType { fried, roasting, stewing}
+    public enum cookingType { raw, fried, roasting, stewing} //cooking types
     public float timeToCook;
     public string name;
     public taste foodTaste;

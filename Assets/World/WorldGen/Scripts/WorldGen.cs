@@ -14,17 +14,16 @@ public class WorldGen : MonoBehaviour {
     public int maxNumConnections = 1;
     public GameObject player;
 
-	// Use this for initialization
 	void Start () {
         world = new List<AreaNode>();
         areaCache = new List<GameObject>();
         generateMap();
         generateConnections();
         generateNextArea(0);
-        //printWorld();
         player = GameObject.FindGameObjectWithTag("Player");
 	}
 
+    //generated all the area nodes, these are an abstraction of each level section
     void generateMap() {
         int nAreasCreated = numOfAreasToCreate;
         int j = 0;
@@ -38,6 +37,8 @@ public class WorldGen : MonoBehaviour {
         }
     }
 
+    //receives a direction, returns the reverse direction
+    //ex : left -> right, up -> down
     Connection.Direction reverseDirection(int direction) {
         int newDirection;
         if (direction % 2 == 0)
@@ -45,10 +46,13 @@ public class WorldGen : MonoBehaviour {
         else
             newDirection = direction - 1;
 
-        //Debug.Log("Given " + (Connection.Direction)direction + " i will appear on " + (Connection.Direction)newDirection);
         return (Connection.Direction)newDirection;
     }
 
+    //from the previously generated area nodes, generate the connections between these randomly
+    //to do this, first copy the list of AreaNodes, order it randomly and create connections between them
+    // after this, go through this scrambled list and add new extra connections between the areas
+    // for each connection from area1 to area2, it is also created a connection in reverse from area2 to area1 and these also have reverse directions
     void generateConnections() {
         int maxNConnects = 1;
         List<AreaNode> mixedWorld = new List<AreaNode>(world);
@@ -98,6 +102,10 @@ public class WorldGen : MonoBehaviour {
         }
     }
 
+    //check if the area to generate has already been generated and is in cache
+    //if it is then enable it
+    //if it isnt then instantiate a gameObject with AreaGen script, initialize its variables and save it in cache
+    //also disable the previous area
     public void generateNextArea(int idOfNextArea) {
         bool isCached = false;
         GameObject areaToSpawn;
@@ -130,11 +138,7 @@ public class WorldGen : MonoBehaviour {
         }
     }
 
-    void findInslands() { 
-    
-    
-    }
-
+    //print the area nodes and their connections
     void printWorld() {
         for (int i = 0; i < world.Count; i++)
         {
@@ -144,11 +148,5 @@ public class WorldGen : MonoBehaviour {
             }
         }
     }
-
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
 
 }

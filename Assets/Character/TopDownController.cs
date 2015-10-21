@@ -4,11 +4,10 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody2D))]
 public class TopDownController : MonoBehaviour {
 
-    public float maxSpeed = 10f;
-    Vector2 direction = new Vector2(0f, 0f);
-    public GameObject inventoryMenu;
-    public GameObject cookingMenu;
-    bool onAMenu = false;
+    public float maxSpeed = 10f;    //speed of character
+    public GameObject inventoryMenu;    //UI of inventory
+    public GameObject cookingMenu;      //UI of cooking
+    bool onAMenu = false;   //is any menu UI on
 
     private Vector2 playerMovement;
 
@@ -17,14 +16,16 @@ public class TopDownController : MonoBehaviour {
 
     void Start()
     {
-        myRig = GetComponent<Rigidbody2D>();
-        inv = inventoryMenu.GetComponent<Inventory>();
+        myRig = GetComponent<Rigidbody2D>(); 
+        inv = inventoryMenu.GetComponent<Inventory>(); 
 	}
 
 	// Update is called once per frame
 	void Update () {
-        playerMovement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        playerMovement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")); //get Movement input and set it into a directio vector
 
+
+        //handle input
         if (Input.GetButtonDown("Fire1"))
         {
             Debug.Log("do attack");
@@ -58,15 +59,15 @@ public class TopDownController : MonoBehaviour {
 
     void FixedUpdate()
     {
-        myRig.MovePosition(myRig.position + playerMovement.normalized * maxSpeed * Time.deltaTime);
+        myRig.MovePosition(myRig.position + playerMovement.normalized * maxSpeed * Time.deltaTime); //move player 
     }
 
     void OnCollisionEnter2D(Collision2D coll)
     {
         if (coll.gameObject.tag == "PickUp")
         {
-           if(inv.addItemToInventory(coll.gameObject.GetComponent<SpriteRenderer>().sprite, coll.gameObject.GetComponent<Item>()))
-                Destroy(coll.gameObject);
+           if(inv.addItemToInventory(coll.gameObject.GetComponent<SpriteRenderer>().sprite, coll.gameObject.GetComponent<Item>())) //add the item pickup to the inventory
+                Destroy(coll.gameObject); //destroy the pickup item on the ground
         }
     }
 

@@ -19,7 +19,8 @@ public class Door : MonoBehaviour {
             NextArea();
     }
 
-    public void NextArea() {
+    //player entered the door, spawn the next area
+    public void NextArea() { 
         area.TriggerNextArea(nextArea);
     }
 
