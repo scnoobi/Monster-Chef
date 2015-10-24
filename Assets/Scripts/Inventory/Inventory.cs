@@ -13,6 +13,7 @@ public class Inventory : MonoBehaviour
     public const int SIDE_OF_INVENTORY = 8;
 
     public List<Item> items = new List<Item>();
+
     public List<GameObject> slots = new List<GameObject>();
     public List<bool> slotsEmpty = new List<bool>();
 
@@ -26,6 +27,7 @@ public class Inventory : MonoBehaviour
             GameObject slot = (GameObject)Instantiate(inventorySlotPrefab);
             slots.Add(slot);
             slot.transform.SetParent(slotPanel.transform);
+            slot.GetComponent<Slots>().id = i;
             slotsEmpty.Add(true);
         }
         this.gameObject.SetActive(false);
@@ -56,18 +58,29 @@ public class Inventory : MonoBehaviour
         items.Add(item);
         GameObject invItem = (GameObject)Instantiate(inventoryItemPrefab);
         invItem.GetComponent<ItemDraggable>().setItem(item);
+        invItem.GetComponent<ItemDraggable>().setSize(PickupItem.sizeX, PickupItem.sizeY);
         invItem.transform.SetParent(slots[MapGridToList(posEmpty, 0)].transform);
         invItem.transform.localPosition = Vector2.zero;
         invItem.GetComponent<Image>().sprite = img;
-        for (int i = posEmpty; i < posEmpty + PickupItem.sizeX; i++)
+        occupyGridWithItem(PickupItem.sizeX, PickupItem.sizeY, posEmpty, false);
+        return true;
+    }
+
+    public void occupyGridWithItem(int sizeX, int sizeY, int startPos, bool empty)
+    {
+        Color colorToPaint;
+        for (int i = startPos; i < startPos + sizeX; i++)
         {
-            for (int j = 0; j < PickupItem.sizeY; j++)
+            for (int j = 0; j < sizeY; j++)
             {
-                slots[MapGridToList(i, j)].GetComponent<Image>().color = Color.red;
-                slotsEmpty[MapGridToList(i, j)] = false;
+                if (empty)
+                    colorToPaint = Color.white;
+                else
+                    colorToPaint = Color.red;
+                slots[MapGridToList(i, j)].GetComponent<Image>().color = colorToPaint;
+                slotsEmpty[MapGridToList(i, j)] = empty;
             }
         }
-        return true;
     }
 
     public void check()
@@ -76,7 +89,7 @@ public class Inventory : MonoBehaviour
         {
             for (int j = 0; j < 8; j++)
             {
-                Debug.Log(MapGridToList(i, j));
+                Debug.Log(slotsEmpty[MapGridToList(i, j)]);
             }
         }
     }
