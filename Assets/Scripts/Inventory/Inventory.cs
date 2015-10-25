@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
+
 public class Inventory : MonoBehaviour
 {
     GameObject inventoryPanel;
@@ -22,14 +23,26 @@ public class Inventory : MonoBehaviour
         inventoryPanel = this.gameObject;
         slotPanel = transform.GetChild(0).gameObject;
 
+        
         for (int i = 0; i < SIZE_OF_INVENTORY; i++)
         {
             GameObject slot = (GameObject)Instantiate(inventorySlotPrefab);
             slots.Add(slot);
             slot.transform.SetParent(slotPanel.transform);
+            slot.transform.localScale = slotPanel.transform.localScale;
             slot.GetComponent<Slots>().id = i;
             slotsEmpty.Add(true);
+
         }
+        /*
+        int i = 0;
+        foreach (Transform slot in transform.GetChild(0)) {
+            slots.Add(slot.gameObject);
+            slot.GetComponent<Slots>().id = i;
+            slotsEmpty.Add(true);
+            i++;
+        }
+        */
         this.gameObject.SetActive(false);
     }
 
@@ -58,11 +71,11 @@ public class Inventory : MonoBehaviour
         items.Add(item);
         GameObject invItem = (GameObject)Instantiate(inventoryItemPrefab);
         ItemDraggable draggable = invItem.GetComponent<ItemDraggable>();
-        Debug.Log(draggable.GetInstanceID());
         draggable.setItem(item);
         draggable.setSize(PickupItem.sizeX, PickupItem.sizeY);
         invItem.transform.SetParent(slots[MapGridToList(posEmpty, 0)].transform);
         invItem.transform.localPosition = Vector2.zero;
+        invItem.transform.localScale = invItem.transform.parent.localScale;
         invItem.GetComponent<Image>().sprite = img;
         occupyGridWithItem(PickupItem.sizeX, PickupItem.sizeY, posEmpty, false, draggable);
         return true;
