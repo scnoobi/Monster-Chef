@@ -57,28 +57,32 @@ public class Inventory : MonoBehaviour
 
         items.Add(item);
         GameObject invItem = (GameObject)Instantiate(inventoryItemPrefab);
-        invItem.GetComponent<ItemDraggable>().setItem(item);
-        invItem.GetComponent<ItemDraggable>().setSize(PickupItem.sizeX, PickupItem.sizeY);
+        ItemDraggable draggable = invItem.GetComponent<ItemDraggable>();
+        Debug.Log(draggable.GetInstanceID());
+        draggable.setItem(item);
+        draggable.setSize(PickupItem.sizeX, PickupItem.sizeY);
         invItem.transform.SetParent(slots[MapGridToList(posEmpty, 0)].transform);
         invItem.transform.localPosition = Vector2.zero;
         invItem.GetComponent<Image>().sprite = img;
-        occupyGridWithItem(PickupItem.sizeX, PickupItem.sizeY, posEmpty, false);
+        occupyGridWithItem(PickupItem.sizeX, PickupItem.sizeY, posEmpty, false, draggable);
         return true;
     }
 
-    public void occupyGridWithItem(int sizeX, int sizeY, int startPos, bool empty)
+    public void occupyGridWithItem(int sizeX, int sizeY, int startPos, bool empty, ItemDraggable itemDraggable)
     {
         Color colorToPaint;
         for (int i = startPos; i < startPos + sizeX; i++)
         {
             for (int j = 0; j < sizeY; j++)
             {
+                int index = MapGridToList(i, j);
                 if (empty)
                     colorToPaint = Color.white;
                 else
                     colorToPaint = Color.red;
-                slots[MapGridToList(i, j)].GetComponent<Image>().color = colorToPaint;
-                slotsEmpty[MapGridToList(i, j)] = empty;
+                slots[index].GetComponent<Image>().color = colorToPaint;
+                slots[index].GetComponent<Slots>().droppedItem = itemDraggable;
+                slotsEmpty[index] = empty;
             }
         }
     }
@@ -94,7 +98,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public bool checkPositionsAreEmpty(int sizeX, int sizeY, int i)
+    public bool checkPositionsAreEmpty(int sizeX, int sizeY, int i, ItemDraggable itemDraggable = null)
     {
         int initI = i;
         bool isEmpty = true;
@@ -102,15 +106,24 @@ public class Inventory : MonoBehaviour
         {
             for (int j = 0; j < sizeY; j++)
             {
-                isEmpty &= checkPosOfGrid(i, j);
+                if (MapGridToList(i, j) >= SIZE_OF_INVENTORY)
+                    return false;
+                isEmpty &= checkPosOfGrid(i, j, itemDraggable);
             }
         }
         return isEmpty;
     }
 
-    public bool checkPosOfGrid(int i, int j)
+    public bool checkPosOfGrid(int i, int j, ItemDraggable itemDraggable)
     {
-        return slotsEmpty[MapGridToList(i, j)];
+        int index = MapGridToList(i, j);
+        bool isEmpty = slotsEmpty[index];
+        if (itemDraggable != null && !isEmpty && slots[index].GetComponent<Slots>().droppedItem.GetInstanceID() == itemDraggable.GetInstanceID())
+        {
+            Debug.Log(itemDraggable.GetInstanceID() + " dasd " + slots[index].GetComponent<Slots>().droppedItem.GetInstanceID());
+            isEmpty = true;
+        }
+        return isEmpty;
     }
 
     public int MapGridToList(int i, int j)

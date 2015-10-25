@@ -66,7 +66,8 @@ public class TopDownController : MonoBehaviour {
     {
         if (coll.gameObject.tag == "PickUp")
         {
-            if (inv.addItemToInventory(coll.gameObject.GetComponent<SpriteRenderer>().sprite, coll.gameObject.GetComponent<PickupItem>())) //add the item pickup to the inventory
+            PickupItem pickup = coll.gameObject.GetComponent<PickupItem>();
+            if (inv.addItemToInventory(pickup.inventorySprite, pickup)) //add the item pickup to the inventory
                 Destroy(coll.gameObject); //destroy the pickup item on the ground
         }
     }
