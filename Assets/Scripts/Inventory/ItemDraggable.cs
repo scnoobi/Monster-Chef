@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler
 {
@@ -8,24 +9,24 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     int quantity;
     public int sizeX;
     public int sizeY;
+    public int slotId;
 
-    public Transform originalParent;
     private Vector2 offset;
     private Inventory inventory;
     private CanvasGroup canvasG;
+    private float canvasScaleFactor;
+    public Sprite sprite;
 
     public void Start()
     {
-        inventory = GetComponentInParent<Inventory>();
         canvasG = GetComponent<CanvasGroup>();
+        canvasScaleFactor = inventory.GetComponentInParent<Canvas>().scaleFactor;
+        sprite = GetComponent<Image>().sprite;
     }
 
-    public void setItem(Item item) {
+    public void Initialize(Inventory inv, Item item, int sizeX, int sizeY) {
+        this.inventory = inv;
         this.item = item;
-    }
-
-    public void setSize(int sizeX, int sizeY)
-    {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
     }
@@ -34,7 +35,6 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         if (item != null)
         {
-            originalParent = this.transform.parent;
             this.transform.SetParent(this.transform.parent.parent);
             transform.position = eventData.position - offset;
             canvasG.blocksRaycasts = false;
@@ -44,13 +44,27 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void OnDrag(PointerEventData eventData)
     {
         if (item != null)
-            transform.position = eventData.position;
+            transform.position = eventData.position - offset;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        this.transform.SetParent(originalParent);
-        this.transform.position = originalParent.transform.position;
+        Debug.Log(eventData.pointerEnter);
+        Transform slot = inventory.slots[slotId].transform;
+        if (eventData.pointerEnter != null)
+        {
+            Debug.Log("droppedItem on Slot");
+            this.transform.SetParent(slot);
+            this.transform.position = slot.transform.position;
+            this.transform.localPosition = new Vector2(sprite.rect.width / 4, -sprite.rect.height / 4);
+           // this.transform.SetParent(slot.parent, true);
+        }
+        else {
+            inventory.occupyGridWithItem(sizeX, sizeY, slot.GetComponent<Slots>().id, true, null);
+            Debug.Log("droppedItem out of Slot");
+            Destroy(this.gameObject);
+            //instantiate a pickup
+        }
         canvasG.blocksRaycasts = true;
     }
 
@@ -61,4 +75,7 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             offset = eventData.position - new Vector2(this.transform.position.x, this.transform.position.y);
         }
     }
+
+
+
 }

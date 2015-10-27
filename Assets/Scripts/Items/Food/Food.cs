@@ -55,6 +55,4 @@ public abstract class Food : Item {
                 break;
         }
     }
-	
-
 }

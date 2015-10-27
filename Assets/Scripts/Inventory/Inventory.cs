@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour
     public const int SIDE_OF_INVENTORY = 8;
 
     public List<Item> items = new List<Item>();
-
+    public List<GameObject> draggbleItems = new List<GameObject>();
     public List<GameObject> slots = new List<GameObject>();
     public List<bool> slotsEmpty = new List<bool>();
 
@@ -34,15 +34,6 @@ public class Inventory : MonoBehaviour
             slotsEmpty.Add(true);
 
         }
-        /*
-        int i = 0;
-        foreach (Transform slot in transform.GetChild(0)) {
-            slots.Add(slot.gameObject);
-            slot.GetComponent<Slots>().id = i;
-            slotsEmpty.Add(true);
-            i++;
-        }
-        */
         this.gameObject.SetActive(false);
     }
 
@@ -70,13 +61,16 @@ public class Inventory : MonoBehaviour
 
         items.Add(item);
         GameObject invItem = (GameObject)Instantiate(inventoryItemPrefab);
+        Image invItemImage = invItem.GetComponent<Image>();
         ItemDraggable draggable = invItem.GetComponent<ItemDraggable>();
-        draggable.setItem(item);
-        draggable.setSize(PickupItem.sizeX, PickupItem.sizeY);
+        draggable.slotId = slots[MapGridToList(posEmpty, 0)].GetComponent<Slots>().id;
+        draggable.Initialize(this, item, PickupItem.sizeX, PickupItem.sizeY);
+        draggbleItems.Add(invItem);
         invItem.transform.SetParent(slots[MapGridToList(posEmpty, 0)].transform);
-        invItem.transform.localPosition = Vector2.zero;
-        invItem.transform.localScale = invItem.transform.parent.localScale;
-        invItem.GetComponent<Image>().sprite = img;
+        invItem.transform.localScale = new Vector3(PickupItem.sizeX, PickupItem.sizeY, 0);
+        invItemImage.sprite = img;
+        invItem.transform.localPosition = new Vector2(invItemImage.sprite.rect.width / 4, -invItemImage.sprite.rect.height / 4);
+        //invItem.transform.SetParent(slotPanel.transform);
         occupyGridWithItem(PickupItem.sizeX, PickupItem.sizeY, posEmpty, false, draggable);
         return true;
     }
