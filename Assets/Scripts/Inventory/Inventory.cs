@@ -70,7 +70,6 @@ public class Inventory : MonoBehaviour
         invItem.transform.localScale = new Vector3(PickupItem.sizeX, PickupItem.sizeY, 0);
         invItemImage.sprite = img;
         invItem.transform.localPosition = new Vector2(invItemImage.sprite.rect.width / 4, -invItemImage.sprite.rect.height / 4);
-        //invItem.transform.SetParent(slotPanel.transform);
         occupyGridWithItem(PickupItem.sizeX, PickupItem.sizeY, posEmpty, false, draggable);
         return true;
     }
@@ -127,7 +126,7 @@ public class Inventory : MonoBehaviour
         bool isEmpty = slotsEmpty[index];
         if (itemDraggable != null && !isEmpty && slots[index].GetComponent<Slots>().droppedItem.GetInstanceID() == itemDraggable.GetInstanceID())
         {
-            Debug.Log(itemDraggable.GetInstanceID() + " dasd " + slots[index].GetComponent<Slots>().droppedItem.GetInstanceID());
+            //Debug.Log(itemDraggable.GetInstanceID() + " dasd " + slots[index].GetComponent<Slots>().droppedItem.GetInstanceID());
             isEmpty = true;
         }
         return isEmpty;

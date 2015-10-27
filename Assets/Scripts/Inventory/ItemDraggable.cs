@@ -12,6 +12,7 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public int slotId;
 
     private Vector2 offset;
+    private Vector2 offsetInSlots;
     private Inventory inventory;
     private CanvasGroup canvasG;
     private float canvasScaleFactor;
@@ -49,19 +50,17 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log(eventData.pointerEnter);
         Transform slot = inventory.slots[slotId].transform;
         if (eventData.pointerEnter != null)
         {
-            Debug.Log("droppedItem on Slot");
+            //Debug.Log("droppedItem on Slot");
             this.transform.SetParent(slot);
             this.transform.position = slot.transform.position;
             this.transform.localPosition = new Vector2(sprite.rect.width / 4, -sprite.rect.height / 4);
-           // this.transform.SetParent(slot.parent, true);
         }
         else {
             inventory.occupyGridWithItem(sizeX, sizeY, slot.GetComponent<Slots>().id, true, null);
-            Debug.Log("droppedItem out of Slot");
+            //Debug.Log("droppedItem out of Slot");
             Destroy(this.gameObject);
             //instantiate a pickup
         }
@@ -73,9 +72,18 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         if (item != null)
         {
             offset = eventData.position - new Vector2(this.transform.position.x, this.transform.position.y);
+            calculateOffsetGrid(eventData.position);
         }
     }
 
+    public Vector2 calculateOffsetGrid(Vector2 positionOfClick)
+    {
+        Vector2 offsetFromTopLeft = positionOfClick;
+        offsetFromTopLeft = new Vector2(((RectTransform)transform).offsetMin.x / 2,
+            ((RectTransform)transform).offsetMax.y / 2);
+        Debug.Log(offsetFromTopLeft);
+        return offsetFromTopLeft;
+    }
 
 
 }
