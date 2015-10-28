@@ -4,5 +4,5 @@ using UnityEngine.EventSystems;
 
 public class Slots : MonoBehaviour{
     public int id;
-    public ItemDraggable droppedItem;
+    public int itemID;
 }

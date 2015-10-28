@@ -10,4 +10,9 @@ public class MainIngredient : Ingredient{
         this.currentCookingMethod = currentCookingMethod;
         this.typeOfItem = itemType.food;
     }
+
+    public override void consume()
+    {
+        //TODO
+    }
 }

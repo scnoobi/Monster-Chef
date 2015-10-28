@@ -11,6 +11,7 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public int sizeY;
     public int slotId;
     public GameObject blankPickUp;
+    private int Itemindex;
 
     private Vector2 offset;
     private Vector2 offsetInSlots;
@@ -28,9 +29,10 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         sprite = GetComponent<Image>().sprite;
     }
 
-    public void Initialize(Inventory inv, Item item, int sizeX, int sizeY, Sprite groundSprite)
+    public void Initialize(Inventory inv, int Itemindex, Item item, int sizeX, int sizeY, Sprite groundSprite)
     {
         this.inventory = inv;
+        this.Itemindex = Itemindex;
         this.item = item;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
@@ -68,7 +70,7 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                     inventory.occupyGridWithItem(sizeX, sizeY, slotId, true, null);
                     this.slotId = slotScript.id;
                     inventory.occupyGridWithItem(sizeX, sizeY, slotId, false, this);
-                    slotScript.droppedItem = this;
+                    slotScript.itemID = this.GetInstanceID();
                     this.transform.SetParent(Nslot.transform);
                 }else
                     this.transform.SetParent(slot);
@@ -90,7 +92,15 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         if (item != null)
         {
-            offset = eventData.position - new Vector2(this.transform.position.x, this.transform.position.y);
+            if(eventData.button == PointerEventData.InputButton.Left)
+                offset = eventData.position - new Vector2(this.transform.position.x, this.transform.position.y);
+            else if (eventData.button == PointerEventData.InputButton.Right) {
+                if (item.typeOfItem == Item.itemType.food)
+                {
+                    inventory.consumeFood(Itemindex);
+                    Destroy(this.gameObject);
+                }
+            }
         }
     }
 
@@ -98,8 +108,6 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         if (item != null)
         {
-            Debug.Log("test");
-
         }
     }
 
@@ -118,4 +126,8 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         }
     }
 
+    public Item getItem()
+    {
+        return item;
+    }
 }

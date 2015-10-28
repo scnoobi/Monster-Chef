@@ -13,7 +13,7 @@ public class Inventory : MonoBehaviour
     public const int SIZE_OF_INVENTORY = 64;
     public const int SIDE_OF_INVENTORY = 8;
 
-    public List<Item> items = new List<Item>();
+    public List<ItemDraggable> items = new List<ItemDraggable>();
     public List<GameObject> slots = new List<GameObject>();
     public List<bool> slotsEmpty = new List<bool>();
 
@@ -58,12 +58,12 @@ public class Inventory : MonoBehaviour
         if (isInventoryFull(PickupItem.sizeX, PickupItem.sizeY, ref posEmpty))
             return false;
 
-        items.Add(item);
         GameObject invItem = (GameObject)Instantiate(inventoryItemPrefab);
         Image invItemImage = invItem.GetComponent<Image>();
         ItemDraggable draggable = invItem.GetComponent<ItemDraggable>();
+        items.Add(draggable);
 
-        draggable.Initialize(this, item, PickupItem.sizeX, PickupItem.sizeY, PickupItem.GetComponent<SpriteRenderer>().sprite);
+        draggable.Initialize(this, items.Count - 1, item, PickupItem.sizeX, PickupItem.sizeY, PickupItem.GetComponent<SpriteRenderer>().sprite);
         draggable.slotId = slots[MapGridToList(posEmpty, 0)].GetComponent<Slots>().id;
 
         invItemImage.sprite = PickupItem.inventorySprite;
@@ -88,7 +88,8 @@ public class Inventory : MonoBehaviour
                 else
                     colorToPaint = Color.red;
                 slots[index].GetComponent<Image>().color = colorToPaint;
-                slots[index].GetComponent<Slots>().droppedItem = itemDraggable;
+                if (itemDraggable!=null)
+                    slots[index].GetComponent<Slots>().itemID = itemDraggable.GetInstanceID();
                 slotsEmpty[index] = empty;
             }
         }
@@ -125,7 +126,7 @@ public class Inventory : MonoBehaviour
     {
         int index = MapGridToList(i, j);
         bool isEmpty = slotsEmpty[index];
-        if (itemDraggable != null && !isEmpty && slots[index].GetComponent<Slots>().droppedItem.GetInstanceID() == itemDraggable.GetInstanceID())
+        if (itemDraggable != null && !isEmpty && slots[index].GetComponent<Slots>().itemID == itemDraggable.GetInstanceID())
         {
             isEmpty = true;
         }
@@ -137,24 +138,12 @@ public class Inventory : MonoBehaviour
         return i + j * SIDE_OF_INVENTORY;
     }
 
-    /*
-    public void OnDrawGizmos()
-    {
-        Vector3 size = new Vector3(5f, 5f, 5f);
-        Gizmos.color = Color.blue;
-        Vector3 sizeOfSlot = slots[0].transform.position - slots[SIDE_OF_INVENTORY+1].transform.position;
-        for (int i = 0; i < slots.Count; i++)
-        {
-            Gizmos.DrawCube(slots[i].transform.position, new Vector3(5f, 5f, 5f));
-        }
-        Gizmos.color = Color.cyan;
-        for (int i = 0; i < slots.Count; i++)
-        {
-            Gizmos.DrawCube(new Vector3(slots[i].transform.position.x - sizeOfSlot.x, slots[i].transform.position.y), new Vector3(5f, 5f, 5f));
-            Gizmos.DrawCube(new Vector3(slots[i].transform.position.x, slots[i].transform.position.y - sizeOfSlot.y), new Vector3(5f, 5f, 5f));
-        }
+    public void consumeFood(int i) {
+        ItemDraggable itemToBeConsumed = items[i];
+        occupyGridWithItem(itemToBeConsumed.sizeX, itemToBeConsumed.sizeY, itemToBeConsumed.slotId, true, null);
+        ((Food)itemToBeConsumed.getItem()).consume();
+        items.RemoveAt(i);
     }
-    */
 
     public GameObject MapPositionToSlot(Vector3 position)
     {
@@ -162,6 +151,7 @@ public class Inventory : MonoBehaviour
         Vector3 slightNudge = sizeOfSlot / 2;
         position -= slightNudge; 
         Vector2 selectedSlot = new Vector2();
+
         for (int i = 0; i < SIDE_OF_INVENTORY; i++)
         {
             if (position.x < slots[i].transform.position.x) {
@@ -170,15 +160,21 @@ public class Inventory : MonoBehaviour
             }
         }
 
+        if (selectedSlot.x < 0)
+            return null;
+
         for (int i = (int)selectedSlot.x; i < slots.Count; i += SIDE_OF_INVENTORY)
         {
-           // Debug.Log(i + " " + position.y + " " + slots[i].transform.position.y);
             if (position.y > slots[i].transform.position.y)
             {
                 selectedSlot.y = (i - SIDE_OF_INVENTORY) / SIDE_OF_INVENTORY;
                 break;
             }
         }
+
+        if (selectedSlot.y < 0)
+            return null;
+
         return slots[MapGridToList((int)selectedSlot.x, (int)selectedSlot.y)];
     }
 }
