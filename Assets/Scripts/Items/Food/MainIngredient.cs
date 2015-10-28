@@ -8,5 +8,6 @@ public class MainIngredient : Ingredient{
         this.foodTaste = foodTaste;
         this.timeToCook = timeToCook;
         this.currentCookingMethod = currentCookingMethod;
+        this.typeOfItem = itemType.food;
     }
 }

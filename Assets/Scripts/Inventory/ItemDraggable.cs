@@ -3,19 +3,22 @@ using System.Collections;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler
+public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerUpHandler
 {
     Item item;
     int quantity;
     public int sizeX;
     public int sizeY;
     public int slotId;
+    public GameObject blankPickUp;
 
     private Vector2 offset;
     private Vector2 offsetInSlots;
     private Inventory inventory;
     private CanvasGroup canvasG;
     private float canvasScaleFactor;
+    private Sprite groundSprite;
+    
     public Sprite sprite;
 
     public void Start()
@@ -25,11 +28,13 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         sprite = GetComponent<Image>().sprite;
     }
 
-    public void Initialize(Inventory inv, Item item, int sizeX, int sizeY) {
+    public void Initialize(Inventory inv, Item item, int sizeX, int sizeY, Sprite groundSprite)
+    {
         this.inventory = inv;
         this.item = item;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
+        this.groundSprite = groundSprite;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -53,16 +58,30 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         Transform slot = inventory.slots[slotId].transform;
         if (eventData.pointerEnter != null)
         {
-            //Debug.Log("droppedItem on Slot");
-            this.transform.SetParent(slot);
-            this.transform.position = slot.transform.position;
-            this.transform.localPosition = new Vector2(sprite.rect.width / 4, -sprite.rect.height / 4);
+            GameObject Nslot = inventory.MapPositionToSlot(transform.position);
+            if (Nslot != null)
+            {
+                Slots slotScript = Nslot.GetComponent<Slots>();
+                bool canFit = inventory.checkPositionsAreEmpty(sizeX, sizeY, slotScript.id, this);
+                if (canFit)
+                {
+                    inventory.occupyGridWithItem(sizeX, sizeY, slotId, true, null);
+                    this.slotId = slotScript.id;
+                    inventory.occupyGridWithItem(sizeX, sizeY, slotId, false, this);
+                    slotScript.droppedItem = this;
+                    this.transform.SetParent(Nslot.transform);
+                }else
+                    this.transform.SetParent(slot);
+            }
+            else      
+                this.transform.SetParent(slot);
+
+            this.transform.localPosition = new Vector2(0, 0);
         }
         else {
             inventory.occupyGridWithItem(sizeX, sizeY, slot.GetComponent<Slots>().id, true, null);
-            //Debug.Log("droppedItem out of Slot");
+            createPickup(Camera.main.ScreenToWorldPoint(eventData.position));
             Destroy(this.gameObject);
-            //instantiate a pickup
         }
         canvasG.blocksRaycasts = true;
     }
@@ -72,18 +91,31 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         if (item != null)
         {
             offset = eventData.position - new Vector2(this.transform.position.x, this.transform.position.y);
-            calculateOffsetGrid(eventData.position);
         }
     }
 
-    public Vector2 calculateOffsetGrid(Vector2 positionOfClick)
+    public void OnPointerUp(PointerEventData eventData)
     {
-        Vector2 offsetFromTopLeft = positionOfClick;
-        offsetFromTopLeft = new Vector2(((RectTransform)transform).offsetMin.x / 2,
-            ((RectTransform)transform).offsetMax.y / 2);
-        Debug.Log(offsetFromTopLeft);
-        return offsetFromTopLeft;
+        if (item != null)
+        {
+            Debug.Log("test");
+
+        }
     }
 
+    public void createPickup(Vector3 pos) {
+        pos = new Vector3(pos.x, pos.y, 0);
+        GameObject pickUpToInstantiate = (GameObject)Instantiate(blankPickUp, pos, blankPickUp.transform.rotation);
+        if (item.typeOfItem == Item.itemType.food)
+        {
+           PickupFood foodComp = pickUpToInstantiate.AddComponent<PickupFood>();
+           foodComp.sizeX = sizeX;
+           foodComp.sizeY = sizeY;
+           foodComp.inventorySprite = this.sprite;
+           Food realFood = (Food)item;
+           foodComp.Initialize(realFood.name, realFood.foodTaste, realFood.timeToCook, realFood.currentCookingMethod);
+           pickUpToInstantiate.GetComponent<SpriteRenderer>().sprite = groundSprite;
+        }
+    }
 
 }

@@ -3,13 +3,12 @@ using System.Collections;
 
 public class Accompaniment : Ingredient {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public Accompaniment(string name, taste foodTaste, float timeToCook, cookingType currentCookingType)
+    {
+        this.name = name;
+        this.foodTaste = foodTaste;
+        this.timeToCook = timeToCook;
+        this.currentCookingMethod = currentCookingMethod;
+        this.typeOfItem = itemType.food;
+    }
 }

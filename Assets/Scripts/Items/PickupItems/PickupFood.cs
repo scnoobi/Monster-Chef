@@ -16,4 +16,12 @@ public class PickupFood : PickupItem {
     {
         return new MainIngredient( name, foodTaste, timeToCook, currentCookingType);
     }
+
+   public void Initialize(string name, Food.taste foodTaste, float timeToCook, Food.cookingType currentCookingType)
+   {
+       this.name = name;
+       this.foodTaste = foodTaste;
+       this.timeToCook = timeToCook;
+       this.currentCookingType = currentCookingType;
+   }
 }

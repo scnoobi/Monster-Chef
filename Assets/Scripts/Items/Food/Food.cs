@@ -51,7 +51,7 @@ public abstract class Food : Item {
                 break;
 
             default:
-
+               
                 break;
         }
     }

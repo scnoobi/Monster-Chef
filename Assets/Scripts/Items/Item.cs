@@ -2,5 +2,6 @@
 using System.Collections;
 
 public abstract class Item {
-    //public abstract void createPickUpItem(Vector2 Position);
+    public enum itemType { food, others }
+    public itemType typeOfItem;
 }
