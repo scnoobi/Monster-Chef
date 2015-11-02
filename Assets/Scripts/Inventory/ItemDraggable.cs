@@ -43,7 +43,10 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         if (item != null)
         {
-            this.transform.SetParent(this.transform.parent.parent);
+            if (transform.parent.tag.Equals("MealPlan"))
+                transform.parent.GetComponent<MealPlanSlot>().occupied = false;
+            if (transform.parent.tag.Equals("Inventory"))
+                this.transform.SetParent(this.transform.parent.parent);
             transform.position = eventData.position - offset;
             canvasG.blocksRaycasts = false;
         }
@@ -52,39 +55,67 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void OnDrag(PointerEventData eventData)
     {
         if (item != null)
+        {
             transform.position = eventData.position - offset;
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Transform slot = inventory.slots[slotId].transform;
-        if (eventData.pointerEnter != null)
+        Transform slot = null;
+        if(slotId >= 0)
+            slot = inventory.slots[slotId].transform;
+
+        if (eventData.pointerEnter != null) // if is dropped inside an interface
         {
-            GameObject Nslot = inventory.MapPositionToSlot(transform.position);
-            if (Nslot != null)
+            Vector3 position = transform.position;
+            if (transform.GetComponent<RectTransform>().pivot.x == .5f)
+            {
+                position = new Vector3(position.x - GetComponent<RectTransform>().rect.width, position.y + GetComponent<RectTransform>().rect.width, position.z);
+            }
+            GameObject Nslot = inventory.MapPositionToSlot(position);
+            if (Nslot != null) //if is dropped inside the inventory slot grid
             {
                 Slots slotScript = Nslot.GetComponent<Slots>();
                 bool canFit = inventory.checkPositionsAreEmpty(sizeX, sizeY, slotScript.id, this);
-                if (canFit)
+                if (canFit) //if can fit
                 {
                     inventory.occupyGridWithItem(sizeX, sizeY, slotId, true, null);
                     this.slotId = slotScript.id;
                     inventory.occupyGridWithItem(sizeX, sizeY, slotId, false, this);
                     slotScript.itemID = this.GetInstanceID();
                     this.transform.SetParent(Nslot.transform);
-                }else
+                }
+                else if (slotId >= 0)// if is dropped inside the inventory slot grid AND it cant fit AND its previous parent was an inventory slot grid
+                {
                     this.transform.SetParent(slot);
+                }
+                else// if is dropped inside the inventory slot grid AND it cant fit AND its previous parent wasnt an inventory slot grid
+                {
+                }
             }
-            else      
-                this.transform.SetParent(slot);
+            else if (transform.parent.tag.Equals("MealPlan"))//if is dropped inside the meal plan slot
+            {
+                inventory.occupyGridWithItem(sizeX, sizeY, slotId, true, null);
+                slotId = -1;
+            }
+            else
+            {
+                this.transform.SetParent(slot); //if is dropped on an interface BUT outside of mealplan slot and inventory slot grid AND previous parent was a slot
+            }
+
 
             this.transform.localPosition = new Vector2(0, 0);
+            if (transform.parent.tag.Equals("Inventory"))
+                ((RectTransform)(gameObject.transform)).pivot = new Vector2(0f, 1f);
         }
-        else {
-            inventory.occupyGridWithItem(sizeX, sizeY, slot.GetComponent<Slots>().id, true, null);
+        else //if is dropped outside an interface
+        {
+            inventory.occupyGridWithItem(sizeX, sizeY, slotId, true, null);
             createPickup(Camera.main.ScreenToWorldPoint(eventData.position));
             Destroy(this.gameObject);
         }
+
         canvasG.blocksRaycasts = true;
     }
 
@@ -92,9 +123,12 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         if (item != null)
         {
-            if(eventData.button == PointerEventData.InputButton.Left)
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
                 offset = eventData.position - new Vector2(this.transform.position.x, this.transform.position.y);
-            else if (eventData.button == PointerEventData.InputButton.Right) {
+            }
+            else if (eventData.button == PointerEventData.InputButton.Right)
+            {
                 if (item.typeOfItem == Item.itemType.food)
                 {
                     inventory.consumeFood(Itemindex);
@@ -108,6 +142,7 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         if (item != null)
         {
+
         }
     }
 

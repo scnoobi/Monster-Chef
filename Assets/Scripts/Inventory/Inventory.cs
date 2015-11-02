@@ -77,6 +77,9 @@ public class Inventory : MonoBehaviour
 
     public void occupyGridWithItem(int sizeX, int sizeY, int startPos, bool empty, ItemDraggable itemDraggable)
     {
+        if (startPos < 0)
+            return;
+
         Color colorToPaint;
         for (int i = startPos; i < startPos + sizeX; i++)
         {
