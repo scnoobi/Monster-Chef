@@ -16,9 +16,4 @@ public class ComposedFood : Food
         foodParts.Add(part);
         foodTaste.complexTaste(part.foodTaste);
     }
-
-    public override void consume()
-    {
-    //TODO
-    }
 }

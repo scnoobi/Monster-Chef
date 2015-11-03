@@ -141,13 +141,6 @@ public class Inventory : MonoBehaviour
         return i + j * SIDE_OF_INVENTORY;
     }
 
-    public void consumeFood(int i) {
-        ItemDraggable itemToBeConsumed = items[i];
-        occupyGridWithItem(itemToBeConsumed.sizeX, itemToBeConsumed.sizeY, itemToBeConsumed.slotId, true, null);
-        ((Food)itemToBeConsumed.getItem()).consume();
-        items.RemoveAt(i);
-    }
-
     public GameObject MapPositionToSlot(Vector3 position)
     {
         Vector3 sizeOfSlot = slots[0].transform.position - slots[SIDE_OF_INVENTORY + 1].transform.position;

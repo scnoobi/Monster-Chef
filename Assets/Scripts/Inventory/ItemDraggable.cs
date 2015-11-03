@@ -44,7 +44,13 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         if (item != null)
         {
             if (transform.parent.tag.Equals("MealPlan"))
+            {
                 transform.parent.GetComponent<MealPlanSlot>().occupied = false;
+                transform.parent.GetComponent<MealPlanSlot>().currentItem = null;
+            }
+            if (transform.parent.tag.Equals("CookingMenu")) { 
+                
+            }
             if (transform.parent.tag.Equals("Inventory"))
                 this.transform.SetParent(this.transform.parent.parent);
             transform.position = eventData.position - offset;
@@ -90,22 +96,10 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 {
                     this.transform.SetParent(slot);
                 }
-                else// if is dropped inside the inventory slot grid AND it cant fit AND its previous parent wasnt an inventory slot grid
-                {
-                }
             }
-            else if (transform.parent.tag.Equals("MealPlan"))//if is dropped inside the meal plan slot
-            {
-                inventory.occupyGridWithItem(sizeX, sizeY, slotId, true, null);
-                slotId = -1;
-            }
-            else
-            {
-                this.transform.SetParent(slot); //if is dropped on an interface BUT outside of mealplan slot and inventory slot grid AND previous parent was a slot
-            }
-
 
             this.transform.localPosition = new Vector2(0, 0);
+
             if (transform.parent.tag.Equals("Inventory"))
                 ((RectTransform)(gameObject.transform)).pivot = new Vector2(0f, 1f);
         }
@@ -131,7 +125,6 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             {
                 if (item.typeOfItem == Item.itemType.food)
                 {
-                    inventory.consumeFood(Itemindex);
                     Destroy(this.gameObject);
                 }
             }

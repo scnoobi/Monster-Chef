@@ -55,8 +55,4 @@ public abstract class Food : Item {
                 break;
         }
     }
-
-    public abstract void consume();
-
-    public void statsApplier() { }
 }

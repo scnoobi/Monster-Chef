@@ -11,9 +11,4 @@ public class Accompaniment : Ingredient {
         this.currentCookingMethod = currentCookingMethod;
         this.typeOfItem = itemType.food;
     }
-
-    public override void consume()
-    {
-        //TODO
-    }
 }

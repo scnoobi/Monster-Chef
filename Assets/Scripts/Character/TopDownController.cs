@@ -4,7 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody2D))]
 public class TopDownController : MonoBehaviour {
 
-    public float maxSpeed = 10f;    //speed of character
+    public float maxSpeed;    //speed of character
     public GameObject inventoryMenu;    //UI of inventory
     public GameObject cookingMenu;      //UI of cooking
     public GameObject mealPlanMenu;      //UI of mealPlan
@@ -20,6 +20,8 @@ public class TopDownController : MonoBehaviour {
         myRig = GetComponent<Rigidbody2D>(); 
         inv = inventoryMenu.GetComponent<Inventory>(); 
 	}
+
+    public void setMaxSpeed(float maxSpeed) { this.maxSpeed = maxSpeed; }
 
 	// Update is called once per frame
 	void Update () {
