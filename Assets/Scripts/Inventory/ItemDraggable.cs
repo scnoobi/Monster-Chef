@@ -97,6 +97,10 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                     this.transform.SetParent(slot);
                 }
             }
+            else if (slotId >= 0)// if is dropped outside the inventory slot grid AND its previous parent was an inventory slot grid
+            {
+                this.transform.SetParent(slot);
+            }
 
             this.transform.localPosition = new Vector2(0, 0);
 
@@ -105,6 +109,7 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         }
         else //if is dropped outside an interface
         {
+            Debug.Log("if is dropped outside an interface");
             inventory.occupyGridWithItem(sizeX, sizeY, slotId, true, null);
             createPickup(Camera.main.ScreenToWorldPoint(eventData.position));
             Destroy(this.gameObject);
