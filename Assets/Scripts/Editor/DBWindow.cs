@@ -16,7 +16,7 @@ public class DBWindow : EditorWindow {
 
     MonoScript food;
 
-    BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+    BindingFlags flags = BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
 
     List<int> layerNumbers = new List<int>();
 
@@ -32,20 +32,40 @@ public class DBWindow : EditorWindow {
 	}
 	
 	void OnGUI () {
-        food = AssetDatabase.LoadAssetAtPath<MonoScript>("Assets/Scripts/Items/Food/MainIngredient.cs");
+        food = AssetDatabase.LoadAssetAtPath<MonoScript>("Assets/Scripts/Items/Food/Food.cs");
         EditorGUILayout.BeginVertical(EditorStyles.helpBox);
         Type targetType = food.GetClass();
-        //Debug.Log(targetType);
-        //Debug.Log(targetType.GetFields(flags).Length);
+
         foreach (FieldInfo info in targetType.GetFields(flags))
         {
             Type fieldType = info.FieldType;
-            Debug.Log(fieldType.Name +"  "+info.Name);
             if (fieldType.IsEnum) {
                 object weirdThing = Activator.CreateInstance(fieldType);
                 EditorGUILayout.EnumPopup(info.Name, (Enum)weirdThing);
-            }else
-            EditorGUILayout.TextField(info.Name, "");
+            }
+            else if (fieldType == typeof(string))
+            {
+                EditorGUILayout.TextField(info.Name, "");
+            }
+            else if (fieldType == typeof(float))
+            {
+                EditorGUILayout.FloatField(info.Name, 0);
+            }
+            else if (fieldType.IsValueType && !fieldType.IsPrimitive) //struct
+            {
+                EditorGUILayout.Space();
+                //Debug.Log(fieldType.Name + "  " + info.Name);
+                foreach (FieldInfo infoInStruct in fieldType.GetFields(flags))
+                {
+                    Type fieldTypeInStruct = infoInStruct.FieldType;
+                    //Debug.Log(fieldTypeInStruct.Name + "  " + infoInStruct.Name);
+                    EditorGUILayout.IntField(infoInStruct.Name, 0);
+                }
+                EditorGUILayout.Space();
+            }
+            else { //class
+                Debug.Log(fieldType.Name + "  " + info.Name);
+            }
         }
 
         EditorGUILayout.EndVertical();
