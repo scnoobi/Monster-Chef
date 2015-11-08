@@ -1,0 +1,20 @@
+{
+    "list": [
+        {
+            "name": "Basilisc Meat",
+            "currentCookingMethod": "raw",
+            "timeToCook": 2,
+            "typeOfFood": "meat",
+            "foodTaste": {
+                "saltyness": 3,
+                "spicyness": 5,
+                "sweetness": 6,
+                "wetness": 7,
+                "fat": 8
+            }
+        },
+        { },
+        { },
+        { }
+    ]
+}

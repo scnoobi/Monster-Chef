@@ -3,22 +3,31 @@ using System.Collections;
 
 public class PickupFood : PickupItem {
 
-    public Food.cookingType currentCookingType;
-    public float timeToCook;
+    private Food.cookingType currentCookingType;
+    private float timeToCook;
     public string name;
-    public Food.taste foodTaste;
-    public typesOfFood typeOfFood;
+    private Food.taste foodTaste;
+    private typesOfFood typeOfFood;
+
+    private bool settedItem = false;
 
     public enum typesOfFood { meat, fish, veggies } 
     
-   override
-    public Item createItem()
+    override public Item createItem()
     {
         return new MainIngredient( name, foodTaste, timeToCook, currentCookingType);
     }
 
-   public void Initialize(string name, Food.taste foodTaste, float timeToCook, Food.cookingType currentCookingType)
+    public void Start() {
+        if (!settedItem)
+        {
+            Debug.Log("NotEmpty");
+        }
+    }
+
+    public void Initialize(string name, Food.taste foodTaste, float timeToCook, Food.cookingType currentCookingType)
    {
+       settedItem = true;
        this.name = name;
        this.foodTaste = foodTaste;
        this.timeToCook = timeToCook;

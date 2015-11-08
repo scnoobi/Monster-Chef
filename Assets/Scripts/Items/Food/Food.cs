@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 public abstract class Food : Item {
 
@@ -30,11 +32,15 @@ public abstract class Food : Item {
     }
 
     public enum cookingType { raw, fried, roasting, stewing} //cooking types
-    public Food.cookingType currentCookingMethod;
-    public float timeToCook;
+
     public string name;
-    public taste foodTaste;
+        [JsonConverter(typeof(StringEnumConverter))]
+    public cookingType currentCookingMethod;
+    public float timeToCook;
+            [JsonConverter(typeof(StringEnumConverter))]
     public TypeOfFood typeOfFood;
+
+    public taste foodTaste;
 
     void cook(cookingType typeOfCooking, float time) {
         switch (typeOfCooking) {
