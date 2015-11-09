@@ -37,8 +37,10 @@ public abstract class Food : Item {
         [JsonConverter(typeof(StringEnumConverter))]
     public cookingType currentCookingMethod;
     public float timeToCook;
+    /*
             [JsonConverter(typeof(StringEnumConverter))]
     public TypeOfFood typeOfFood;
+     * */
 
     public taste foodTaste;
 
