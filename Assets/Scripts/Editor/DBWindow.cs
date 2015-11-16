@@ -1,10 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using UnityEditorInternal;
 using System;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using Newtonsoft.Json;
@@ -13,21 +9,25 @@ using System.IO;
 public class DBWindow : EditorWindow {
 
     MonoScript food;
-    BindingFlags flags = BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+    BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
 
     List<Item> database;
+    List<ComposedFood.recipe> recipes;
     JsonSerializer jsonSerializer;
     JsonReader jsonReader;
     JsonWriter jsonWriter;
     StreamReader textReader;
     StreamWriter textWriter;
-    string filename = "/StreamingAssets/Items.json";
+    string itemFileName = "/StreamingAssets/Items.json";
+    string recipesFileName = "/StreamingAssets/Recipes.json";
+    object tempStruct;
     Food tempItem;
-    object tempTaste;
+    bool simpleFood = true;
+    bool mainIngredient = true;
 
 
-	// Add menu named "My Window" to the Window menu
-	[MenuItem ("Window/My Window")]
+    // Add menu named "My Window" to the Window menu
+    [MenuItem ("Window/ItemDB")]
 	static void Init () {
 		// Get existing open window or if none, make a new one:
         DBWindow window = (DBWindow)EditorWindow.GetWindow(typeof(DBWindow));
@@ -36,39 +36,80 @@ public class DBWindow : EditorWindow {
 
     void Start() {
         jsonSerializer = new JsonSerializer();
-        textReader = File.OpenText(Application.dataPath + filename);
+        textReader = File.OpenText(Application.dataPath + itemFileName);
         jsonReader = new JsonTextReader(textReader);
-        //database = jsonSerializer.Deserialize<List<Item>>(jsonReader);
         database = JsonConvert.DeserializeObject<List<Item>>(textReader.ReadToEnd(), new JsonSerializerSettings
         {
             TypeNameHandling = TypeNameHandling.Objects
         });
         if (database == null)
             database = new List<Item>();
+
+        textReader = File.OpenText(Application.dataPath + recipesFileName);
+        jsonReader = new JsonTextReader(textReader);
+        recipes = JsonConvert.DeserializeObject<List<ComposedFood.recipe>>(textReader.ReadToEnd(), new JsonSerializerSettings
+        {
+            TypeNameHandling = TypeNameHandling.Objects
+        });
+        if (database == null)
+            database = new List<Item>();
+
+
         textReader.Close();
         textReader.Dispose();
         jsonReader.Close();
     }
 
 	void OnGUI () {
+        Type targetType;
+        simpleFood = EditorGUILayout.Toggle("Is Simple Food", simpleFood);
+        if (simpleFood)
+        {
+            mainIngredient = EditorGUILayout.Toggle("Is Main Ingredient", mainIngredient);
+            if (mainIngredient)
+            {
+                food = AssetDatabase.LoadAssetAtPath<MonoScript>("Assets/Scripts/Items/Food/MainIngredient.cs");
+                targetType = food.GetClass();
+                if (tempItem == null || tempItem.GetType() != targetType)
+                {
+                    tempItem = new MainIngredient();
+                }
+            }
+            else
+            {
+                food = AssetDatabase.LoadAssetAtPath<MonoScript>("Assets/Scripts/Items/Food/Accompaniment.cs");
+                targetType = food.GetClass();
+                if (tempItem == null || tempItem.GetType() != targetType)
+                {
+                    tempItem = new Accompaniment();
+                }
+            }
+        }
+        else
+        {
+            food = AssetDatabase.LoadAssetAtPath<MonoScript>("Assets/Scripts/Items/Food/ComposedFood.cs");
+            targetType = food.GetClass();
+            if (tempItem == null || tempItem.GetType() != targetType)
+            {
+                tempItem = new ComposedFood();
+            }
+        }
+
         if (jsonSerializer == null) {
             Start();
         }
-        food = AssetDatabase.LoadAssetAtPath<MonoScript>("Assets/Scripts/Items/Food/Food.cs");
-        EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-        Type targetType = food.GetClass();
 
-        if (tempItem == null)
-        {
-            tempItem = new MainIngredient();
-            tempTaste = new Food.taste();
-        }
+        EditorGUILayout.BeginVertical(EditorStyles.helpBox);
 
         foreach (FieldInfo info in targetType.GetFields(flags))
         {
             Type fieldType = info.FieldType;
-            if (fieldType.IsEnum) {
-                //EditorGUILayout.EnumPopup(info.Name, (Enum)weirdThing);
+            if (fieldType == typeof(int))
+            {
+                info.SetValue(tempItem, database.Count);
+                EditorGUILayout.LabelField("ID of item", database.Count.ToString());
+            }
+            else if (fieldType.IsEnum) {
                 if (info.GetValue(tempItem) == null)
                     info.SetValue(tempItem, Activator.CreateInstance(fieldType));
                 info.SetValue(tempItem, EditorGUILayout.EnumPopup(info.Name, (Enum)info.GetValue(tempItem)));
@@ -85,25 +126,53 @@ public class DBWindow : EditorWindow {
             else if (fieldType.IsValueType && !fieldType.IsPrimitive) //struct
             {
                 EditorGUILayout.Space();
+
+                
+                if (fieldType == typeof(Food.taste))
+                    tempStruct = new Food.taste();
+                else
+                if (fieldType == typeof(ComposedFood.recipe))
+                    tempStruct = new ComposedFood.recipe();
+                    
+
+                Debug.Log(info.Name);
                 foreach (FieldInfo infoInStruct in fieldType.GetFields(flags))
                 {
                     Type fieldTypeInStruct = infoInStruct.FieldType;
-                    infoInStruct.SetValue(tempTaste, EditorGUILayout.IntField(infoInStruct.Name, (int)infoInStruct.GetValue(tempTaste)));
+
+                    if (fieldTypeInStruct == typeof(int))
+                    {
+                        if (!infoInStruct.Name.Equals("output"))
+                        {
+                            infoInStruct.SetValue(tempStruct, EditorGUILayout.IntField(infoInStruct.Name, (int)infoInStruct.GetValue(info.GetValue(tempItem))));
+                        }
+                    }
+                    else if (fieldTypeInStruct.IsArray)
+                    {
+                    }
                 }
-                info.SetValue(tempItem, (Food.taste)tempTaste);
-                
+
+                if (fieldType == typeof(Food.taste))
+                {
+                    info.SetValue(tempItem, (Food.taste)tempStruct); //needs a casting on the tempStruct
+                }
+                else if(fieldType == typeof(ComposedFood.recipe))
+                {
+                    info.SetValue(tempItem, (ComposedFood.recipe)tempStruct);
+                }
+
+                Debug.Log("========================================================");
                 EditorGUILayout.Space();
-            }
-            else { //class
-                Debug.Log(fieldType.Name + "  " + info.Name);
-            }
+            }//else { //class
+                //Debug.Log(fieldType.Name + "  " + info.Name);
+            //}
         }
 
         EditorGUILayout.EndVertical();
 
         if (GUILayout.Button("submit"))
         {
-            textWriter = new StreamWriter(Application.dataPath + filename);
+            textWriter = new StreamWriter(Application.dataPath + itemFileName);
             jsonWriter = new JsonTextWriter(textWriter);
             database.Add(tempItem);
             String text = JsonConvert.SerializeObject(database, Formatting.Indented, new JsonSerializerSettings

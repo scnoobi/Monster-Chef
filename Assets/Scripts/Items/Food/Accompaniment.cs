@@ -3,6 +3,10 @@ using System.Collections;
 
 public class Accompaniment : Ingredient {
 
+    public Accompaniment()
+    {
+    }
+
     public Accompaniment(string name, taste foodTaste, float timeToCook, cookingType currentCookingType)
     {
         this.name = name;
