@@ -10,7 +10,7 @@ public class ComposedFood : Food
     [System.Serializable]
     public struct recipe
     {
-        int[] input;
+        public List<int> input;
         int output;
     }
 

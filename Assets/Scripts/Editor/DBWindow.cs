@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Reflection;
 using Newtonsoft.Json;
 using System.IO;
+using UnityEditorInternal;
 
 public class DBWindow : EditorWindow {
 
-    MonoScript food;
+    MonoScript itemScript;
     BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
 
     List<Item> database;
@@ -21,9 +22,11 @@ public class DBWindow : EditorWindow {
     string itemFileName = "/StreamingAssets/Items.json";
     string recipesFileName = "/StreamingAssets/Recipes.json";
     object tempStruct;
+    ComposedFood.recipe tempRecipeStruct;
     Food tempItem;
     bool simpleFood = true;
     bool mainIngredient = true;
+    ReorderableList reorderableList;
 
 
     // Add menu named "My Window" to the Window menu
@@ -45,15 +48,19 @@ public class DBWindow : EditorWindow {
         if (database == null)
             database = new List<Item>();
 
+        textReader.Close();
+        textReader.Dispose();
+        jsonReader.Close();
+
         textReader = File.OpenText(Application.dataPath + recipesFileName);
         jsonReader = new JsonTextReader(textReader);
         recipes = JsonConvert.DeserializeObject<List<ComposedFood.recipe>>(textReader.ReadToEnd(), new JsonSerializerSettings
         {
             TypeNameHandling = TypeNameHandling.Objects
         });
-        if (database == null)
-            database = new List<Item>();
-
+        if (recipes == null)
+            recipes = new List<ComposedFood.recipe>();
+            
 
         textReader.Close();
         textReader.Dispose();
@@ -68,8 +75,8 @@ public class DBWindow : EditorWindow {
             mainIngredient = EditorGUILayout.Toggle("Is Main Ingredient", mainIngredient);
             if (mainIngredient)
             {
-                food = AssetDatabase.LoadAssetAtPath<MonoScript>("Assets/Scripts/Items/Food/MainIngredient.cs");
-                targetType = food.GetClass();
+                itemScript = AssetDatabase.LoadAssetAtPath<MonoScript>("Assets/Scripts/Items/Food/MainIngredient.cs");
+                targetType = itemScript.GetClass();
                 if (tempItem == null || tempItem.GetType() != targetType)
                 {
                     tempItem = new MainIngredient();
@@ -77,8 +84,8 @@ public class DBWindow : EditorWindow {
             }
             else
             {
-                food = AssetDatabase.LoadAssetAtPath<MonoScript>("Assets/Scripts/Items/Food/Accompaniment.cs");
-                targetType = food.GetClass();
+                itemScript = AssetDatabase.LoadAssetAtPath<MonoScript>("Assets/Scripts/Items/Food/Accompaniment.cs");
+                targetType = itemScript.GetClass();
                 if (tempItem == null || tempItem.GetType() != targetType)
                 {
                     tempItem = new Accompaniment();
@@ -87,8 +94,8 @@ public class DBWindow : EditorWindow {
         }
         else
         {
-            food = AssetDatabase.LoadAssetAtPath<MonoScript>("Assets/Scripts/Items/Food/ComposedFood.cs");
-            targetType = food.GetClass();
+            itemScript = AssetDatabase.LoadAssetAtPath<MonoScript>("Assets/Scripts/Items/Food/ComposedFood.cs");
+            targetType = itemScript.GetClass();
             if (tempItem == null || tempItem.GetType() != targetType)
             {
                 tempItem = new ComposedFood();
@@ -134,8 +141,6 @@ public class DBWindow : EditorWindow {
                 if (fieldType == typeof(ComposedFood.recipe))
                     tempStruct = new ComposedFood.recipe();
                     
-
-                Debug.Log(info.Name);
                 foreach (FieldInfo infoInStruct in fieldType.GetFields(flags))
                 {
                     Type fieldTypeInStruct = infoInStruct.FieldType;
@@ -146,9 +151,37 @@ public class DBWindow : EditorWindow {
                         {
                             infoInStruct.SetValue(tempStruct, EditorGUILayout.IntField(infoInStruct.Name, (int)infoInStruct.GetValue(info.GetValue(tempItem))));
                         }
+                        else
+                        {
+                            infoInStruct.SetValue(tempStruct, database.Count);
+                        }
                     }
-                    else if (fieldTypeInStruct.IsArray)
+                    else if (fieldTypeInStruct.IsGenericType && (fieldTypeInStruct.GetGenericTypeDefinition() == typeof(List<>)))
                     {
+                        if ((List<int>)infoInStruct.GetValue(info.GetValue(tempItem)) == null)
+                        {
+                            infoInStruct.SetValue(tempStruct, new List<int>());
+                            info.SetValue(tempItem, (ComposedFood.recipe)tempStruct);
+                        }
+
+                        if (reorderableList == null)
+                        {
+                            reorderableList = new ReorderableList((List<int>)infoInStruct.GetValue(info.GetValue(tempItem)), typeof(int),
+                                false, true, true, true);
+
+                            reorderableList.drawElementCallback =
+                                (Rect rect, int index, bool isActive, bool isFocused) => {
+                                    var element = reorderableList.list[index];
+                                    rect.y += 2;
+                                    EditorGUI.IntField(
+                                        new Rect(rect.x, rect.y, 60, EditorGUIUtility.singleLineHeight),
+                                        (int)element);
+                                };
+                        }
+                        reorderableList.DoLayoutList();
+
+                        infoInStruct.SetValue(tempStruct, (List<int>)infoInStruct.GetValue(info.GetValue(tempItem)));
+                        info.SetValue(tempItem, (ComposedFood.recipe)tempStruct);
                     }
                 }
 
@@ -159,13 +192,10 @@ public class DBWindow : EditorWindow {
                 else if(fieldType == typeof(ComposedFood.recipe))
                 {
                     info.SetValue(tempItem, (ComposedFood.recipe)tempStruct);
+                    tempRecipeStruct = (ComposedFood.recipe)tempStruct;
                 }
-
-                Debug.Log("========================================================");
                 EditorGUILayout.Space();
-            }//else { //class
-                //Debug.Log(fieldType.Name + "  " + info.Name);
-            //}
+            }
         }
 
         EditorGUILayout.EndVertical();
@@ -181,10 +211,29 @@ public class DBWindow : EditorWindow {
                 TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
             });
             textWriter.Write(text);
+
             textWriter.Close();
             textWriter.Dispose();
             jsonWriter.Close();
+
+            if (!simpleFood) {
+                textWriter = new StreamWriter(Application.dataPath + recipesFileName);
+                jsonWriter = new JsonTextWriter(textWriter);
+                recipes.Add(tempRecipeStruct);
+                String recipeText = JsonConvert.SerializeObject(recipes, Formatting.Indented, new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Objects,
+                    TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
+                });
+                textWriter.Write(recipeText);
+
+                textWriter.Close();
+                textWriter.Dispose();
+                jsonWriter.Close();
+            }
             tempItem = null;
+            tempStruct = null;
+            reorderableList = null;
         }
 	}
 }
