@@ -22,7 +22,8 @@ public class DBWindow : EditorWindow {
     string itemFileName = "/StreamingAssets/Items.json";
     string recipesFileName = "/StreamingAssets/Recipes.json";
     object tempStruct;
-    ComposedFood.recipe tempRecipeStruct;
+    object tempRecipeStruct;
+    List<int> listInputRecipe;
     Food tempItem;
     bool simpleFood = true;
     bool mainIngredient = true;
@@ -52,6 +53,7 @@ public class DBWindow : EditorWindow {
         textReader.Dispose();
         jsonReader.Close();
 
+        listInputRecipe = new List<int>();
         textReader = File.OpenText(Application.dataPath + recipesFileName);
         jsonReader = new JsonTextReader(textReader);
         recipes = JsonConvert.DeserializeObject<List<ComposedFood.recipe>>(textReader.ReadToEnd(), new JsonSerializerSettings
@@ -100,6 +102,22 @@ public class DBWindow : EditorWindow {
             {
                 tempItem = new ComposedFood();
             }
+
+            if (reorderableList == null)
+            {
+                reorderableList = new ReorderableList(listInputRecipe, typeof(int),
+                    false, true, true, true);
+
+                reorderableList.drawElementCallback =
+                    (Rect rect, int index, bool isActive, bool isFocused) => {
+                        var element = reorderableList.list[index];
+                        rect.y += 2;
+                        reorderableList.list[index] = EditorGUI.IntField(
+                            new Rect(rect.x, rect.y, 60, EditorGUIUtility.singleLineHeight),
+                            (int)element);
+                    };
+            }
+            reorderableList.DoLayoutList();
         }
 
         if (jsonSerializer == null) {
@@ -134,12 +152,8 @@ public class DBWindow : EditorWindow {
             {
                 EditorGUILayout.Space();
 
-                
                 if (fieldType == typeof(Food.taste))
                     tempStruct = new Food.taste();
-                else
-                if (fieldType == typeof(ComposedFood.recipe))
-                    tempStruct = new ComposedFood.recipe();
                     
                 foreach (FieldInfo infoInStruct in fieldType.GetFields(flags))
                 {
@@ -147,52 +161,13 @@ public class DBWindow : EditorWindow {
 
                     if (fieldTypeInStruct == typeof(int))
                     {
-                        if (!infoInStruct.Name.Equals("output"))
-                        {
                             infoInStruct.SetValue(tempStruct, EditorGUILayout.IntField(infoInStruct.Name, (int)infoInStruct.GetValue(info.GetValue(tempItem))));
-                        }
-                        else
-                        {
-                            infoInStruct.SetValue(tempStruct, database.Count);
-                        }
-                    }
-                    else if (fieldTypeInStruct.IsGenericType && (fieldTypeInStruct.GetGenericTypeDefinition() == typeof(List<>)))
-                    {
-                        if ((List<int>)infoInStruct.GetValue(info.GetValue(tempItem)) == null)
-                        {
-                            infoInStruct.SetValue(tempStruct, new List<int>());
-                            info.SetValue(tempItem, (ComposedFood.recipe)tempStruct);
-                        }
-
-                        if (reorderableList == null)
-                        {
-                            reorderableList = new ReorderableList((List<int>)infoInStruct.GetValue(info.GetValue(tempItem)), typeof(int),
-                                false, true, true, true);
-
-                            reorderableList.drawElementCallback =
-                                (Rect rect, int index, bool isActive, bool isFocused) => {
-                                    var element = reorderableList.list[index];
-                                    rect.y += 2;
-                                    EditorGUI.IntField(
-                                        new Rect(rect.x, rect.y, 60, EditorGUIUtility.singleLineHeight),
-                                        (int)element);
-                                };
-                        }
-                        reorderableList.DoLayoutList();
-
-                        infoInStruct.SetValue(tempStruct, (List<int>)infoInStruct.GetValue(info.GetValue(tempItem)));
-                        info.SetValue(tempItem, (ComposedFood.recipe)tempStruct);
                     }
                 }
 
                 if (fieldType == typeof(Food.taste))
                 {
-                    info.SetValue(tempItem, (Food.taste)tempStruct); //needs a casting on the tempStruct
-                }
-                else if(fieldType == typeof(ComposedFood.recipe))
-                {
-                    info.SetValue(tempItem, (ComposedFood.recipe)tempStruct);
-                    tempRecipeStruct = (ComposedFood.recipe)tempStruct;
+                    info.SetValue(tempItem, (Food.taste)tempStruct);
                 }
                 EditorGUILayout.Space();
             }
@@ -217,9 +192,10 @@ public class DBWindow : EditorWindow {
             jsonWriter.Close();
 
             if (!simpleFood) {
+                tempRecipeStruct = new ComposedFood.recipe(listInputRecipe, tempItem.id);
                 textWriter = new StreamWriter(Application.dataPath + recipesFileName);
                 jsonWriter = new JsonTextWriter(textWriter);
-                recipes.Add(tempRecipeStruct);
+                recipes.Add((ComposedFood.recipe)tempRecipeStruct);
                 String recipeText = JsonConvert.SerializeObject(recipes, Formatting.Indented, new JsonSerializerSettings
                 {
                     TypeNameHandling = TypeNameHandling.Objects,
@@ -234,6 +210,7 @@ public class DBWindow : EditorWindow {
             tempItem = null;
             tempStruct = null;
             reorderableList = null;
+            listInputRecipe = new List<int>();
         }
 	}
 }

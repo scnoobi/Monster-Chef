@@ -5,13 +5,18 @@ using System.Collections.Generic;
 public class ComposedFood : Food
 {
     List<Food> foodParts;
-    recipe recipeOfFood;
 
     [System.Serializable]
     public struct recipe
     {
         public List<int> input;
-        int output;
+        public int output;
+
+        public recipe (List<int> input, int output)
+        {
+            this.input = input;
+            this.output = output;
+        }
     }
 
  public ComposedFood(Food food1, Food food2)
