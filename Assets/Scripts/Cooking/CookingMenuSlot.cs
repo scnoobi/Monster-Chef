@@ -11,6 +11,8 @@ public class CookingMenuSlot : MonoBehaviour, IDropHandler
         inventory.occupyGridWithItem(droppedItem.sizeX, droppedItem.sizeY, droppedItem.slotId, true, null);
         droppedItem.slotId = -1;
         droppedItem.transform.SetParent(this.transform);
+
+
     }
 
 }

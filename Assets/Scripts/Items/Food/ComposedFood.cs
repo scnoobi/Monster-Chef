@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class ComposedFood : Food
 {
     List<Food> foodParts;
+    Ability foodAbility;
 
     [System.Serializable]
     public struct recipe
@@ -19,7 +20,7 @@ public class ComposedFood : Food
         }
     }
 
- public ComposedFood(Food food1, Food food2)
+    public ComposedFood(Food food1, Food food2)
     {
         foodParts.Add(food1);
         foodParts.Add(food2);
@@ -27,6 +28,11 @@ public class ComposedFood : Food
 
     public ComposedFood()
     {
+    }
+
+    public void setAbility(string name)
+    {
+
     }
 
     public void addFood(Food part){

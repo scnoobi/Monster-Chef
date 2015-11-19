@@ -28,6 +28,7 @@ public class DBWindow : EditorWindow {
     bool simpleFood = true;
     bool mainIngredient = true;
     ReorderableList reorderableList;
+    string abilityName;
 
 
     // Add menu named "My Window" to the Window menu
@@ -151,7 +152,7 @@ public class DBWindow : EditorWindow {
             else if (fieldType.IsValueType && !fieldType.IsPrimitive) //struct
             {
                 EditorGUILayout.Space();
-
+                EditorGUILayout.BeginVertical(EditorStyles.helpBox);
                 if (fieldType == typeof(Food.taste))
                     tempStruct = new Food.taste();
                     
@@ -169,7 +170,12 @@ public class DBWindow : EditorWindow {
                 {
                     info.SetValue(tempItem, (Food.taste)tempStruct);
                 }
+                EditorGUILayout.EndVertical();
                 EditorGUILayout.Space();
+            }
+            else if (fieldType == typeof(GameObject))//object
+            {
+                abilityName = EditorGUILayout.TextField(info.Name, abilityName);
             }
         }
 
