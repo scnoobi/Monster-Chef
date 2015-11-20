@@ -1,0 +1,10 @@
+[
+  {
+    "$type": "ComposedFood+recipe, Assembly-CSharp",
+    "input": [
+      0,
+      1
+    ],
+    "output": 2
+  }
+]

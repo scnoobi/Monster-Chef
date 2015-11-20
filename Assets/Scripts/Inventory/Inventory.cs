@@ -53,7 +53,7 @@ public class Inventory : MonoBehaviour
 
     public bool addItemToInventory(PickupItem PickupItem)
     {
-        Item item = PickupItem.createItem();
+        Item item = PickupItem.getItem();
         int posEmpty = -1;
         if (isInventoryFull(PickupItem.sizeX, PickupItem.sizeY, ref posEmpty))
             return false;

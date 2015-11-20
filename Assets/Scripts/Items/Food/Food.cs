@@ -33,7 +33,6 @@ public abstract class Food : Item {
 
     public enum cookingType { raw, fried, roasting, stewing} //cooking types
 
-    public string name;
         [JsonConverter(typeof(StringEnumConverter))]
     public cookingType currentCookingMethod;
     public float timeToCook;

@@ -43,9 +43,14 @@ public class ItemDatabase : MonoBehaviour {
         textReader.Close();
         textReader.Dispose();
         jsonReader.Close();
+
+        foreach(Item item in database)
+        {
+            Debug.Log(item.name +" in DB");
+        }
     }
 
-    ComposedFood getCraftedFood(List<int> ingredients)
+    public ComposedFood getCraftedFood(List<int> ingredients)
     {
         ComposedFood craftedFood = null;
         int chosenFood = -1;
@@ -69,5 +74,19 @@ public class ItemDatabase : MonoBehaviour {
             craftedFood = (ComposedFood)database[chosenFood];
 
         return craftedFood;
+    }
+
+    public Item getItemByName(string name)
+    {
+        Item item = null;
+        for(int i = 0; i < database.Count; i++)
+        {
+            if (database[i].name.Equals(name))
+            {
+                item = database[i];
+                break;
+            }
+        }
+        return item;
     }
 }

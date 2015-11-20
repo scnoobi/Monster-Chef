@@ -3,34 +3,29 @@ using System.Collections;
 
 public class PickupFood : PickupItem {
 
-    private Food.cookingType currentCookingType;
-    private float timeToCook;
     public string name;
-    private Food.taste foodTaste;
-    private typesOfFood typeOfFood;
-
-    private bool settedItem = false;
-
+    private ItemDatabase itemDB;
+    private Food food;
     public enum typesOfFood { meat, fish, veggies } 
     
-    override public Item createItem()
+    override public Item getItem()
     {
-        return new MainIngredient( name, foodTaste, timeToCook, currentCookingType);
+        return getFood();
     }
 
     public void Start() {
-        if (!settedItem)
-        {
-            Debug.Log("NotEmpty");
-        }
+        itemDB = GameObject.Find("itemDB").GetComponent<ItemDatabase>();
+        food = (Food)itemDB.getItemByName(name);
+    }
+
+    public Food getFood()
+    {
+        return food;
     }
 
     public void Initialize(string name, Food.taste foodTaste, float timeToCook, Food.cookingType currentCookingType)
    {
-       settedItem = true;
        this.name = name;
-       this.foodTaste = foodTaste;
-       this.timeToCook = timeToCook;
-       this.currentCookingType = currentCookingType;
+       food = (Food)itemDB.getItemByName(name);
    }
 }

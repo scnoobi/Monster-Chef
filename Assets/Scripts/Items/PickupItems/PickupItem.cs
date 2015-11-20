@@ -7,5 +7,5 @@ public abstract class PickupItem : MonoBehaviour {
     public int sizeY;
     public Sprite inventorySprite;
 
-    public abstract Item createItem();
+    public abstract Item getItem();
 }

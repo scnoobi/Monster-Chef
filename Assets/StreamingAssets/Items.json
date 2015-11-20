@@ -1,0 +1,50 @@
+[
+  {
+    "$type": "MainIngredient, Assembly-CSharp",
+    "currentCookingMethod": "raw",
+    "timeToCook": 0.0,
+    "foodTaste": {
+      "$type": "Food+taste, Assembly-CSharp",
+      "saltyness": 2,
+      "spicyness": 3,
+      "sweetness": 1,
+      "wetness": 2,
+      "fat": 1
+    },
+    "id": 0,
+    "name": "ScorpionMeat",
+    "typeOfItem": 0
+  },
+  {
+    "$type": "Accompaniment, Assembly-CSharp",
+    "currentCookingMethod": "raw",
+    "timeToCook": 0.0,
+    "foodTaste": {
+      "$type": "Food+taste, Assembly-CSharp",
+      "saltyness": 0,
+      "spicyness": 0,
+      "sweetness": 2,
+      "wetness": 3,
+      "fat": 0
+    },
+    "id": 1,
+    "name": "veggies",
+    "typeOfItem": 0
+  },
+  {
+    "$type": "ComposedFood, Assembly-CSharp",
+    "currentCookingMethod": "raw",
+    "timeToCook": 0.0,
+    "foodTaste": {
+      "$type": "Food+taste, Assembly-CSharp",
+      "saltyness": 5,
+      "spicyness": 6,
+      "sweetness": 4,
+      "wetness": 3,
+      "fat": 2
+    },
+    "id": 2,
+    "name": "ScorpNVegs",
+    "typeOfItem": 0
+  }
+]
