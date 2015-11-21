@@ -37,14 +37,30 @@
     "timeToCook": 0.0,
     "foodTaste": {
       "$type": "Food+taste, Assembly-CSharp",
-      "saltyness": 5,
-      "spicyness": 6,
-      "sweetness": 4,
-      "wetness": 3,
-      "fat": 2
+      "saltyness": 0,
+      "spicyness": 0,
+      "sweetness": 0,
+      "wetness": 0,
+      "fat": 0
     },
     "id": 2,
-    "name": "ScorpNVegs",
+    "name": "ScorpNVegies",
+    "typeOfItem": 0
+  },
+  {
+    "$type": "Accompaniment, Assembly-CSharp",
+    "currentCookingMethod": "raw",
+    "timeToCook": 0.0,
+    "foodTaste": {
+      "$type": "Food+taste, Assembly-CSharp",
+      "saltyness": 0,
+      "spicyness": 0,
+      "sweetness": 10,
+      "wetness": 0,
+      "fat": 0
+    },
+    "id": 3,
+    "name": "sugar",
     "typeOfItem": 0
   }
 ]

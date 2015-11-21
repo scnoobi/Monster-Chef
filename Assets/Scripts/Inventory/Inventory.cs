@@ -51,7 +51,7 @@ public class Inventory : MonoBehaviour
         return true;
     }
 
-    public bool addItemToInventory(PickupItem PickupItem)
+    public bool addPickupToInventory(PickupItem PickupItem)
     {
         Item item = PickupItem.getItem();
         int posEmpty = -1;
@@ -63,7 +63,7 @@ public class Inventory : MonoBehaviour
         ItemDraggable draggable = invItem.GetComponent<ItemDraggable>();
         items.Add(draggable);
 
-        draggable.Initialize(this, items.Count - 1, item, PickupItem.sizeX, PickupItem.sizeY, PickupItem.GetComponent<SpriteRenderer>().sprite);
+        draggable.Initialize(this, item, PickupItem.sizeX, PickupItem.sizeY, PickupItem.GetComponent<SpriteRenderer>().sprite);
         draggable.slotId = slots[MapGridToList(posEmpty, 0)].GetComponent<Slots>().id;
 
         invItemImage.sprite = PickupItem.inventorySprite;

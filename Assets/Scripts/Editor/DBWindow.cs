@@ -149,7 +149,7 @@ public class DBWindow : EditorWindow {
             {
                 info.SetValue(tempItem, EditorGUILayout.FloatField(info.Name, (float)info.GetValue(tempItem)));
             }
-            else if (fieldType.IsValueType && !fieldType.IsPrimitive) //struct
+            else if (fieldType.IsValueType && !fieldType.IsPrimitive && simpleFood) //struct
             {
                 EditorGUILayout.Space();
                 EditorGUILayout.BeginVertical(EditorStyles.helpBox);

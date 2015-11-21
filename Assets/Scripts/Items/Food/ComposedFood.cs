@@ -28,6 +28,7 @@ public class ComposedFood : Food
 
     public ComposedFood()
     {
+        foodParts = new List<Food>();
     }
 
     public void setAbility(string name)

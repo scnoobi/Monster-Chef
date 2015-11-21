@@ -11,7 +11,6 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public int sizeY;
     public int slotId;
     public GameObject blankPickUp;
-    private int Itemindex;
 
     private Vector2 offset;
     private Vector2 offsetInSlots;
@@ -29,14 +28,30 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         sprite = GetComponent<Image>().sprite;
     }
 
-    public void Initialize(Inventory inv, int Itemindex, Item item, int sizeX, int sizeY, Sprite groundSprite)
+    public void Initialize(Inventory inv, Item item, int sizeX, int sizeY, Sprite groundSprite)
     {
         this.inventory = inv;
-        this.Itemindex = Itemindex;
         this.item = item;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.groundSprite = groundSprite;
+    }
+
+    public void setItem(Item item)
+    {
+        this.item = item;
+    }
+
+
+    public void setInv(Inventory inv)
+    {
+        this.inventory = inv;
+    }
+
+    public void setSize(int sizeX, int sizeY)
+    {
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
     }
 
     public void OnBeginDrag(PointerEventData eventData)

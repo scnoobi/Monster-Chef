@@ -11,8 +11,7 @@ using UnityEngine;
         GameObject projectileToShoot;
         Transform character;
 
-        public ShootAbility(int numberOfProjectiles) {
-            this.numberOfProjectiles = numberOfProjectiles;
+        public ShootAbility() {
         }
 
         public void setCharacter(Transform character) {

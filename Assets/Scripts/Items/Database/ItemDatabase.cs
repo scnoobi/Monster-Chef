@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using System.IO;
 
 public class ItemDatabase : MonoBehaviour {
-    private List<Item> database = new List<Item>();
+    private List<Item> database;
     List<ComposedFood.recipe> recipes;
     private JsonSerializer jsonSerializer;
     private JsonReader jsonReader;
@@ -15,6 +15,7 @@ public class ItemDatabase : MonoBehaviour {
     string recipesFileName = "/StreamingAssets/Recipes.json";
 
     void Start() {
+        database = new List<Item>();
         jsonSerializer = new JsonSerializer();
         textReader = File.OpenText(Application.dataPath + filename);
         jsonReader = new JsonTextReader(textReader);
@@ -57,21 +58,24 @@ public class ItemDatabase : MonoBehaviour {
         int sizeOfMatches = 0;
         for(int i = 0; i < recipes.Count; i++)
         {
-            bool isSubsect = false;
             int currSizeOfMatches = 0;
+            sizeOfMatches = recipes[i].input.Count;
             for (int j = 0; j < recipes[i].input.Count; j++)
             {
-                isSubsect |= ingredients.Contains(recipes[i].input[j]);
-                currSizeOfMatches++;
+                bool isSubsect = ingredients.Contains(recipes[i].input[j]);
+                if(isSubsect)
+                    currSizeOfMatches++;
             }
-            if (currSizeOfMatches > sizeOfMatches) {
+            if (currSizeOfMatches == sizeOfMatches) {
                 chosenFood = recipes[i].output;
                 sizeOfMatches = currSizeOfMatches;
             }
         }
 
         if (chosenFood > 0)
+        {
             craftedFood = (ComposedFood)database[chosenFood];
+        }
 
         return craftedFood;
     }
