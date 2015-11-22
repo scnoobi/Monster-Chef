@@ -37,11 +37,15 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         this.groundSprite = groundSprite;
     }
 
+    public void setGroundSprite(Sprite groundSprite)
+    {
+        this.groundSprite = groundSprite;
+    }
+
     public void setItem(Item item)
     {
         this.item = item;
     }
-
 
     public void setInv(Inventory inv)
     {
@@ -165,8 +169,8 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         if (item.typeOfItem == Item.itemType.food)
         {
            PickupFood foodComp = pickUpToInstantiate.AddComponent<PickupFood>();
-           foodComp.sizeX = sizeX;
-           foodComp.sizeY = sizeY;
+            foodComp.setSizeX(sizeX);
+           foodComp.setSizeY(sizeY);
            foodComp.inventorySprite = this.sprite;
            Food realFood = (Food)item;
            foodComp.Initialize(realFood.name, realFood.foodTaste, realFood.timeToCook, realFood.currentCookingMethod);

@@ -16,6 +16,8 @@ public class PickupFood : PickupItem {
     public void Start() {
         itemDB = GameObject.Find("itemDB").GetComponent<ItemDatabase>();
         food = (Food)itemDB.getItemByName(name);
+        sizeX = food.sizeX;
+        sizeY = food.sizeY;
     }
 
     public Food getFood()

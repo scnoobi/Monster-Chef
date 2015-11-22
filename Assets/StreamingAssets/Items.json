@@ -5,14 +5,17 @@
     "timeToCook": 0.0,
     "foodTaste": {
       "$type": "Food+taste, Assembly-CSharp",
-      "saltyness": 2,
-      "spicyness": 3,
+      "saltyness": 1,
+      "spicyness": 1,
       "sweetness": 1,
-      "wetness": 2,
+      "wetness": 1,
       "fat": 1
     },
     "id": 0,
-    "name": "ScorpionMeat",
+    "name": "Scorpions Fillet",
+    "realName": "Scorpion_Fillet",
+    "sizeX": 2,
+    "sizeY": 2,
     "typeOfItem": 0
   },
   {
@@ -21,14 +24,17 @@
     "timeToCook": 0.0,
     "foodTaste": {
       "$type": "Food+taste, Assembly-CSharp",
-      "saltyness": 0,
-      "spicyness": 0,
+      "saltyness": 2,
+      "spicyness": 2,
       "sweetness": 2,
-      "wetness": 3,
-      "fat": 0
+      "wetness": 2,
+      "fat": 2
     },
     "id": 1,
     "name": "veggies",
+    "realName": "veggies",
+    "sizeX": 2,
+    "sizeY": 3,
     "typeOfItem": 0
   },
   {
@@ -44,7 +50,10 @@
       "fat": 0
     },
     "id": 2,
-    "name": "ScorpNVegies",
+    "name": "Scorp N Veggies",
+    "realName": "Scorp_N_Veggies",
+    "sizeX": 3,
+    "sizeY": 2,
     "typeOfItem": 0
   },
   {
@@ -61,6 +70,9 @@
     },
     "id": 3,
     "name": "sugar",
+    "realName": "sugar",
+    "sizeX": 1,
+    "sizeY": 1,
     "typeOfItem": 0
   }
 ]

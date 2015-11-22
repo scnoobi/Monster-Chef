@@ -55,7 +55,7 @@ public class Inventory : MonoBehaviour
     {
         Item item = PickupItem.getItem();
         int posEmpty = -1;
-        if (isInventoryFull(PickupItem.sizeX, PickupItem.sizeY, ref posEmpty))
+        if (isInventoryFull(PickupItem.getSizeX(), PickupItem.getSizeY(), ref posEmpty))
             return false;
 
         GameObject invItem = (GameObject)Instantiate(inventoryItemPrefab);
@@ -63,15 +63,15 @@ public class Inventory : MonoBehaviour
         ItemDraggable draggable = invItem.GetComponent<ItemDraggable>();
         items.Add(draggable);
 
-        draggable.Initialize(this, item, PickupItem.sizeX, PickupItem.sizeY, PickupItem.GetComponent<SpriteRenderer>().sprite);
+        draggable.Initialize(this, item, PickupItem.getSizeX(), PickupItem.getSizeY(), PickupItem.GetComponent<SpriteRenderer>().sprite);
         draggable.slotId = slots[MapGridToList(posEmpty, 0)].GetComponent<Slots>().id;
 
         invItemImage.sprite = PickupItem.inventorySprite;
 
         invItem.transform.SetParent(slots[MapGridToList(posEmpty, 0)].transform);
-        invItem.transform.localScale = new Vector3(PickupItem.sizeX, PickupItem.sizeY, 0);
+        invItem.transform.localScale = new Vector3(PickupItem.getSizeX(), PickupItem.getSizeY(), 0);
         invItem.transform.localPosition = new Vector2(0, 0);
-        occupyGridWithItem(PickupItem.sizeX, PickupItem.sizeY, posEmpty, false, draggable);
+        occupyGridWithItem(PickupItem.getSizeX(), PickupItem.getSizeY(), posEmpty, false, draggable);
         return true;
     }
 

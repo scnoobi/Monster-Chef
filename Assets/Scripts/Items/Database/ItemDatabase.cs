@@ -85,12 +85,14 @@ public class ItemDatabase : MonoBehaviour {
         Item item = null;
         for(int i = 0; i < database.Count; i++)
         {
-            if (database[i].name.Equals(name))
+            if (database[i].realName.Equals(name))
             {
                 item = database[i];
                 break;
             }
         }
+        Debug.Log(name);
+        Debug.Log(item.name);
         return item;
     }
 }

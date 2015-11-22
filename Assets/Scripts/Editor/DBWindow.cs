@@ -29,6 +29,7 @@ public class DBWindow : EditorWindow {
     bool mainIngredient = true;
     ReorderableList reorderableList;
     string abilityName;
+    Sprite UIItem, GroundItem;
 
 
     // Add menu named "My Window" to the Window menu
@@ -132,8 +133,14 @@ public class DBWindow : EditorWindow {
             Type fieldType = info.FieldType;
             if (fieldType == typeof(int))
             {
-                info.SetValue(tempItem, database.Count);
-                EditorGUILayout.LabelField("ID of item", database.Count.ToString());
+                if (info.Name.Contains("id")){
+                    info.SetValue(tempItem, database.Count);
+                    EditorGUILayout.LabelField("ID of item", database.Count.ToString());
+                }
+                else
+                {
+                    info.SetValue(tempItem, EditorGUILayout.IntField(info.Name, (int)info.GetValue(tempItem)));
+                }
             }
             else if (fieldType.IsEnum) {
                 if (info.GetValue(tempItem) == null)
