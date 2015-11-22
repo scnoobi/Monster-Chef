@@ -25,6 +25,16 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         canvasG = GetComponent<CanvasGroup>();
         canvasScaleFactor = inventory.GetComponentInParent<Canvas>().scaleFactor;
+        if (groundSprite == null)
+        {
+            Debug.Log("1");
+            groundSprite = Resources.Load<Sprite>("Sprites/Items/" + item.realName);
+        }
+        if (GetComponent<Image>().sprite == null)
+        {
+            GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Items/" + item.realName);
+            Debug.Log("2");
+        }
         sprite = GetComponent<Image>().sprite;
     }
 
@@ -173,7 +183,7 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
            foodComp.setSizeY(sizeY);
            foodComp.inventorySprite = this.sprite;
            Food realFood = (Food)item;
-           foodComp.Initialize(realFood.name, realFood.foodTaste, realFood.timeToCook, realFood.currentCookingMethod);
+           foodComp.Initialize(realFood.realName, realFood.foodTaste, realFood.timeToCook, realFood.currentCookingMethod);
            pickUpToInstantiate.GetComponent<SpriteRenderer>().sprite = groundSprite;
         }
     }

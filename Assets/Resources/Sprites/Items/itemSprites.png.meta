@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e39adcb1c481c6147885082f4a4e3810
-timeCreated: 1444783191
+timeCreated: 1448220853
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -9,6 +9,7 @@ TextureImporter:
     21300004: 34x34icons180709_2
     21300006: 34x34icons180709_3
     21300008: 34x34icons180709_4
+    21300010: Scorp_N_Veggies
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -42,6 +43,7 @@ TextureImporter:
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
+  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
@@ -98,6 +100,16 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 307
+        y: 375
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Scorp_N_Veggies
+      rect:
+        serializedVersion: 2
+        x: 1
         y: 375
         width: 34
         height: 34

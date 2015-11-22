@@ -6,7 +6,8 @@ public class PickupFood : PickupItem {
     public string name;
     private ItemDatabase itemDB;
     private Food food;
-    public enum typesOfFood { meat, fish, veggies } 
+    public enum typesOfFood { meat, fish, veggies }
+    private SpritesLoader spriteLoader;
     
     override public Item getItem()
     {
@@ -14,10 +15,25 @@ public class PickupFood : PickupItem {
     }
 
     public void Start() {
-        itemDB = GameObject.Find("itemDB").GetComponent<ItemDatabase>();
-        food = (Food)itemDB.getItemByName(name);
-        sizeX = food.sizeX;
-        sizeY = food.sizeY;
+        if (food == null)
+        {
+            spriteLoader = GameObject.Find("Loader").GetComponent<SpritesLoader>();
+            itemDB = GameObject.Find("itemDB").GetComponent<ItemDatabase>();
+            food = (Food)itemDB.getItemByName(name);
+            if (inventorySprite == null)
+            {
+                Debug.Log("1");
+                inventorySprite = spriteLoader.getSpriteWithName(food.realName);
+            }
+            if (gameObject.GetComponent<SpriteRenderer>().sprite == null)
+            {
+                gameObject.GetComponent<SpriteRenderer>().sprite = spriteLoader.getSpriteWithName(food.realName);
+                Debug.Log("2");
+            }
+            sizeX = food.sizeX;
+            sizeY = food.sizeY;
+        }
+        gameObject.GetComponent<SpriteRenderer>().sprite = spriteLoader.getSpriteWithName(food.realName);
     }
 
     public Food getFood()
@@ -25,9 +41,20 @@ public class PickupFood : PickupItem {
         return food;
     }
 
-    public void Initialize(string name, Food.taste foodTaste, float timeToCook, Food.cookingType currentCookingType)
+    public void Initialize(string realName, Food.taste foodTaste, float timeToCook, Food.cookingType currentCookingType)
    {
-       this.name = name;
-       food = (Food)itemDB.getItemByName(name);
-   }
+        spriteLoader = GameObject.Find("Loader").GetComponent<SpritesLoader>();
+        itemDB = GameObject.Find("itemDB").GetComponent<ItemDatabase>();
+        food = (Food)itemDB.getItemByName(realName);
+        this.name = realName;
+        if (inventorySprite == null)
+        {
+            Debug.Log("1");
+            inventorySprite = spriteLoader.getSpriteWithName(food.realName);
+        }
+        gameObject.GetComponent<SpriteRenderer>().sprite = spriteLoader.getSpriteWithName(food.realName);
+        Debug.Log(spriteLoader.getSpriteWithName(food.realName));
+        sizeX = food.sizeX;
+        sizeY = food.sizeY;
+    }
 }
