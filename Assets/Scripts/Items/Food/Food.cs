@@ -8,25 +8,34 @@ public abstract class Food : Item {
     [System.Serializable]
     public struct taste
     {
-        public int saltyness;
-        public int spicyness;
-        public int sweetness;
-        public int wetness;
+        public int salt;
+        public int sweet;
+        public int bitter;
+        public int sour;
+        public int umami;
+        public int spicy;
+        public int tender;
         public int fat;
 
-        public taste(int slt, int spc, int sweet, int wet, int fat) {
-            this.saltyness = slt;
-            this.spicyness = spc;
-            this.sweetness = sweet;
-            this.wetness = wet;
+        public taste(int slt, int sweet, int bitter, int sour, int umami, int spicy, int tender, int fat) {
+            this.salt = slt;
+            this.sweet = sweet;
+            this.bitter = bitter;
+            this.sour = sour;
+            this.umami = umami;
+            this.spicy = spicy;
+            this.tender = tender;
             this.fat = fat;
         }
 
         public void complexTaste(taste taste){
-            this.saltyness += taste.saltyness;
-            this.spicyness += taste.spicyness;
-            this.sweetness += taste.sweetness;
-            this.wetness += taste.wetness;
+            this.salt += taste.salt;
+            this.sweet += taste.sweet;
+            this.bitter += taste.bitter;
+            this.sour += taste.sour;
+            this.umami += taste.umami;
+            this.spicy += taste.spicy;
+            this.tender += taste.tender;
             this.fat += taste.fat;
         }
     }

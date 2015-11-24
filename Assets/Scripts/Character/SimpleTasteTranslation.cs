@@ -10,9 +10,9 @@ class SimpleTasteTranslation : TasteToStats
     Character.stats TasteToStats.tasteToStats(Food food)
     {
         Character.stats statsToReturn = new Character.stats();
-        statsToReturn.maxHP += food.foodTaste.fat;
-        statsToReturn.attackSpeed += food.foodTaste.sweetness;
-        statsToReturn.movementSpeed += food.foodTaste.sweetness;
+        statsToReturn.maxHP += food.foodTaste.umami;
+        statsToReturn.attackSpeed += food.foodTaste.bitter;
+        statsToReturn.movementSpeed += food.foodTaste.bitter;
         return statsToReturn;
     }
 }

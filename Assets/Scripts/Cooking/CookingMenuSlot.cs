@@ -35,7 +35,7 @@ public class CookingMenuSlot : MonoBehaviour, IDropHandler
                 }
                 for (int i = 0; i < dragItems.Count; i++)
                 {
-                    GameObject.Destroy(dragItems[i].gameObject);
+                    Destroy(dragItems[i].gameObject);
                 }
                 items = new List<Food>();
                 itemsID = new List<int>();
@@ -47,9 +47,22 @@ public class CookingMenuSlot : MonoBehaviour, IDropHandler
                 resultingfood.transform.position = this.transform.position;
                 resultingfood.transform.SetParent(this.transform);
 
+                dragItems.Add(resultingfood.GetComponent<ItemDraggable>());
+                items.Add(craftedFood);
+                itemsID.Add(craftedFood.id);
+
                 Debug.Log("Crafted " + craftedFood.name);
-                Debug.Log("Crafted fat" + craftedFood.foodTaste.fat);
-                Debug.Log("Crafted sweetness" + craftedFood.foodTaste.sweetness);
+                Debug.Log("Crafted fat" + craftedFood.foodTaste.umami);
+                Debug.Log("Crafted sweetness" + craftedFood.foodTaste.bitter);
+            }
+            else
+            {
+                Debug.Log(((Food)dragItems[dragItems.Count - 1].getItem()).name);
+                Debug.Log(((Food)dragItems[dragItems.Count - 1].getItem()).foodTaste.fat);
+                ((Food)dragItems[dragItems.Count - 1].getItem()).foodTaste.complexTaste(((Food)droppedItem.getItem()).foodTaste);
+                Debug.Log(((Food)dragItems[dragItems.Count - 1].getItem()).name);
+                Debug.Log(((Food)dragItems[dragItems.Count - 1].getItem()).foodTaste.fat);
+                Destroy(droppedItem.gameObject);
             }
         }
 
