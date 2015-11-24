@@ -42,14 +42,14 @@ public class TopDownController : MonoBehaviour {
         {
             Debug.Log(" Inventory");
             inventoryMenu.SetActive(!inventoryMenu.activeSelf);
-            onAMenu = inventoryMenu.activeSelf || mealPlanMenu.activeSelf;
+            onAMenu = inventoryMenu.activeSelf || mealPlanMenu.activeSelf || cookingMenu.activeSelf;
         }
 
         if (Input.GetKeyDown(KeyCode.G))
         {
             Debug.Log(" mealPlan");
             mealPlanMenu.SetActive(!mealPlanMenu.activeSelf);
-            onAMenu = inventoryMenu.activeSelf || mealPlanMenu.activeSelf;
+            onAMenu = inventoryMenu.activeSelf || mealPlanMenu.activeSelf || cookingMenu.activeSelf;
         }
 
         if (Input.GetKeyDown(KeyCode.M))
@@ -61,7 +61,7 @@ public class TopDownController : MonoBehaviour {
         {
             Debug.Log("open cooking menu");
             cookingMenu.SetActive(!cookingMenu.activeSelf);
-            onAMenu = !onAMenu;
+            onAMenu = inventoryMenu.activeSelf || mealPlanMenu.activeSelf || cookingMenu.activeSelf;
         }
 
 	}

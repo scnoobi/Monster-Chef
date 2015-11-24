@@ -25,7 +25,13 @@ public class SpritesLoader : MonoBehaviour
 
     public Sprite getSpriteWithName( string name)
     {
-        return groundSprites[name];
+        try {
+            return groundSprites[name];
+        }catch(KeyNotFoundException e)
+        {
+            Debug.Log("sprite with name "+ name + "not found");
+            return null;
+        }
     }
 
     // Update is called once per frame

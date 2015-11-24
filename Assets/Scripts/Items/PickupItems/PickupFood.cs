@@ -22,18 +22,17 @@ public class PickupFood : PickupItem {
             food = (Food)itemDB.getItemByName(name);
             if (inventorySprite == null)
             {
-                Debug.Log("1");
-                inventorySprite = spriteLoader.getSpriteWithName(food.realName);
+                if(spriteLoader.getSpriteWithName(food.realName) != null)
+                    inventorySprite = spriteLoader.getSpriteWithName(food.realName);
             }
             if (gameObject.GetComponent<SpriteRenderer>().sprite == null)
             {
-                gameObject.GetComponent<SpriteRenderer>().sprite = spriteLoader.getSpriteWithName(food.realName);
-                Debug.Log("2");
+                if (spriteLoader.getSpriteWithName(food.realName) != null)
+                    gameObject.GetComponent<SpriteRenderer>().sprite = spriteLoader.getSpriteWithName(food.realName);
             }
             sizeX = food.sizeX;
             sizeY = food.sizeY;
         }
-        gameObject.GetComponent<SpriteRenderer>().sprite = spriteLoader.getSpriteWithName(food.realName);
     }
 
     public Food getFood()
@@ -49,11 +48,15 @@ public class PickupFood : PickupItem {
         this.name = realName;
         if (inventorySprite == null)
         {
-            Debug.Log("1");
-            inventorySprite = spriteLoader.getSpriteWithName(food.realName);
+            if (spriteLoader.getSpriteWithName(food.realName) != null)
+                inventorySprite = spriteLoader.getSpriteWithName(food.realName);
         }
-        gameObject.GetComponent<SpriteRenderer>().sprite = spriteLoader.getSpriteWithName(food.realName);
-        Debug.Log(spriteLoader.getSpriteWithName(food.realName));
+        if (gameObject.GetComponent<SpriteRenderer>().sprite == null)
+        {
+            if (spriteLoader.getSpriteWithName(food.realName) != null)
+                gameObject.GetComponent<SpriteRenderer>().sprite = spriteLoader.getSpriteWithName(food.realName);
+        }
+        Debug.Log(gameObject.GetComponent<SpriteRenderer>().sprite);
         sizeX = food.sizeX;
         sizeY = food.sizeY;
     }

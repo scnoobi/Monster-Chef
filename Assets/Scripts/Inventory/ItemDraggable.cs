@@ -18,6 +18,7 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private CanvasGroup canvasG;
     private float canvasScaleFactor;
     private Sprite groundSprite;
+    private SpritesLoader spriteLoader;
     
     public Sprite sprite;
 
@@ -25,17 +26,19 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         canvasG = GetComponent<CanvasGroup>();
         canvasScaleFactor = inventory.GetComponentInParent<Canvas>().scaleFactor;
+        spriteLoader = GameObject.Find("Loader").GetComponent<SpritesLoader>();
         if (groundSprite == null)
         {
-            Debug.Log("1");
-            groundSprite = Resources.Load<Sprite>("Sprites/Items/" + item.realName);
+            if (spriteLoader.getSpriteWithName(item.realName) != null)
+                groundSprite = spriteLoader.getSpriteWithName(item.realName);
         }
         if (GetComponent<Image>().sprite == null)
         {
-            GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Items/" + item.realName);
-            Debug.Log("2");
+            if (spriteLoader.getSpriteWithName(item.realName) != null)
+                GetComponent<Image>().sprite = spriteLoader.getSpriteWithName(item.realName);
         }
-        sprite = GetComponent<Image>().sprite;
+        this.sizeX = item.sizeX;
+        this.sizeY = item.sizeY;
     }
 
     public void Initialize(Inventory inv, Item item, int sizeX, int sizeY, Sprite groundSprite)
@@ -77,8 +80,8 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 transform.parent.GetComponent<MealPlanSlot>().occupied = false;
                 transform.parent.GetComponent<MealPlanSlot>().currentItem = null;
             }
-            if (transform.parent.tag.Equals("CookingMenu")) { 
-                
+            if (transform.parent.tag.Equals("CookingMenu")) {
+                transform.parent.GetComponent<CookingMenuSlot>().clean();
             }
             if (transform.parent.tag.Equals("Inventory"))
                 this.transform.SetParent(this.transform.parent.parent);
@@ -138,7 +141,6 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         }
         else //if is dropped outside an interface
         {
-            Debug.Log("if is dropped outside an interface");
             inventory.occupyGridWithItem(sizeX, sizeY, slotId, true, null);
             createPickup(Camera.main.ScreenToWorldPoint(eventData.position));
             Destroy(this.gameObject);
@@ -183,8 +185,8 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
            foodComp.setSizeY(sizeY);
            foodComp.inventorySprite = this.sprite;
            Food realFood = (Food)item;
-           foodComp.Initialize(realFood.realName, realFood.foodTaste, realFood.timeToCook, realFood.currentCookingMethod);
            pickUpToInstantiate.GetComponent<SpriteRenderer>().sprite = groundSprite;
+           foodComp.Initialize(realFood.realName, realFood.foodTaste, realFood.timeToCook, realFood.currentCookingMethod);
         }
     }
 

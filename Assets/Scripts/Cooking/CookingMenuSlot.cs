@@ -25,6 +25,7 @@ public class CookingMenuSlot : MonoBehaviour, IDropHandler
 
         if (items.Count >= 2)
         {
+            Debug.Log("derp");
             ComposedFood craftedFood = itemDb.getCraftedFood(itemsID);
             if (craftedFood != null)
             {
@@ -50,23 +51,22 @@ public class CookingMenuSlot : MonoBehaviour, IDropHandler
                 dragItems.Add(resultingfood.GetComponent<ItemDraggable>());
                 items.Add(craftedFood);
                 itemsID.Add(craftedFood.id);
-
-                Debug.Log("Crafted " + craftedFood.name);
-                Debug.Log("Crafted fat" + craftedFood.foodTaste.umami);
-                Debug.Log("Crafted sweetness" + craftedFood.foodTaste.bitter);
             }
             else
             {
-                Debug.Log(((Food)dragItems[dragItems.Count - 1].getItem()).name);
-                Debug.Log(((Food)dragItems[dragItems.Count - 1].getItem()).foodTaste.fat);
                 ((Food)dragItems[dragItems.Count - 1].getItem()).foodTaste.complexTaste(((Food)droppedItem.getItem()).foodTaste);
-                Debug.Log(((Food)dragItems[dragItems.Count - 1].getItem()).name);
-                Debug.Log(((Food)dragItems[dragItems.Count - 1].getItem()).foodTaste.fat);
                 Destroy(droppedItem.gameObject);
             }
         }
 
 
+    }
+
+    public void clean()
+    {
+        items = new List<Food>();
+        itemsID = new List<int>();
+        dragItems = new List<ItemDraggable>();
     }
 
     public void cookingTimer()

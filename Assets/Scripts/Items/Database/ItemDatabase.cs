@@ -91,8 +91,6 @@ public class ItemDatabase : MonoBehaviour {
                 break;
             }
         }
-        Debug.Log(name);
-        Debug.Log(item.name);
         return item;
     }
 }
