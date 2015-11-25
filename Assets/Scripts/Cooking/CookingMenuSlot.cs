@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class CookingMenuSlot : MonoBehaviour, IDropHandler
 {
@@ -11,6 +12,7 @@ public class CookingMenuSlot : MonoBehaviour, IDropHandler
     List<ItemDraggable> dragItems = new List<ItemDraggable>();
     List<Food> items = new List<Food>();
     List<int> itemsID = new List<int>();
+    private float startingTimer = -1;
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -23,9 +25,10 @@ public class CookingMenuSlot : MonoBehaviour, IDropHandler
         items.Add((Food)droppedItem.getItem());
         itemsID.Add(((Food)droppedItem.getItem()).id);
 
+        cookingTimer();
+
         if (items.Count >= 2)
         {
-            Debug.Log("derp");
             ComposedFood craftedFood = itemDb.getCraftedFood(itemsID);
             if (craftedFood != null)
             {
@@ -71,8 +74,17 @@ public class CookingMenuSlot : MonoBehaviour, IDropHandler
 
     public void cookingTimer()
     {
-
-
+        startingTimer = Time.time;
     }
 
+
+    public void Update()
+    {
+        if(startingTimer > 0)
+        {
+            float timingSinceStarted = Time.time - startingTimer;
+            timer.GetComponent<Image>().fillAmount = 0.01f + timingSinceStarted;
+        }
+
+    }
 }
