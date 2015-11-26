@@ -18,7 +18,7 @@ using UnityEngine;
             this.character = character;
         }
 
-        public void castAbility()
+        public override void castAbility()
         {
             GameObject.Instantiate(projectileToShoot);
         }

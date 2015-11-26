@@ -12,7 +12,7 @@ public class CookingMenuSlot : MonoBehaviour, IDropHandler
     List<ItemDraggable> dragItems = new List<ItemDraggable>();
     List<Food> items = new List<Food>();
     List<int> itemsID = new List<int>();
-    private float startingTimer = -1;
+    private bool cooking = false;
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -24,17 +24,37 @@ public class CookingMenuSlot : MonoBehaviour, IDropHandler
         dragItems.Add(droppedItem);
         items.Add((Food)droppedItem.getItem());
         itemsID.Add(((Food)droppedItem.getItem()).id);
+        startCooking();
+    }
 
-        cookingTimer();
+    public void clean()
+    {
+        items = new List<Food>();
+        itemsID = new List<int>();
+        dragItems = new List<ItemDraggable>();
+    }
 
+    public void startCooking()
+    {
+        if(!cooking)
+            cooking = true;
+        else
+        {
+            timer.GetComponent<Image>().fillAmount -= 0.4f;
+        }
+    }
+
+    public ComposedFood cook()
+    {
+        ComposedFood craftedFood = null;
         if (items.Count >= 2)
         {
-            ComposedFood craftedFood = itemDb.getCraftedFood(itemsID);
+            craftedFood = itemDb.getCraftedFood(itemsID);
             if (craftedFood != null)
             {
-                for(int i = 0; i < items.Count; i++)
+                for (int i = 0; i < items.Count; i++)
                 {
-                    Debug.Log("Ingredients are "+items[i].name);
+                    Debug.Log("Ingredients are " + items[i].name);
                     craftedFood.addFood(items[i]);
                 }
                 for (int i = 0; i < dragItems.Count; i++)
@@ -57,34 +77,24 @@ public class CookingMenuSlot : MonoBehaviour, IDropHandler
             }
             else
             {
-                ((Food)dragItems[dragItems.Count - 1].getItem()).foodTaste.complexTaste(((Food)droppedItem.getItem()).foodTaste);
-                Destroy(droppedItem.gameObject);
+                ((Food)dragItems[dragItems.Count - 1].getItem()).foodTaste.complexTaste(((Food)dragItems[dragItems.Count-1].getItem()).foodTaste);
+                Destroy(dragItems[dragItems.Count - 1].gameObject);
             }
         }
-
-
+        return craftedFood;
     }
-
-    public void clean()
-    {
-        items = new List<Food>();
-        itemsID = new List<int>();
-        dragItems = new List<ItemDraggable>();
-    }
-
-    public void cookingTimer()
-    {
-        startingTimer = Time.time;
-    }
-
 
     public void Update()
     {
-        if(startingTimer > 0)
+        if (cooking)
         {
-            float timingSinceStarted = Time.time - startingTimer;
-            timer.GetComponent<Image>().fillAmount = 0.01f + timingSinceStarted;
+            timer.GetComponent<Image>().fillAmount += .5f * Time.deltaTime;
+            if (timer.GetComponent<Image>().fillAmount == 1)
+            {
+                cook();
+                cooking = false;
+                timer.GetComponent<Image>().fillAmount = 0;
+            }
         }
-
     }
 }
