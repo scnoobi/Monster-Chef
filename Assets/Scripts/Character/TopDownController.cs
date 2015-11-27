@@ -14,9 +14,11 @@ public class TopDownController : MonoBehaviour {
 
     private Rigidbody2D myRig;
     private Inventory inv;
+    private Character character;
 
     void Start()
     {
+        character = GetComponent<Character>();
         myRig = GetComponent<Rigidbody2D>(); 
         inv = inventoryMenu.GetComponent<Inventory>(); 
 	}
@@ -64,7 +66,17 @@ public class TopDownController : MonoBehaviour {
             onAMenu = inventoryMenu.activeSelf || mealPlanMenu.activeSelf || cookingMenu.activeSelf;
         }
 
-	}
+        for (int i = 0; i < 10; ++i)
+        {
+            if (Input.GetKeyDown((KeyCode)48+i)){
+                i = (i - 1) % 9;
+                if (i < 0) i = 9;
+                character.castCorrectAbility(i);
+            }
+        }
+
+
+    }
 
     void FixedUpdate()
     {

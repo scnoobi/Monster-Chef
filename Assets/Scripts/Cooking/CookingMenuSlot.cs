@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System;
 
 public class CookingMenuSlot : MonoBehaviour, IDropHandler
 {
@@ -13,6 +14,9 @@ public class CookingMenuSlot : MonoBehaviour, IDropHandler
     List<Food> items = new List<Food>();
     List<int> itemsID = new List<int>();
     private bool cooking = false;
+    public const float MEDIUM = 1/2;
+    public const float WELL_DONE = 3/4;
+    public const float BURNT = 9/10;
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -82,6 +86,25 @@ public class CookingMenuSlot : MonoBehaviour, IDropHandler
             }
         }
         return craftedFood;
+    }
+
+    public void FinishCooking()
+    {
+        float time = timer.GetComponent<Image>().fillAmount;
+
+        if(time < MEDIUM) { //mal passado
+
+        }else if(time < WELL_DONE) { //ponto
+
+        }else if(time < BURNT) //bem passado
+        {
+
+        }
+        else //queimado
+        {
+
+        }
+        throw new NotImplementedException();
     }
 
     public void Update()

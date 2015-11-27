@@ -28,9 +28,24 @@ public class Character : MonoBehaviour {
     public stats characterStats;
     TasteToStats tasteTranslater;
     TopDownController controller;
+    List<Ability> charAbilities;
+    List<Ability> foodAbilities;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
+        charAbilities = new List<Ability>();
+        foodAbilities = new List<Ability>();
+
+        Ability[] abilitiesOfCharacter;
+        if (GetComponents<Ability>() != null)
+            abilitiesOfCharacter = GetComponents<Ability>();
+        else
+            abilitiesOfCharacter = new Ability[0];
+
+        for (int i = 0; i < abilitiesOfCharacter.Length; i++)
+            charAbilities.Add(abilitiesOfCharacter[i]);
+           
+
         tasteTranslater = new SimpleTasteTranslation();
         controller = GetComponent<TopDownController>();
         controller.setMaxSpeed(characterStats.movementSpeed);
@@ -40,6 +55,21 @@ public class Character : MonoBehaviour {
         for(int i=0; i< mealPlan.Count; i++ ){
             characterStats.FuseStats(tasteTranslater.tasteToStats(mealPlan[i]));
         }
+    }
+
+    public void castCorrectAbility(int index)
+    {
+        Ability castAbility = null;
+        if(index < charAbilities.Count)
+        {
+            castAbility = charAbilities[index];
+        }
+        else if(index < foodAbilities.Count)
+        {
+            castAbility = foodAbilities[index];
+        }
+
+        castAbility.castAbility();
     }
 
 }
