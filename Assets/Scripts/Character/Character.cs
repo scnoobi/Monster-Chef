@@ -36,22 +36,24 @@ public class Character : MonoBehaviour {
         charAbilities = new List<Ability>();
         foodAbilities = new List<Ability>();
 
-        Ability[] abilitiesOfCharacter;
-        if (GetComponents<Ability>() != null)
-            abilitiesOfCharacter = GetComponents<Ability>();
-        else
-            abilitiesOfCharacter = new Ability[0];
-
-        for (int i = 0; i < abilitiesOfCharacter.Length; i++)
-            charAbilities.Add(abilitiesOfCharacter[i]);
-           
+        addCharAbilities(new ShootAbility(1, "Ice_Ball")); //TODO: change character costumization to a json file
 
         tasteTranslater = new SimpleTasteTranslation();
         controller = GetComponent<TopDownController>();
         controller.setMaxSpeed(characterStats.movementSpeed);
 	}
 	
-   public void ConsumeMeals(List<Food> mealPlan) { 
+   public void addCharAbilities(Ability charAbility)
+    {
+        charAbilities.Add(charAbility);
+    }
+
+    public void addFoodAbilities(Ability charAbility)
+    {
+        foodAbilities.Add(charAbility);
+    }
+
+    public void ConsumeMeals(List<Food> mealPlan) { 
         for(int i=0; i< mealPlan.Count; i++ ){
             characterStats.FuseStats(tasteTranslater.tasteToStats(mealPlan[i]));
         }
@@ -68,8 +70,8 @@ public class Character : MonoBehaviour {
         {
             castAbility = foodAbilities[index];
         }
-
-        castAbility.castAbility();
+        if(castAbility != null)
+            castAbility.castAbility();
     }
 
 }

@@ -72,9 +72,9 @@ public class TopDownController : MonoBehaviour {
                 i = (i - 1) % 9;
                 if (i < 0) i = 9;
                 character.castCorrectAbility(i);
+                break;
             }
         }
-
 
     }
 
