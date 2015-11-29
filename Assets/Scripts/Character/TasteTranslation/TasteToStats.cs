@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-interface TasteToStats
+public interface TasteToStats
 {
-    Character.stats tasteToStats(Food food);
+    Character.Stats tasteToStats(Food food);
 }
 

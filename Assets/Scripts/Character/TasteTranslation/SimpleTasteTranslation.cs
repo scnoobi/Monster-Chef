@@ -7,9 +7,9 @@ using System.Text;
 class SimpleTasteTranslation : TasteToStats
 {
 
-    Character.stats TasteToStats.tasteToStats(Food food)
+    Character.Stats TasteToStats.tasteToStats(Food food)
     {
-        Character.stats statsToReturn = new Character.stats();
+        Character.Stats statsToReturn = new Character.Stats();
         statsToReturn.maxHP += food.foodTaste.umami;
         statsToReturn.attackSpeed += food.foodTaste.bitter;
         statsToReturn.movementSpeed += food.foodTaste.bitter;

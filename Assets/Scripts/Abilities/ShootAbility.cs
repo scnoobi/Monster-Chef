@@ -37,7 +37,7 @@ public class ShootAbility : Ability
         this.character = character;
     }
 
-    public override void castAbility()
+    public void castAbility()
     {
         for(int i = 0; i < numberOfProjectiles; i++)
             UnityEngine.Object.Instantiate(projectileToShoot);

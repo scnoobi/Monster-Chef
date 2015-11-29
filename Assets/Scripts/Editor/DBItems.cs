@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using System.IO;
 using UnityEditorInternal;
 
-public class DBWindow : EditorWindow {
+public class DBItems : EditorWindow {
 
     MonoScript itemScript;
     BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
@@ -35,8 +35,8 @@ public class DBWindow : EditorWindow {
     // Add menu named "My Window" to the Window menu
     [MenuItem ("Window/ItemDB")]
 	static void Init () {
-		// Get existing open window or if none, make a new one:
-        DBWindow window = (DBWindow)EditorWindow.GetWindow(typeof(DBWindow));
+        // Get existing open window or if none, make a new one:
+        DBItems window = (DBItems)EditorWindow.GetWindow(typeof(DBItems));
 		window.Show();
 	}
 

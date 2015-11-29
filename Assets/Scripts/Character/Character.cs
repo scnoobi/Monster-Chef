@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Character {
 
     [System.Serializable]
-    public struct stats
+    public struct Stats
     {
         public float maxHP;
         public float currHP;
@@ -14,7 +14,7 @@ public class Character {
         public float attackSpeed;
         public float movementSpeed;
 
-        public void FuseStats(stats statsToAdd)
+        public void FuseStats(Stats statsToAdd)
         {
             this.maxHP += statsToAdd.maxHP;
             this.currHP += statsToAdd.currHP;
@@ -26,7 +26,7 @@ public class Character {
     }
 
     public string name;
-    public stats characterStats;
+    public Stats characterStats;
     TasteToStats tasteTranslater;
     TopDownController controller;
     List<int> charAbilitiesIndex;
@@ -37,14 +37,18 @@ public class Character {
     public Character() {
         charAbilities = new List<Ability>();
         foodAbilities = new List<Ability>();
+	}
+	
+    public void Initialize()
+    {
         AbilityDatabase abDB = GameObject.Find("Databases").GetComponent<AbilityDatabase>();
-        
-        for(int i = 0; i < charAbilitiesIndex.Count; i++)
+
+        for (int i = 0; i < charAbilitiesIndex.Count; i++)
             addCharAbilities(abDB.getAbilityById(charAbilitiesIndex[i]));
 
         tasteTranslater = new SimpleTasteTranslation();
-	}
-	
+    }
+
 
     public void setController(TopDownController controller)
     {

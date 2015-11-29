@@ -66,7 +66,7 @@ public class DBAbilitiesWindow : EditorWindow {
                 fileNames.Add(fileInfo[i].Name);
             }
         }
-        chosenScript = EditorGUILayout.Popup("Ability:",chosenScript, fileNames.ToArray());
+        chosenScript = EditorGUILayout.Popup("TasteTranslation:",chosenScript, fileNames.ToArray());
         abilityScript = AssetDatabase.LoadAssetAtPath<MonoScript>("Assets/Scripts/Abilities/"+ fileNames[chosenScript]);
         targetType = abilityScript.GetClass();
         if (tempAbility == null)
@@ -74,20 +74,14 @@ public class DBAbilitiesWindow : EditorWindow {
             tempAbility = (Ability)Activator.CreateInstance(targetType);
         }
         EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-
+        EditorGUILayout.LabelField("id: ", database.Count.ToString());
         foreach (FieldInfo info in targetType.GetFields(flags))
         {
             Type fieldType = info.FieldType;
             if (fieldType == typeof(int))
             {
-                if (info.Name.Equals("id")) {
-                    info.SetValue(tempAbility, database.Count);
-                    EditorGUILayout.LabelField(info.Name, database.Count.ToString());
-                }
-                else
-                {
-                    info.SetValue(tempAbility, EditorGUILayout.IntField(info.Name, (int)info.GetValue(tempAbility)));
-                }
+                info.SetValue(tempAbility, EditorGUILayout.IntField(info.Name, (int)info.GetValue(tempAbility)));
+
             }else if(fieldType == typeof(string))
             {
                 info.SetValue(tempAbility, EditorGUILayout.TextField(info.Name, (string)info.GetValue(tempAbility)));
