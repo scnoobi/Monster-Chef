@@ -1,0 +1,8 @@
+[
+  {
+    "$type": "ShootAbility, Assembly-CSharp",
+    "numberOfProjectiles": 2,
+    "projectileName": "Ice_Ball",
+    "id": 0
+  }
+]

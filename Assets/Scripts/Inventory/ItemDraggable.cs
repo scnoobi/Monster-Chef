@@ -39,6 +39,7 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         }
         this.sizeX = item.sizeX;
         this.sizeY = item.sizeY;
+        transform.localScale = new Vector3(sizeX, sizeY, 0);
     }
 
     public void Initialize(Inventory inv, Item item, int sizeX, int sizeY, Sprite groundSprite)

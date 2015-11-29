@@ -86,11 +86,33 @@ public class DBAbilitiesWindow : EditorWindow {
                 }
                 else
                 {
-                    info.SetValue(tempAbility, database.Count);
-                    EditorGUILayout.IntField(info.Name, (int)info.GetValue(tempAbility));
+                    info.SetValue(tempAbility, EditorGUILayout.IntField(info.Name, (int)info.GetValue(tempAbility)));
                 }
+            }else if(fieldType == typeof(string))
+            {
+                info.SetValue(tempAbility, EditorGUILayout.TextField(info.Name, (string)info.GetValue(tempAbility)));
             }
         }
+
         EditorGUILayout.EndVertical();
+
+        if (GUILayout.Button("submit"))
+        {
+            textWriter = new StreamWriter(Application.dataPath + itemFileName);
+            jsonWriter = new JsonTextWriter(textWriter);
+            database.Add(tempAbility);
+            String text = JsonConvert.SerializeObject(database, Formatting.Indented, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Objects,
+                TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
+            });
+            textWriter.Write(text);
+
+            textWriter.Close();
+            textWriter.Dispose();
+            jsonWriter.Close();
+
+            tempAbility = null;
+        }
     }
 }

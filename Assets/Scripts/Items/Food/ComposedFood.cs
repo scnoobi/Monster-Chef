@@ -6,6 +6,8 @@ public class ComposedFood : Food
 {
     List<Food> foodParts;
     Ability foodAbility;
+    public const float WEAKNED_TASTE = .75f;
+    public const float STRENGHNED_TASTE = 1.25f;
 
     [System.Serializable]
     public struct recipe
@@ -39,5 +41,15 @@ public class ComposedFood : Food
     public void addFood(Food part){
         foodParts.Add(part);
         foodTaste.complexTaste(part.foodTaste);
+    }
+
+    public void weakenTaste()
+    {
+        foodTaste.complexTaste(WEAKNED_TASTE);
+    }
+
+    public void strenghtenTaste()
+    {
+        foodTaste.complexTaste(STRENGHNED_TASTE);
     }
 }

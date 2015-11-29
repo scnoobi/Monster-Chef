@@ -7,7 +7,7 @@ public class Accompaniment : Ingredient {
     {
     }
 
-    public Accompaniment(string name, taste foodTaste, float timeToCook, cookingType currentCookingType)
+    public Accompaniment(string name, Taste foodTaste, float timeToCook, cookingType currentCookingType)
     {
         this.name = name;
         this.foodTaste = foodTaste;

@@ -18,7 +18,7 @@ public class PickupFood : PickupItem {
         if (food == null)
         {
             spriteLoader = GameObject.Find("Loader").GetComponent<SpritesLoader>();
-            itemDB = GameObject.Find("itemDB").GetComponent<ItemDatabase>();
+            itemDB = GameObject.Find("Databases").GetComponent<ItemDatabase>();
             food = (Food)itemDB.getItemByName(name);
             if (inventorySprite == null)
             {
@@ -40,10 +40,10 @@ public class PickupFood : PickupItem {
         return food;
     }
 
-    public void Initialize(string realName, Food.taste foodTaste, float timeToCook, Food.cookingType currentCookingType)
+    public void Initialize(string realName, Food.Taste foodTaste, float timeToCook, Food.cookingType currentCookingType)
    {
         spriteLoader = GameObject.Find("Loader").GetComponent<SpritesLoader>();
-        itemDB = GameObject.Find("itemDB").GetComponent<ItemDatabase>();
+        itemDB = GameObject.Find("Databases").GetComponent<ItemDatabase>();
         food = (Food)itemDB.getItemByName(realName);
         this.name = realName;
         if (inventorySprite == null)

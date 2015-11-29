@@ -10,7 +10,7 @@ public class MainIngredient : Ingredient{
         this.typeOfItem = itemType.food;
     }
 
-    public MainIngredient(string name, taste foodTaste, float timeToCook, cookingType currentCookingType) {
+    public MainIngredient(string name, Taste foodTaste, float timeToCook, cookingType currentCookingType) {
         this.name = name;
         this.foodTaste = foodTaste;
         this.timeToCook = timeToCook;

@@ -25,6 +25,7 @@ public class Character : MonoBehaviour {
         }
     }
 
+    public string name;
     public stats characterStats;
     TasteToStats tasteTranslater;
     TopDownController controller;
@@ -35,8 +36,10 @@ public class Character : MonoBehaviour {
     void Start () {
         charAbilities = new List<Ability>();
         foodAbilities = new List<Ability>();
+        AbilityDatabase abDB = GameObject.Find("Databases").GetComponent<AbilityDatabase>();
+        
 
-        addCharAbilities(new ShootAbility(1, "Ice_Ball")); //TODO: change character costumization to a json file
+        addCharAbilities(abDB.getAbilityById(0)); //TODO: change character costumization to a json file
 
         tasteTranslater = new SimpleTasteTranslation();
         controller = GetComponent<TopDownController>();

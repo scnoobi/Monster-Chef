@@ -160,8 +160,8 @@ public class DBWindow : EditorWindow {
             {
                 EditorGUILayout.Space();
                 EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-                if (fieldType == typeof(Food.taste))
-                    tempStruct = new Food.taste();
+                if (fieldType == typeof(Food.Taste))
+                    tempStruct = new Food.Taste();
                     
                 foreach (FieldInfo infoInStruct in fieldType.GetFields(flags))
                 {
@@ -173,9 +173,9 @@ public class DBWindow : EditorWindow {
                     }
                 }
 
-                if (fieldType == typeof(Food.taste))
+                if (fieldType == typeof(Food.Taste))
                 {
-                    info.SetValue(tempItem, (Food.taste)tempStruct);
+                    info.SetValue(tempItem, (Food.Taste)tempStruct);
                 }
                 EditorGUILayout.EndVertical();
                 EditorGUILayout.Space();

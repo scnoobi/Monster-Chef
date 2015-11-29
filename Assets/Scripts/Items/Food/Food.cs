@@ -6,7 +6,7 @@ using Newtonsoft.Json.Converters;
 public abstract class Food : Item {
 
     [System.Serializable]
-    public struct taste
+    public struct Taste
     {
         public int salt;
         public int sweet;
@@ -17,7 +17,7 @@ public abstract class Food : Item {
         public int tender;
         public int fat;
 
-        public taste(int slt, int sweet, int bitter, int sour, int umami, int spicy, int tender, int fat) {
+        public Taste(int slt, int sweet, int bitter, int sour, int umami, int spicy, int tender, int fat) {
             this.salt = slt;
             this.sweet = sweet;
             this.bitter = bitter;
@@ -28,7 +28,7 @@ public abstract class Food : Item {
             this.fat = fat;
         }
 
-        public void complexTaste(taste taste){
+        public void complexTaste(Taste taste){
             this.salt += taste.salt;
             this.sweet += taste.sweet;
             this.bitter += taste.bitter;
@@ -37,6 +37,18 @@ public abstract class Food : Item {
             this.spicy += taste.spicy;
             this.tender += taste.tender;
             this.fat += taste.fat;
+        }
+
+        public void complexTaste(float percentage)
+        {
+            salt = (int)(percentage * salt);
+            sweet = (int)(percentage * sweet);
+            bitter = (int)(percentage * bitter);
+            sour = (int)(percentage * sour);
+            umami = (int)(percentage * umami);
+            spicy = (int)(percentage * spicy);
+            tender = (int)(percentage * tender);
+            fat = (int)(percentage * fat);
         }
     }
 
@@ -50,7 +62,7 @@ public abstract class Food : Item {
     public TypeOfFood typeOfFood;
      * */
 
-    public taste foodTaste;
+    public Taste foodTaste;
 
     void cook(cookingType typeOfCooking, float time) {
         switch (typeOfCooking) {
