@@ -18,7 +18,9 @@ public class TopDownController : MonoBehaviour {
 
     void Start()
     {
-        character = GetComponent<Character>();
+        CharacterDatabase charDB = GameObject.Find("Databases").GetComponent<CharacterDatabase>();
+        character = charDB.getCharacterById(0);
+        character.setController(this);
         myRig = GetComponent<Rigidbody2D>(); 
         inv = inventoryMenu.GetComponent<Inventory>(); 
 	}

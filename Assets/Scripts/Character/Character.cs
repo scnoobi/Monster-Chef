@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Character : MonoBehaviour {
+public class Character {
 
     [System.Serializable]
     public struct stats
@@ -29,24 +29,30 @@ public class Character : MonoBehaviour {
     public stats characterStats;
     TasteToStats tasteTranslater;
     TopDownController controller;
+    List<int> charAbilitiesIndex;
     List<Ability> charAbilities;
     List<Ability> foodAbilities;
 
     // Use this for initialization
-    void Start () {
+    public Character() {
         charAbilities = new List<Ability>();
         foodAbilities = new List<Ability>();
         AbilityDatabase abDB = GameObject.Find("Databases").GetComponent<AbilityDatabase>();
         
-
-        addCharAbilities(abDB.getAbilityById(0)); //TODO: change character costumization to a json file
+        for(int i = 0; i < charAbilitiesIndex.Count; i++)
+            addCharAbilities(abDB.getAbilityById(charAbilitiesIndex[i]));
 
         tasteTranslater = new SimpleTasteTranslation();
-        controller = GetComponent<TopDownController>();
-        controller.setMaxSpeed(characterStats.movementSpeed);
 	}
 	
-   public void addCharAbilities(Ability charAbility)
+
+    public void setController(TopDownController controller)
+    {
+        this.controller = controller;
+        this.controller.setMaxSpeed(characterStats.movementSpeed);
+    }
+
+    public void addCharAbilities(Ability charAbility)
     {
         charAbilities.Add(charAbility);
     }
