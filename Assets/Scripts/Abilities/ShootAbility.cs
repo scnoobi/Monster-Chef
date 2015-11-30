@@ -38,8 +38,10 @@ public class ShootAbility : Ability
 
     public void castAbility()
     {
-        for(int i = 0; i < numberOfProjectiles; i++)
-            UnityEngine.Object.Instantiate(projectileToShoot);
+        if(character == null)
+            setCharacter(GameObject.FindGameObjectWithTag("Player").transform);
+        for (int i = 0; i < numberOfProjectiles; i++)
+            UnityEngine.Object.Instantiate(projectileToShoot, character.position, character.rotation);
     }
 }
 

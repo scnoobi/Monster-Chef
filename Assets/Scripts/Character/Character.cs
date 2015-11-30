@@ -33,6 +33,7 @@ public class Character {
     TopDownController controller;
     List<Ability> charAbilities;
     List<Ability> foodAbilities;
+    AbilityDatabase abDB;
 
     // Use this for initialization
     public Character() {
@@ -42,7 +43,7 @@ public class Character {
 	
     public void Initialize()
     {
-        AbilityDatabase abDB = GameObject.Find("Databases").GetComponent<AbilityDatabase>();
+        abDB = GameObject.Find("Databases").GetComponent<AbilityDatabase>();
 
         for (int i = 0; i < charAbilitiesIndex.Count; i++)
             addCharAbilities(abDB.getAbilityById(charAbilitiesIndex[i]));
@@ -62,14 +63,16 @@ public class Character {
         charAbilities.Add(charAbility);
     }
 
-    public void addFoodAbilities(Ability charAbility)
+    public void addFoodAbilities(Ability foodAbility)
     {
-        foodAbilities.Add(charAbility);
+        foodAbilities.Add(foodAbility);
     }
 
     public void ConsumeMeals(List<Food> mealPlan) { 
         for(int i=0; i< mealPlan.Count; i++ ){
             characterStats.FuseStats(tasteTranslater.tasteToStats(mealPlan[i]));
+            if(mealPlan.GetType() == typeof(ComposedFood))
+                addFoodAbilities(abDB.getAbilityById(((ComposedFood)mealPlan[i]).getAbility()));
         }
     }
 
