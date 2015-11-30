@@ -20,12 +20,15 @@ public class TopDownController : MonoBehaviour {
     {
         CharacterDatabase charDB = GameObject.Find("Databases").GetComponent<CharacterDatabase>();
         character = charDB.getCharacterById(0);
+        character.Initialize();
         character.setController(this);
         myRig = GetComponent<Rigidbody2D>(); 
         inv = inventoryMenu.GetComponent<Inventory>(); 
 	}
 
     public void setMaxSpeed(float maxSpeed) { this.maxSpeed = maxSpeed; }
+
+    public Character getCharacter() { return character; }
 
 	// Update is called once per frame
 	void Update () {

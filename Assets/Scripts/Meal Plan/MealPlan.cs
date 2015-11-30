@@ -9,7 +9,7 @@ public class MealPlan : MonoBehaviour {
     List<MealPlanSlot> slots = new List<MealPlanSlot>();
     int numberOfMeals = 3; //will depend on the character
     public GameObject inventoryObj;
-    public Character character;
+    Character character;
 
 	void Start () {
         for (int i = 0; i < numberOfMeals; i++)
@@ -20,7 +20,8 @@ public class MealPlan : MonoBehaviour {
             slot.transform.SetParent(this.transform);
             slot.transform.localScale = this.transform.localScale;
         }
-	}
+        character = GameObject.FindGameObjectWithTag("Player").GetComponent<TopDownController>().getCharacter();
+    }
 
 
    public void ConsumeMealPlan() {

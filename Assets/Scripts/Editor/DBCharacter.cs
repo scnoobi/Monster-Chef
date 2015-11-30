@@ -81,7 +81,7 @@ public class DBCharacter : EditorWindow
                 };
         }
         reorderableList.DoLayoutList();
-
+        
         foreach (FieldInfo info in targetType.GetFields(flags))
         {
             Type fieldType = info.FieldType;
@@ -89,16 +89,9 @@ public class DBCharacter : EditorWindow
             {
                 info.SetValue(tempChar, EditorGUILayout.IntField(info.Name, (int)info.GetValue(tempChar)));
             }
-            else if (fieldType.IsEnum)
-            {
-                if (info.GetValue(tempChar) == null)
-                    info.SetValue(tempChar, Activator.CreateInstance(fieldType));
-                info.SetValue(tempChar, EditorGUILayout.EnumPopup(info.Name, (Enum)info.GetValue(tempChar)));
-            }
             else if (fieldType == typeof(string))
             {
-                string name = (string)info.GetValue(tempChar);
-                info.SetValue(tempChar, EditorGUILayout.TextField(info.Name, name));
+                info.SetValue(tempChar, EditorGUILayout.TextField(info.Name, (string)info.GetValue(tempChar)));
             }
             else if (fieldType == typeof(float))
             {
@@ -141,15 +134,16 @@ public class DBCharacter : EditorWindow
                     }
                 }
                 tasteToStats = EditorGUILayout.Popup("Ability:", tasteToStats, fileNames.ToArray());
+                MonoScript derp = AssetDatabase.LoadAssetAtPath<MonoScript>("Assets/Scripts/Character/TasteTranslation/"+ fileNames[tasteToStats]);
+                info.SetValue(tempChar, Activator.CreateInstance(derp.GetClass()));
+            }
+            else if (fieldType == typeof(List<int>))
+            {
+                info.SetValue(tempChar, charAbilities);
             }
 
-
-
-
-
-
         }
-
+        
 
         EditorGUILayout.EndVertical();
 
@@ -169,8 +163,10 @@ public class DBCharacter : EditorWindow
             textWriter.Dispose();
             jsonWriter.Close();
 
-            tempChar = null;
-
+            tempChar = new Character();
+            tempStruct = null;
+            reorderableList = null;
+            charAbilities = new List<int>();
         }
     }
 }

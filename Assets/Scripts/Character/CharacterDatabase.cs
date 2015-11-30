@@ -24,6 +24,7 @@ class CharacterDatabase : MonoBehaviour
         {
             TypeNameHandling = TypeNameHandling.Objects
         });
+
         if (database == null)
             database = new List<Character>();
 

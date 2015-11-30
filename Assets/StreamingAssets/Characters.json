@@ -1,0 +1,21 @@
+[
+  {
+    "$type": "Character, Assembly-CSharp",
+    "name": "knight",
+    "characterStats": {
+      "$type": "Character+Stats, Assembly-CSharp",
+      "maxHP": 1.0,
+      "currHP": 2.0,
+      "maxHunger": 3.0,
+      "currHunger": 4.0,
+      "attackSpeed": 5.0,
+      "movementSpeed": 6.0
+    },
+    "tasteTranslater": {
+      "$type": "SimpleTasteTranslation, Assembly-CSharp"
+    },
+    "charAbilitiesIndex": [
+      0
+    ]
+  }
+]

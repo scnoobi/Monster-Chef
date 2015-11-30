@@ -15,7 +15,6 @@ public class ShootAbility : Ability
     private const string PATH_TO_PROJECTILES = "GameObject/Projectiles/";
 
     public ShootAbility() {
-        Debug.Log(PATH_TO_PROJECTILES + projectileName);
         projectileToShoot = (GameObject)Resources.Load<GameObject>(PATH_TO_PROJECTILES + projectileName);
     }
 

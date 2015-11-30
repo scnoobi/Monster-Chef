@@ -27,9 +27,10 @@ public class Character {
 
     public string name;
     public Stats characterStats;
-    TasteToStats tasteTranslater;
+    public TasteToStats tasteTranslater;
+    public List<int> charAbilitiesIndex;
+
     TopDownController controller;
-    List<int> charAbilitiesIndex;
     List<Ability> charAbilities;
     List<Ability> foodAbilities;
 

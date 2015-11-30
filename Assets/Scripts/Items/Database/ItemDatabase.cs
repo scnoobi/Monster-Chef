@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System.IO;
 
 public class ItemDatabase : MonoBehaviour {
+
     private List<Item> database;
     List<ComposedFood.recipe> recipes;
     private JsonSerializer jsonSerializer;
