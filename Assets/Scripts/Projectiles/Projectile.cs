@@ -3,23 +3,29 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour {
 
-    Vector3 originPos;
+    ProjectileMovement projectileMovement;
+    public Transform shooter;
 
-	// Use this for initialization
-	void Start () {
-        originPos = transform.position;
+    // Use this for initialization
+    void Start () {
+        projectileMovement = new Orbital(shooter, this);
     }
 	
 	// Update is called once per frame
 	void Update () {
-	    if(transform.position.y == originPos.y)
+        projectileMovement.MoveProjectile();
+    }
+
+    public void Activate()
+    {
+        Destroy(this.gameObject);
+    }
+
+    void OnTriggerEnter2D(Collider2D collided)
+    {
+         if(collided.transform != shooter && !collided.tag.Equals("PickUp"))
         {
             Activate();
         }
-	}
-
-    void Activate()
-    {
-
     }
 }

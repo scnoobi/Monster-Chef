@@ -1,10 +1,11 @@
 ﻿using System;
-using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
-public interface Ability
+abstract class PatternManager
 {
-   void castAbility(Transform caster);
+
+
 }

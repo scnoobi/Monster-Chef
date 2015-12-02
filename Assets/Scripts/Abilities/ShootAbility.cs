@@ -11,9 +11,10 @@ public class ShootAbility : Ability
     public string projectileName;
 
     GameObject projectileToShoot;
-    Transform character;
     private const string PATH_TO_PROJECTILES = "GameObject/Projectiles/";
+    PatternManager patternManager;
 
+    #region constructors
     public ShootAbility() {
         projectileToShoot = (GameObject)Resources.Load<GameObject>(PATH_TO_PROJECTILES + projectileName);
     }
@@ -31,17 +32,15 @@ public class ShootAbility : Ability
         numberOfProjectiles = nProjectiles;
         projectileToShoot = (GameObject)Resources.Load<GameObject>(PATH_TO_PROJECTILES + projectileName);
     }
+    #endregion
 
-    public void setCharacter(Transform character) {
-        this.character = character;
-    }
-
-    public void castAbility()
+    public void castAbility(Transform caster)
     {
-        if(character == null)
-            setCharacter(GameObject.FindGameObjectWithTag("Player").transform);
         for (int i = 0; i < numberOfProjectiles; i++)
-            UnityEngine.Object.Instantiate(projectileToShoot, character.position, character.rotation);
+        {
+            GameObject bullet = (GameObject)UnityEngine.Object.Instantiate(projectileToShoot, caster.position, caster.rotation);
+            bullet.GetComponent<Projectile>().shooter = caster;
+        }
     }
 }
 

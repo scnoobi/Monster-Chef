@@ -97,7 +97,7 @@ public class DBCharacter : EditorWindow
             {
                 info.SetValue(tempChar, EditorGUILayout.FloatField(info.Name, (float)info.GetValue(tempChar)));
             }
-            else if (fieldType.IsValueType && !fieldType.IsPrimitive) //struct
+            else if (fieldType == typeof(Character.Stats)) //struct
             {
                 EditorGUILayout.Space();
                 EditorGUILayout.BeginVertical(EditorStyles.helpBox);

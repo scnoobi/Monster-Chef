@@ -5,23 +5,23 @@ using System.Collections.Generic;
 public class Character {
 
     [System.Serializable]
-    public struct Stats
+    public class Stats
     {
-        public float maxHP;
-        public float currHP;
-        public float maxHunger;
-        public float currHunger;
-        public float attackSpeed;
-        public float movementSpeed;
+        public float MaxHP { get; set; }
+        public float CurrHP { get; set; }
+        public float MaxHunger { get; set; }
+        public float CurrHunger { get; set; }
+        public float AttackSpeed { get; set; }
+        public float MovementSpeed { get; set; }
 
         public void FuseStats(Stats statsToAdd)
         {
-            this.maxHP += statsToAdd.maxHP;
-            this.currHP += statsToAdd.currHP;
-            this.maxHunger += statsToAdd.maxHunger;
-            this.currHunger += statsToAdd.currHunger;
-            this.attackSpeed += statsToAdd.attackSpeed;
-            this.movementSpeed += statsToAdd.movementSpeed;
+            MaxHP += statsToAdd.MaxHP;
+            CurrHP += statsToAdd.CurrHP;
+            MaxHunger += statsToAdd.MaxHunger;
+            CurrHunger += statsToAdd.CurrHunger;
+            AttackSpeed += statsToAdd.AttackSpeed;
+            MovementSpeed += statsToAdd.MovementSpeed;
         }
     }
 
@@ -34,17 +34,20 @@ public class Character {
     List<Ability> charAbilities;
     List<Ability> foodAbilities;
     AbilityDatabase abDB;
+    SkillMenu skillMenu;
 
     // Use this for initialization
     public Character() {
         charAbilities = new List<Ability>();
         foodAbilities = new List<Ability>();
+        skillMenu = GameObject.Find("Food Skills").GetComponent<SkillMenu>();
 	}
 	
     public void Initialize()
     {
         abDB = GameObject.Find("Databases").GetComponent<AbilityDatabase>();
 
+        
         for (int i = 0; i < charAbilitiesIndex.Count; i++)
             addCharAbilities(abDB.getAbilityById(charAbilitiesIndex[i]));
 
@@ -55,7 +58,7 @@ public class Character {
     public void setController(TopDownController controller)
     {
         this.controller = controller;
-        this.controller.setMaxSpeed(characterStats.movementSpeed);
+        this.controller.setMaxSpeed(characterStats.MovementSpeed);
     }
 
     public void addCharAbilities(Ability charAbility)
@@ -68,11 +71,20 @@ public class Character {
         foodAbilities.Add(foodAbility);
     }
 
-    public void ConsumeMeals(List<Food> mealPlan) { 
-        for(int i=0; i< mealPlan.Count; i++ ){
+    public List<Ability> getFoodAbilities()
+    {
+        return foodAbilities;
+    }
+
+
+    public void ConsumeMeals(List<Food> mealPlan) {
+        for (int i=0; i< mealPlan.Count; i++ ){
             characterStats.FuseStats(tasteTranslater.tasteToStats(mealPlan[i]));
-            if(mealPlan.GetType() == typeof(ComposedFood))
+            if (mealPlan[i].GetType() == typeof(ComposedFood))
+            {
                 addFoodAbilities(abDB.getAbilityById(((ComposedFood)mealPlan[i]).getAbility()));
+                skillMenu.updateSkillList();
+            }
         }
     }
 
@@ -81,14 +93,16 @@ public class Character {
         Ability castAbility = null;
         if(index < charAbilities.Count)
         {
+            Debug.Log("Character Ability");
             castAbility = charAbilities[index];
         }
-        else if(index < foodAbilities.Count)
+        else if(index < charAbilities.Count + foodAbilities.Count)
         {
-            castAbility = foodAbilities[index];
+            Debug.Log("Food Ability");
+            castAbility = foodAbilities[index- charAbilities.Count];
         }
         if(castAbility != null)
-            castAbility.castAbility();
+            castAbility.castAbility(controller.transform);
     }
 
 }
