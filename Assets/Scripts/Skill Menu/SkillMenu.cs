@@ -9,17 +9,24 @@ public class SkillMenu : MonoBehaviour {
 
     int size;
     List<GameObject> slots = new List<GameObject>();
+    Character character;
 
     // Use this for initialization
     void Start () {
+        character = GameObject.FindGameObjectWithTag("Player").GetComponent<TopDownController>().getCharacter();
         if (foodSkillsMenu)
         {
-            size = 0; //TODO: get number from character ammount of skills
+            size = character.getFoodAbilities().Count;
         }
         else
             size = 2;
 
+    }
 
+    public void updateSkillList()
+    {
+        Debug.Log("dsd");
+        size = character.getFoodAbilities().Count; ;
         for (int i = 0; i < size; i++)
         {
             GameObject skillSlot = (GameObject)Instantiate(skillSlotPrefab);
@@ -28,7 +35,7 @@ public class SkillMenu : MonoBehaviour {
             skillSlot.transform.localScale = transform.localScale;
         }
     }
-	
+
 	// Update is called once per frame
 	void Update () {
 	

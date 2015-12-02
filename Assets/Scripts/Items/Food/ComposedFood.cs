@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class ComposedFood : Food
 {
     List<Food> foodParts;
-    int foodAbility;
+    public int foodAbility;
     public const float WEAKNED_TASTE = .75f;
     public const float STRENGHNED_TASTE = 1.25f;
 

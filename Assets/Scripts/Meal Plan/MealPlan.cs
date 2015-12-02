@@ -23,8 +23,7 @@ public class MealPlan : MonoBehaviour {
         character = GameObject.FindGameObjectWithTag("Player").GetComponent<TopDownController>().getCharacter();
     }
 
-
-   public void ConsumeMealPlan() {
+    public void ConsumeMealPlan() {
         List<Food> foodOnMealPlan = new List<Food>();
         for(int i = 0; i < slots.Count;i++){
             if (slots[i].currentItem != null)
