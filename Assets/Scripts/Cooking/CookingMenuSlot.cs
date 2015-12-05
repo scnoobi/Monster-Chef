@@ -93,13 +93,16 @@ public class CookingMenuSlot : MonoBehaviour, IDropHandler
         if (time < MEDIUM) { //mal passado
             Debug.Log("rare");
             food.weakenTaste();
-        }else if(time < WELL_DONE) { //ponto
+            food.strenghtenAbility();
+        }
+        else if(time < WELL_DONE) { //ponto
             Debug.Log("medium");
         }
         else if(time < BURNT) //bem passado
         {
             Debug.Log("well done");
             food.strenghtenTaste();
+            food.weakenAbility();
         }
         else //queimado
         {

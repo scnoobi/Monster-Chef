@@ -14,7 +14,7 @@ class AbilityDatabase : MonoBehaviour
     List<int> listInputRecipe;
     private string filename = "/StreamingAssets/Abilities.json";
 
-    void Start()
+    void Awake()
     {
         database = new List<Ability>();
         jsonSerializer = new JsonSerializer();

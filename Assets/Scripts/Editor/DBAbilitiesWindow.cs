@@ -86,6 +86,10 @@ public class DBAbilitiesWindow : EditorWindow {
             {
                 info.SetValue(tempAbility, EditorGUILayout.TextField(info.Name, (string)info.GetValue(tempAbility)));
             }
+            else if (fieldType == typeof(bool))
+            {
+                info.SetValue(tempAbility, EditorGUILayout.Toggle(info.Name, (bool)info.GetValue(tempAbility)));
+            }
         }
 
         EditorGUILayout.EndVertical();

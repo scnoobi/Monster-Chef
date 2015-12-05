@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class Character {
 
@@ -36,6 +37,9 @@ public class Character {
     AbilityDatabase abDB;
     SkillMenu skillMenu;
 
+    public delegate void DamageTakenEventHandler(object sender, EventArgs e);
+    public DamageTakenEventHandler DamageTaken;
+
     // Use this for initialization
     public Character() {
         charAbilities = new List<Ability>();
@@ -61,14 +65,21 @@ public class Character {
         this.controller.setMaxSpeed(characterStats.MovementSpeed);
     }
 
+    public Transform getTransform()
+    {
+        return controller.transform;
+    }
+
     public void addCharAbilities(Ability charAbility)
     {
         charAbilities.Add(charAbility);
+        charAbility.setCaster(this);
     }
 
     public void addFoodAbilities(Ability foodAbility)
     {
         foodAbilities.Add(foodAbility);
+        foodAbility.setCaster(this);
     }
 
     public List<Ability> getFoodAbilities()
@@ -82,7 +93,7 @@ public class Character {
             characterStats.FuseStats(tasteTranslater.tasteToStats(mealPlan[i]));
             if (mealPlan[i].GetType() == typeof(ComposedFood))
             {
-                addFoodAbilities(abDB.getAbilityById(((ComposedFood)mealPlan[i]).getAbility()));
+                addFoodAbilities(((ComposedFood)mealPlan[i]).getAbility());
                 skillMenu.updateSkillList();
             }
         }
@@ -101,8 +112,23 @@ public class Character {
             Debug.Log("Food Ability");
             castAbility = foodAbilities[index- charAbilities.Count];
         }
-        if(castAbility != null)
-            castAbility.castAbility(controller.transform);
+        if(castAbility != null && castAbility.isActiveAbility)
+            castAbility.castAbility();
     }
 
+    #region events
+    // This method will call the event
+    void OnDamageTaken(EventArgs e)
+    {
+        // call the event
+        if (DamageTaken != null) DamageTaken(this, e);
+    }
+
+    // Your current method for taking damage
+    public void TakeDamage(float damage)
+    {
+        characterStats.CurrHP -= damage;
+        OnDamageTaken(EventArgs.Empty); // basically, call this every time you want this event to fire (for all abilities)
+    }
+    #endregion
 }

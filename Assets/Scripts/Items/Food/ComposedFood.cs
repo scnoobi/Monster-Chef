@@ -5,7 +5,8 @@ using System.Collections.Generic;
 public class ComposedFood : Food
 {
     List<Food> foodParts;
-    public int foodAbility;
+    public int foodAbilityIndex;
+    Ability foodAbility;
     public const float WEAKNED_TASTE = .75f;
     public const float STRENGHNED_TASTE = 1.25f;
 
@@ -22,23 +23,19 @@ public class ComposedFood : Food
         }
     }
 
-    public ComposedFood(Food food1, Food food2)
-    {
-        foodParts.Add(food1);
-        foodParts.Add(food2);
-    }
-
     public ComposedFood()
     {
+        AbilityDatabase abDB = GameObject.Find("Databases").GetComponent<AbilityDatabase>();
         foodParts = new List<Food>();
+        foodAbility = abDB.getAbilityById(foodAbilityIndex);
     }
 
-    public void setAbility(int ability)
+    public int getAbilityIndex()
     {
-        this.foodAbility = ability;
+        return foodAbilityIndex;
     }
 
-    public int getAbility()
+    public Ability getAbility()
     {
         return foodAbility;
     }
@@ -56,5 +53,15 @@ public class ComposedFood : Food
     public void strenghtenTaste()
     {
         foodTaste.complexTaste(STRENGHNED_TASTE);
+    }
+
+    public void weakenAbility()
+    {
+        foodAbility.weakenedAbility();
+    }
+
+    public void strenghtenAbility()
+    {
+        foodAbility.enhancedAbility();
     }
 }

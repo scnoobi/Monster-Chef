@@ -13,6 +13,7 @@ public class ShootAbility : Ability
     GameObject projectileToShoot;
     private const string PATH_TO_PROJECTILES = "GameObject/Projectiles/";
     PatternManager patternManager;
+    Character myCharacter;
 
     #region constructors
     public ShootAbility() {
@@ -34,13 +35,29 @@ public class ShootAbility : Ability
     }
     #endregion
 
-    public void castAbility(Transform caster)
+    public override void castAbility()
     {
+        Transform caster = myCharacter.getTransform();
         for (int i = 0; i < numberOfProjectiles; i++)
         {
             GameObject bullet = (GameObject)UnityEngine.Object.Instantiate(projectileToShoot, caster.position, caster.rotation);
             bullet.GetComponent<Projectile>().shooter = caster;
         }
+    }
+
+    public override void setCaster(Character caster)
+    {
+        myCharacter = caster;
+    }
+
+    public override void weakenedAbility()
+    {
+        //throw new NotImplementedException();
+    }
+
+    public override void enhancedAbility()
+    {
+       // throw new NotImplementedException();
     }
 }
 

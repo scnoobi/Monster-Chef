@@ -4,7 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public interface Ability
+public abstract class Ability
 {
-   void castAbility(Transform caster);
+   public bool isActiveAbility;
+   public abstract void castAbility();
+   public abstract void setCaster(Character caster);
+   public abstract void weakenedAbility();
+   public abstract void enhancedAbility();
 }

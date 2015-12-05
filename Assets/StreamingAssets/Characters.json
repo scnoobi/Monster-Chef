@@ -15,7 +15,8 @@
       "$type": "SimpleTasteTranslation, Assembly-CSharp"
     },
     "charAbilitiesIndex": [
-      0
+      0,
+      1
     ]
   }
 ]

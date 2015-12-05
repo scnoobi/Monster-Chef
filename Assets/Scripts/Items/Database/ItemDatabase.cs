@@ -15,7 +15,7 @@ public class ItemDatabase : MonoBehaviour {
     private string filename = "/StreamingAssets/Items.json";
     string recipesFileName = "/StreamingAssets/Recipes.json";
 
-    void Start() {
+    void Awake() {
         database = new List<Item>();
         jsonSerializer = new JsonSerializer();
         textReader = File.OpenText(Application.dataPath + filename);
