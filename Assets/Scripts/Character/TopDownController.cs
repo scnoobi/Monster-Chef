@@ -62,6 +62,11 @@ public class TopDownController : MonoBehaviour {
             Debug.Log("open map");
         }
 
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            character.TakeDamage(1f);
+        }
+
         if (Input.GetKeyDown(KeyCode.C))
         {
             cookingMenu.SetActive(!cookingMenu.activeSelf);

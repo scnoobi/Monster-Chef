@@ -37,8 +37,7 @@ public class Character {
     AbilityDatabase abDB;
     SkillMenu skillMenu;
 
-    public delegate void DamageTakenEventHandler(object sender, EventArgs e);
-    public DamageTakenEventHandler DamageTaken;
+    public EventHandler OnDamageTaken;
 
     // Use this for initialization
     public Character() {
@@ -117,18 +116,12 @@ public class Character {
     }
 
     #region events
-    // This method will call the event
-    void OnDamageTaken(EventArgs e)
-    {
-        // call the event
-        if (DamageTaken != null) DamageTaken(this, e);
-    }
 
     // Your current method for taking damage
     public void TakeDamage(float damage)
     {
         characterStats.CurrHP -= damage;
-        OnDamageTaken(EventArgs.Empty); // basically, call this every time you want this event to fire (for all abilities)
+        if (OnDamageTaken != null) OnDamageTaken(this, EventArgs.Empty);// basically, call this every time you want this event to fire (for all abilities)
     }
     #endregion
 }

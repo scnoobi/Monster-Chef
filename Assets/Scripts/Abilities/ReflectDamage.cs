@@ -23,7 +23,7 @@ class ReflectDamage : Ability
     public override void setCaster(Character caster)
     {
         myCharacter = caster;
-        myCharacter.DamageTaken += OnDamageTaken;
+        myCharacter.OnDamageTaken += OnDamageTaken;
     }
 
     public override void weakenedAbility()
