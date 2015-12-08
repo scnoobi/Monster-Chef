@@ -7,6 +7,7 @@ using System.Text;
 public abstract class Ability
 {
    public bool isActiveAbility;
+   public string realName;
    public abstract void castAbility();
    public abstract void setCaster(Character caster);
    public abstract void weakenedAbility();

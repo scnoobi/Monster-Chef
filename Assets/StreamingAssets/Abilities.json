@@ -1,13 +1,15 @@
 [
   {
-    "$type": "ShootAbility, Assembly-CSharp",
-    "numberOfProjectiles": 2,
-    "projectileName": "Ice_Ball",
-    "isActiveAbility": true
-  },
-  {
     "$type": "ReflectDamage, Assembly-CSharp",
     "damage": 4,
-    "isActiveAbility": false
+    "isActiveAbility": false,
+    "realName": "reflect_Damage"
+  },
+  {
+    "$type": "ShootAbility, Assembly-CSharp",
+    "numberOfProjectiles": 1,
+    "projectileName": "Ice_Ball",
+    "isActiveAbility": true,
+    "realName": "ice_ball"
   }
 ]

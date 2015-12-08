@@ -66,7 +66,12 @@ public class DBAbilitiesWindow : EditorWindow {
                 fileNames.Add(fileInfo[i].Name);
             }
         }
-        chosenScript = EditorGUILayout.Popup("TasteTranslation:",chosenScript, fileNames.ToArray());
+        int newscript = EditorGUILayout.Popup("TasteTranslation:",chosenScript, fileNames.ToArray());
+        if(newscript != chosenScript)
+        {
+            chosenScript = newscript;
+            tempAbility = null;
+        }
         abilityScript = AssetDatabase.LoadAssetAtPath<MonoScript>("Assets/Scripts/Abilities/"+ fileNames[chosenScript]);
         targetType = abilityScript.GetClass();
         if (tempAbility == null)

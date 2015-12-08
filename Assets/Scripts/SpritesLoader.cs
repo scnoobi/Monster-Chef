@@ -7,6 +7,7 @@ public class SpritesLoader : MonoBehaviour
 
     public Dictionary<string, Sprite> groundSprites = new Dictionary<string, Sprite>();
     public Dictionary<string, Sprite> inventorySprites = new Dictionary<string, Sprite>();
+    public Dictionary<string, Sprite> abilitiesSprites = new Dictionary<string, Sprite>();
 
     // Use this for initialization
     void Start()
@@ -21,6 +22,11 @@ public class SpritesLoader : MonoBehaviour
         {
             inventorySprites.Add(inventorySheet[i].name, inventorySheet[i]);
         }
+        Sprite[] abilitySheet = Resources.LoadAll<Sprite>("Sprites/Skills/abilities");
+        for (int i = 0; i < abilitySheet.Length; i++)
+        {
+            abilitiesSprites.Add(abilitySheet[i].name, abilitySheet[i]);
+        }
     }
 
     public Sprite getSpriteWithName( string name)
@@ -30,6 +36,19 @@ public class SpritesLoader : MonoBehaviour
         }catch(KeyNotFoundException e)
         {
             Debug.Log("sprite with name "+ name + "not found");
+            return null;
+        }
+    }
+
+    public Sprite getSkillSpriteWithName(string name)
+    {
+        try
+        {
+            return abilitiesSprites[name];
+        }
+        catch (KeyNotFoundException e)
+        {
+            Debug.Log("sprite with name " + name + "not found");
             return null;
         }
     }

@@ -44,17 +44,21 @@ public class Character {
         charAbilities = new List<Ability>();
         foodAbilities = new List<Ability>();
         skillMenu = GameObject.Find("Food Skills").GetComponent<SkillMenu>();
-	}
+        skillMenu.SetCharacter(this);
+    }
 	
     public void Initialize()
     {
         abDB = GameObject.Find("Databases").GetComponent<AbilityDatabase>();
+        SkillMenu characterSkills = GameObject.Find("Character Skills").GetComponent<SkillMenu>();
+        characterSkills.SetCharacter(this);
 
-        
         for (int i = 0; i < charAbilitiesIndex.Count; i++)
             addCharAbilities(abDB.getAbilityById(charAbilitiesIndex[i]));
 
         tasteTranslater = new SimpleTasteTranslation();
+        skillMenu.updateSkillList();
+        characterSkills.updateSkillList();
     }
 
 
@@ -79,6 +83,11 @@ public class Character {
     {
         foodAbilities.Add(foodAbility);
         foodAbility.setCaster(this);
+    }
+
+    public List<Ability> getCharAbilities()
+    {
+        return charAbilities;
     }
 
     public List<Ability> getFoodAbilities()
