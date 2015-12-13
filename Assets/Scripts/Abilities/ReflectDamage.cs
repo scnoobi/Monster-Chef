@@ -33,7 +33,7 @@ class ReflectDamage : Ability
 
     public override void enhancedAbility()
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 }
 
