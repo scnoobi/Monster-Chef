@@ -45,7 +45,7 @@
   },
   {
     "$type": "ComposedFood, Assembly-CSharp",
-    "foodAbility": 0,
+    "foodAbility": 1,
     "currentCookingMethod": "roasting",
     "timeToCook": 0.0,
     "foodTaste": {

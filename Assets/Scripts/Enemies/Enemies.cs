@@ -5,7 +5,7 @@ using System.Text;
 using UnityEngine;
 
 
-class Enemies : Actor
+public class Enemies : Actor
 {
     [System.Serializable]
     public class EnemyStats
@@ -26,11 +26,11 @@ class Enemies : Actor
 
     public EnemyStats enemyStats;
     public List<int> charAbilitiesIndex;
+    EnemyController enemyController;
 
     public Enemies()
     {
         innateAbilities = new List<Ability>();
-        enemyStats = new EnemyStats();
     }
 
     public void Initialize()
@@ -39,6 +39,11 @@ class Enemies : Actor
 
         for (int i = 0; i < charAbilitiesIndex.Count; i++)
             innateAbilities.Add(abDB.getAbilityById(charAbilitiesIndex[i]));
+    }
+
+    public void SetController(EnemyController enemyController)
+    {
+        this.enemyController = enemyController;
     }
 
     #region events

@@ -99,7 +99,6 @@ public class Character : Actor {
         return foodAbilities;
     }
 
-
     public void ConsumeMeals(List<Food> mealPlan) {
         for (int i=0; i< mealPlan.Count; i++ ){
             characterStats.FuseStats(tasteTranslater.tasteToStats(mealPlan[i]));
