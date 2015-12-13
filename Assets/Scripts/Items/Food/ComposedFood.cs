@@ -25,8 +25,12 @@ public class ComposedFood : Food
 
     public ComposedFood()
     {
-        AbilityDatabase abDB = GameObject.Find("Databases").GetComponent<AbilityDatabase>();
         foodParts = new List<Food>();
+    }
+
+    public void Initialize()
+    {
+        AbilityDatabase abDB = GameObject.Find("Databases").GetComponent<AbilityDatabase>();
         foodAbility = abDB.getAbilityById(foodAbilityIndex);
     }
 

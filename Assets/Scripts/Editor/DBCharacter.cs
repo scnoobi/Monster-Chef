@@ -101,8 +101,11 @@ public class DBCharacter : EditorWindow
             {
                 EditorGUILayout.Space();
                 EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-                if (fieldType == typeof(Character.Stats))
+                if (tempStruct == null)
+                {
                     tempStruct = new Character.Stats();
+                    info.SetValue(tempChar, (Character.Stats)tempStruct);
+                }
 
                 foreach (FieldInfo infoInStruct in fieldType.GetFields(flags))
                 {
@@ -110,14 +113,12 @@ public class DBCharacter : EditorWindow
 
                     if (fieldTypeInStruct == typeof(float))
                     {
-                        infoInStruct.SetValue(tempStruct, EditorGUILayout.FloatField(infoInStruct.Name, (float)infoInStruct.GetValue(info.GetValue(tempChar))));
+                        infoInStruct.SetValue(tempStruct, EditorGUILayout.FloatField(infoInStruct.Name, (float)infoInStruct.GetValue(info.GetValue(tempChar)) ));
                     }
                 }
 
-                if (fieldType == typeof(Character.Stats))
-                {
-                    info.SetValue(tempChar, (Character.Stats)tempStruct);
-                }
+
+                info.SetValue(tempChar, (Character.Stats)tempStruct);
                 EditorGUILayout.EndVertical();
                 EditorGUILayout.Space();
             }

@@ -162,7 +162,7 @@ public class DBItems : EditorWindow {
                 EditorGUILayout.BeginVertical(EditorStyles.helpBox);
                 if (fieldType == typeof(Food.Taste))
                     tempStruct = new Food.Taste();
-                    
+
                 foreach (FieldInfo infoInStruct in fieldType.GetFields(flags))
                 {
                     Type fieldTypeInStruct = infoInStruct.FieldType;

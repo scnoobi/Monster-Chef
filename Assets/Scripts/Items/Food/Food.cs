@@ -54,8 +54,9 @@ public abstract class Food : Item {
 
     public enum cookingType { raw, fried, roasting, stewing} //cooking types
 
-        [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof(StringEnumConverter))]
     public cookingType currentCookingMethod;
+
     public float timeToCook;
     /*
             [JsonConverter(typeof(StringEnumConverter))]

@@ -3,17 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class Character {
+public class Character : Actor {
 
     [System.Serializable]
     public class Stats
     {
-        public float MaxHP { get; set; }
-        public float CurrHP { get; set; }
-        public float MaxHunger { get; set; }
-        public float CurrHunger { get; set; }
-        public float AttackSpeed { get; set; }
-        public float MovementSpeed { get; set; }
+        private float maxHP;
+        private float currHP;
+        private float maxHunger;
+        private float currHunger;
+        private float attackSpeed;
+        private float movementSpeed;
+
+        public float MaxHP { get { return maxHP; } set { maxHP = value; } }
+        public float CurrHP { get { return currHP; } set { currHP = value; } }
+        public float MaxHunger { get { return maxHunger; } set { maxHunger = value; } }
+        public float CurrHunger { get { return currHunger; } set { currHunger = value; } }
+        public float AttackSpeed { get { return attackSpeed; } set { attackSpeed = value; } }
+        public float MovementSpeed { get { return movementSpeed; } set { movementSpeed = value; } }
 
         public void FuseStats(Stats statsToAdd)
         {
@@ -26,29 +33,26 @@ public class Character {
         }
     }
 
-    public string name;
     public Stats characterStats;
     public TasteToStats tasteTranslater;
     public List<int> charAbilitiesIndex;
 
     TopDownController controller;
-    List<Ability> charAbilities;
     List<Ability> foodAbilities;
     AbilityDatabase abDB;
     SkillMenu skillMenu;
 
-    public EventHandler OnDamageTaken;
-
     // Use this for initialization
-    public Character() {
-        charAbilities = new List<Ability>();
+    public Character()
+    {
+        innateAbilities = new List<Ability>();
         foodAbilities = new List<Ability>();
-        skillMenu = GameObject.Find("Food Skills").GetComponent<SkillMenu>();
-        skillMenu.SetCharacter(this);
     }
-	
+
     public void Initialize()
     {
+        skillMenu = GameObject.Find("Food Skills").GetComponent<SkillMenu>();
+        skillMenu.SetCharacter(this);
         abDB = GameObject.Find("Databases").GetComponent<AbilityDatabase>();
         SkillMenu characterSkills = GameObject.Find("Character Skills").GetComponent<SkillMenu>();
         characterSkills.SetCharacter(this);
@@ -75,7 +79,7 @@ public class Character {
 
     public void addCharAbilities(Ability charAbility)
     {
-        charAbilities.Add(charAbility);
+        innateAbilities.Add(charAbility);
         charAbility.setCaster(this);
     }
 
@@ -87,7 +91,7 @@ public class Character {
 
     public List<Ability> getCharAbilities()
     {
-        return charAbilities;
+        return innateAbilities;
     }
 
     public List<Ability> getFoodAbilities()
@@ -110,15 +114,15 @@ public class Character {
     public void castCorrectAbility(int index)
     {
         Ability castAbility = null;
-        if(index < charAbilities.Count)
+        if(index < innateAbilities.Count)
         {
             Debug.Log("Character Ability");
-            castAbility = charAbilities[index];
+            castAbility = innateAbilities[index];
         }
-        else if(index < charAbilities.Count + foodAbilities.Count)
+        else if(index < innateAbilities.Count + foodAbilities.Count)
         {
             Debug.Log("Food Ability");
-            castAbility = foodAbilities[index- charAbilities.Count];
+            castAbility = foodAbilities[index- innateAbilities.Count];
         }
         if(castAbility != null && castAbility.isActiveAbility)
             castAbility.castAbility();

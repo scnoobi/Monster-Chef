@@ -76,6 +76,7 @@ public class ItemDatabase : MonoBehaviour {
         if (chosenFood > 0)
         {
             craftedFood = (ComposedFood)database[chosenFood];
+            craftedFood.Initialize();
         }
 
         return craftedFood;
