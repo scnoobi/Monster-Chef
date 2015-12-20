@@ -1,0 +1,1046 @@
+fileFormatVersion: 2
+guid: 9c5597ac8e1afb4418b462adc1afdb25
+timeCreated: 1450232610
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: idle_0
+    21300002: idle_1
+    21300004: idle_2
+    21300006: idle_3
+    21300008: idle_5
+    21300010: idle_6
+    21300012: idle_7
+    21300014: idle_8
+    21300016: run_0
+    21300018: run_1
+    21300020: run_2
+    21300022: run_3
+    21300024: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_9
+    21300026: run_6
+    21300028: run_7
+    21300030: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_12
+    21300032: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_13
+    21300034: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_14
+    21300036: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_15
+    21300038: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_16
+    21300040: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_17
+    21300042: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_18
+    21300044: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_19
+    21300046: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_20
+    21300048: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_21
+    21300050: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_22
+    21300052: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_23
+    21300054: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_24
+    21300056: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_25
+    21300058: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_26
+    21300060: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_27
+    21300062: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_28
+    21300064: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_29
+    21300066: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_30
+    21300068: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_31
+    21300070: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_32
+    21300072: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_33
+    21300074: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_34
+    21300076: powerUp_0
+    21300078: powerUp_1
+    21300080: powerUp_2
+    21300082: powerUp_3
+    21300084: powerUp_4
+    21300086: powerUp_5
+    21300088: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_41
+    21300090: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_42
+    21300092: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_43
+    21300094: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_44
+    21300096: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_45
+    21300098: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_46
+    21300100: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_47
+    21300102: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_48
+    21300104: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_49
+    21300106: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_50
+    21300108: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_51
+    21300110: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_52
+    21300112: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_53
+    21300114: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_54
+    21300116: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_55
+    21300118: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_56
+    21300120: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_57
+    21300122: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_58
+    21300124: attack_0
+    21300126: attack_1
+    21300128: attack_2
+    21300130: attack_3
+    21300132: attack_4
+    21300134: attack_5
+    21300136: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_65
+    21300138: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_66
+    21300140: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_67
+    21300142: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_68
+    21300144: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_69
+    21300146: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_70
+    21300148: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_71
+    21300150: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_72
+    21300152: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_73
+    21300154: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_74
+    21300156: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_75
+    21300158: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_76
+    21300160: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_77
+    21300162: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_78
+    21300164: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_79
+    21300166: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_80
+    21300168: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_81
+    21300170: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_82
+    21300172: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_83
+    21300174: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_84
+    21300176: idle_4
+    21300178: run_4
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: idle_0
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 344
+        width: 36
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: idle_1
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 342
+        width: 36
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: idle_2
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 342
+        width: 36
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: idle_3
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 342
+        width: 36
+        height: 56
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: idle_5
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 342
+        width: 36
+        height: 59
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: idle_6
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 342
+        width: 36
+        height: 57
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: idle_7
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 342
+        width: 36
+        height: 56
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: idle_8
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 342
+        width: 36
+        height: 57
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: run_0
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 342
+        width: 37
+        height: 53
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: run_1
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 342
+        width: 43
+        height: 60
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: run_2
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 342
+        width: 53
+        height: 50
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: run_3
+      rect:
+        serializedVersion: 2
+        x: 571
+        y: 342
+        width: 46
+        height: 51
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_9
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 342
+        width: 41
+        height: 59
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: run_6
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 342
+        width: 50
+        height: 51
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: run_7
+      rect:
+        serializedVersion: 2
+        x: 776
+        y: 342
+        width: 46
+        height: 52
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_12
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 281
+        width: 37
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_13
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 281
+        width: 37
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_14
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 281
+        width: 40
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_15
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 281
+        width: 40
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_16
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 281
+        width: 57
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_17
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 281
+        width: 53
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_18
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 283
+        width: 53
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_19
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 283
+        width: 53
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_20
+      rect:
+        serializedVersion: 2
+        x: 494
+        y: 283
+        width: 53
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_21
+      rect:
+        serializedVersion: 2
+        x: 557
+        y: 283
+        width: 53
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_22
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 283
+        width: 53
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_23
+      rect:
+        serializedVersion: 2
+        x: 744
+        y: 281
+        width: 53
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_24
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 281
+        width: 52
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_25
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 219
+        width: 53
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_26
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 219
+        width: 53
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_27
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 219
+        width: 53
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_28
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 219
+        width: 36
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_29
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 219
+        width: 35
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_30
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 218
+        width: 34
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_31
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 217
+        width: 35
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_32
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 215
+        width: 38
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_33
+      rect:
+        serializedVersion: 2
+        x: 477
+        y: 215
+        width: 39
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_34
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 215
+        width: 37
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: powerUp_0
+      rect:
+        serializedVersion: 2
+        x: 596
+        y: 217
+        width: 37
+        height: 62
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: powerUp_1
+      rect:
+        serializedVersion: 2
+        x: 645
+        y: 217
+        width: 39
+        height: 63
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: powerUp_2
+      rect:
+        serializedVersion: 2
+        x: 693
+        y: 217
+        width: 57
+        height: 53
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: powerUp_3
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 217
+        width: 55
+        height: 55
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: powerUp_4
+      rect:
+        serializedVersion: 2
+        x: 822
+        y: 217
+        width: 52
+        height: 57
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: powerUp_5
+      rect:
+        serializedVersion: 2
+        x: 878
+        y: 217
+        width: 43
+        height: 56
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_41
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 145
+        width: 41
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_42
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 145
+        width: 45
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_43
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 145
+        width: 41
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_44
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 145
+        width: 30
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_45
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 145
+        width: 33
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_46
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 145
+        width: 33
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_47
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 145
+        width: 33
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_48
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 145
+        width: 42
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_49
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 146
+        width: 42
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_50
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 146
+        width: 41
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_51
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 147
+        width: 37
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_52
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 146
+        width: 35
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_53
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 145
+        width: 40
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_54
+      rect:
+        serializedVersion: 2
+        x: 671
+        y: 145
+        width: 41
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_55
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 145
+        width: 50
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_56
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 145
+        width: 44
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_57
+      rect:
+        serializedVersion: 2
+        x: 833
+        y: 145
+        width: 45
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_58
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 145
+        width: 43
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: attack_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 63
+        width: 59
+        height: 52
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: attack_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 63
+        width: 50
+        height: 53
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: attack_2
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 63
+        width: 70
+        height: 53
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: attack_3
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 63
+        width: 64
+        height: 51
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: attack_4
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 63
+        width: 50
+        height: 53
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: attack_5
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 63
+        width: 65
+        height: 51
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_65
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 61
+        width: 48
+        height: 59
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_66
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 64
+        width: 51
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_67
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 63
+        width: 105
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_68
+      rect:
+        serializedVersion: 2
+        x: 645
+        y: 62
+        width: 78
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_69
+      rect:
+        serializedVersion: 2
+        x: 723
+        y: 93
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_70
+      rect:
+        serializedVersion: 2
+        x: 827
+        y: 96
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_71
+      rect:
+        serializedVersion: 2
+        x: 727
+        y: 70
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_72
+      rect:
+        serializedVersion: 2
+        x: 844
+        y: 87
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_73
+      rect:
+        serializedVersion: 2
+        x: 851
+        y: 74
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_74
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_75
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 0
+        width: 47
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_76
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 1
+        width: 47
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_77
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 0
+        width: 81
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_78
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 1
+        width: 117
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_79
+      rect:
+        serializedVersion: 2
+        x: 373
+        y: 2
+        width: 67
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_80
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 3
+        width: 67
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_81
+      rect:
+        serializedVersion: 2
+        x: 528
+        y: 4
+        width: 50
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_82
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 4
+        width: 43
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_83
+      rect:
+        serializedVersion: 2
+        x: 647
+        y: 14
+        width: 58
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: negascott_sprite_sheet_by_kytethecollie-d3cgh2z_84
+      rect:
+        serializedVersion: 2
+        x: 711
+        y: 12
+        width: 58
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: idle_4
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 342
+        width: 36
+        height: 57
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: run_4
+      rect:
+        serializedVersion: 2
+        x: 622
+        y: 342
+        width: 39
+        height: 52
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

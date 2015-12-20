@@ -26,6 +26,11 @@ class ReflectDamage : Ability
         myCharacter.OnDamageTaken += OnDamageTaken;
     }
 
+    public override void unsetCaster(Character caster)
+    {
+        myCharacter.OnDamageTaken -= OnDamageTaken;
+    }
+
     public override void weakenedAbility()
     {
         damage = Mathf.Clamp(damage - 2, 0, int.MaxValue);

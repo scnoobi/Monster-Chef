@@ -50,6 +50,10 @@ public class ShootAbility : Ability
         myCharacter = caster;
     }
 
+    public override void unsetCaster(Character caster)
+    {
+    }
+
     public override void weakenedAbility()
     {
         //throw new NotImplementedException();

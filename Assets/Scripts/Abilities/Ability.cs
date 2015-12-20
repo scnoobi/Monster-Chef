@@ -10,6 +10,7 @@ public abstract class Ability
    public string realName;
    public abstract void castAbility();
    public abstract void setCaster(Character caster);
+   public abstract void unsetCaster(Character caster);
    public abstract void weakenedAbility();
    public abstract void enhancedAbility();
 }

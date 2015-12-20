@@ -63,8 +63,8 @@ public class Character : Actor {
         tasteTranslater = new SimpleTasteTranslation();
         skillMenu.updateSkillList();
         characterSkills.updateSkillList();
+        worldTicker = GameObject.Find("Databases").GetComponent<WorldTicker>();
     }
-
 
     public void setController(TopDownController controller)
     {
@@ -128,12 +128,13 @@ public class Character : Actor {
     }
 
     #region events
-
     // Your current method for taking damage
-    public void TakeDamage(float damage)
+    public override void TakeDamage(float damage)
     {
         characterStats.CurrHP -= damage;
         if (OnDamageTaken != null) OnDamageTaken(this, EventArgs.Empty);// basically, call this every time you want this event to fire (for all abilities)
     }
+    
+    
     #endregion
 }

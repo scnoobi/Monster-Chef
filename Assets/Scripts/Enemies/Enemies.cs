@@ -49,7 +49,7 @@ public class Enemies : Actor
     #region events
 
     // Your current method for taking damage
-    public void TakeDamage(float damage)
+    public override void TakeDamage(float damage)
     {
         enemyStats.CurrHP -= damage;
         if (OnDamageTaken != null) OnDamageTaken(this, EventArgs.Empty);// basically, call this every time you want this event to fire (for all abilities)

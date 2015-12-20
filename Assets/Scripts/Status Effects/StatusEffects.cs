@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 
 
-interface StatusEffects
+public interface StatusEffects
 {
     void applyEffect();
+    void setAfflicted(Actor actor);
+    void unsetAfflicted(Actor actor);
 }
 
 
