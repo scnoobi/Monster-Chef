@@ -1,22 +1,149 @@
 [
   {
     "$type": "Character, Assembly-CSharp",
-    "name": "knight",
     "characterStats": {
       "$type": "Character+Stats, Assembly-CSharp",
-      "maxHP": 1.0,
-      "currHP": 2.0,
-      "maxHunger": 3.0,
-      "currHunger": 4.0,
-      "attackSpeed": 5.0,
-      "movementSpeed": 6.0
+      "MaxHP": 50.0,
+      "CurrHP": 50.0,
+      "MaxHunger": 0.0,
+      "CurrHunger": 0.0,
+      "AttackSpeed": 0.6,
+      "MovementSpeed": 0.6
     },
     "tasteTranslater": {
       "$type": "SimpleTasteTranslation, Assembly-CSharp"
     },
-    "charAbilitiesIndex": [
-      0,
-      1
-    ]
+    "charAbilitiesIndex": [],
+    "name": "Fallen Druid",
+    "innateAbilities": [],
+    "statusEffects": null,
+    "OnDamageTaken": null,
+    "worldTicker": null
+  },
+  {
+    "$type": "Character, Assembly-CSharp",
+    "characterStats": {
+      "$type": "Character+Stats, Assembly-CSharp",
+      "MaxHP": 80.0,
+      "CurrHP": 80.0,
+      "MaxHunger": 0.0,
+      "CurrHunger": 0.0,
+      "AttackSpeed": 0.3,
+      "MovementSpeed": 0.3
+    },
+    "tasteTranslater": {
+      "$type": "SimpleTasteTranslation, Assembly-CSharp"
+    },
+    "charAbilitiesIndex": [],
+    "name": "Ogre Berserker",
+    "innateAbilities": [],
+    "statusEffects": null,
+    "OnDamageTaken": null,
+    "worldTicker": null
+  },
+  {
+    "$type": "Character, Assembly-CSharp",
+    "characterStats": {
+      "$type": "Character+Stats, Assembly-CSharp",
+      "MaxHP": 66.0,
+      "CurrHP": 66.0,
+      "MaxHunger": 0.0,
+      "CurrHunger": 0.0,
+      "AttackSpeed": 0.666,
+      "MovementSpeed": 0.666
+    },
+    "tasteTranslater": {
+      "$type": "SimpleTasteTranslation, Assembly-CSharp"
+    },
+    "charAbilitiesIndex": [],
+    "name": "Demon Culinary Chef",
+    "innateAbilities": [],
+    "statusEffects": null,
+    "OnDamageTaken": null,
+    "worldTicker": null
+  },
+  {
+    "$type": "Character, Assembly-CSharp",
+    "characterStats": {
+      "$type": "Character+Stats, Assembly-CSharp",
+      "MaxHP": 40.0,
+      "CurrHP": 40.0,
+      "MaxHunger": 0.0,
+      "CurrHunger": 0.0,
+      "AttackSpeed": 0.5,
+      "MovementSpeed": 0.5
+    },
+    "tasteTranslater": {
+      "$type": "SimpleTasteTranslation, Assembly-CSharp"
+    },
+    "charAbilitiesIndex": [],
+    "name": "Spirit Gunslinger",
+    "innateAbilities": [],
+    "statusEffects": null,
+    "OnDamageTaken": null,
+    "worldTicker": null
+  },
+  {
+    "$type": "Character, Assembly-CSharp",
+    "characterStats": {
+      "$type": "Character+Stats, Assembly-CSharp",
+      "MaxHP": 40.0,
+      "CurrHP": 40.0,
+      "MaxHunger": 0.0,
+      "CurrHunger": 0.0,
+      "AttackSpeed": 0.7,
+      "MovementSpeed": 0.7
+    },
+    "tasteTranslater": {
+      "$type": "SimpleTasteTranslation, Assembly-CSharp"
+    },
+    "charAbilitiesIndex": [],
+    "name": "Elf BeastMaster",
+    "innateAbilities": [],
+    "statusEffects": null,
+    "OnDamageTaken": null,
+    "worldTicker": null
+  },
+  {
+    "$type": "Character, Assembly-CSharp",
+    "characterStats": {
+      "$type": "Character+Stats, Assembly-CSharp",
+      "MaxHP": 70.0,
+      "CurrHP": 70.0,
+      "MaxHunger": 0.0,
+      "CurrHunger": 0.0,
+      "AttackSpeed": 0.7,
+      "MovementSpeed": 0.7
+    },
+    "tasteTranslater": {
+      "$type": "SimpleTasteTranslation, Assembly-CSharp"
+    },
+    "charAbilitiesIndex": [],
+    "name": "Wanderer Eldritchbot",
+    "innateAbilities": [],
+    "statusEffects": null,
+    "OnDamageTaken": null,
+    "worldTicker": null
+  },
+  {
+    "$type": "Character, Assembly-CSharp",
+    "characterStats": {
+      "$type": "Character+Stats, Assembly-CSharp",
+      "MaxHP": 70.0,
+      "CurrHP": 70.0,
+      "MaxHunger": 0.0,
+      "CurrHunger": 0.0,
+      "AttackSpeed": 0.45,
+      "MovementSpeed": 0.45
+    },
+    "tasteTranslater": {
+      "$type": "SimpleTasteTranslation, Assembly-CSharp"
+    },
+    "charAbilitiesIndex": [],
+    "name": "Ice Elemental Mage ",
+    "innateAbilities": [],
+    "statusEffects": null,
+    "OnDamageTaken": null,
+    "worldTicker": null
   }
 ]

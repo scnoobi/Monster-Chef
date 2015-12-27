@@ -1,0 +1,727 @@
+fileFormatVersion: 2
+guid: 8227908b2deff9a42b2cbc5eeba0b73d
+timeCreated: 1450912583
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: fixedSpritesheet2_0
+    21300002: fixedSpritesheet2_1
+    21300004: fixedSpritesheet2_2
+    21300006: fixedSpritesheet2_3
+    21300008: fixedSpritesheet2_4
+    21300010: fixedSpritesheet2_5
+    21300012: fixedSpritesheet2_6
+    21300014: fixedSpritesheet2_7
+    21300016: fixedSpritesheet2_8
+    21300018: fixedSpritesheet2_9
+    21300020: fixedSpritesheet2_10
+    21300022: fixedSpritesheet2_11
+    21300024: fixedSpritesheet2_12
+    21300026: fixedSpritesheet2_13
+    21300028: fixedSpritesheet2_14
+    21300030: fixedSpritesheet2_15
+    21300032: fixedSpritesheet2_16
+    21300034: fixedSpritesheet2_17
+    21300036: fixedSpritesheet2_18
+    21300038: fixedSpritesheet2_19
+    21300040: fixedSpritesheet2_20
+    21300042: fixedSpritesheet2_21
+    21300044: fixedSpritesheet2_22
+    21300046: fixedSpritesheet2_23
+    21300048: fixedSpritesheet2_24
+    21300050: fixedSpritesheet2_25
+    21300052: fixedSpritesheet2_26
+    21300054: fixedSpritesheet2_27
+    21300056: fixedSpritesheet2_28
+    21300058: fixedSpritesheet2_29
+    21300060: fixedSpritesheet2_30
+    21300062: fixedSpritesheet2_31
+    21300064: fixedSpritesheet2_32
+    21300066: fixedSpritesheet2_33
+    21300068: fixedSpritesheet2_34
+    21300070: fixedSpritesheet2_35
+    21300072: fixedSpritesheet2_36
+    21300074: fixedSpritesheet2_37
+    21300076: fixedSpritesheet2_38
+    21300078: fixedSpritesheet2_39
+    21300080: fixedSpritesheet2_40
+    21300082: fixedSpritesheet2_41
+    21300084: fixedSpritesheet2_42
+    21300086: fixedSpritesheet2_43
+    21300088: fixedSpritesheet2_44
+    21300090: fixedSpritesheet2_45
+    21300092: fixedSpritesheet2_46
+    21300094: fixedSpritesheet2_47
+    21300096: fixedSpritesheet2_48
+    21300098: fixedSpritesheet2_49
+    21300100: fixedSpritesheet2_50
+    21300102: fixedSpritesheet2_51
+    21300104: fixedSpritesheet2_52
+    21300106: fixedSpritesheet2_53
+    21300108: fixedSpritesheet2_54
+    21300110: fixedSpritesheet2_55
+    21300112: fixedSpritesheet2_56
+    21300114: fixedSpritesheet2_57
+    21300116: fixedSpritesheet2_58
+    21300118: fixedSpritesheet2_59
+    21300120: fixedSpritesheet2_60
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: fixedSpritesheet2_0
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 253
+        width: 32
+        height: 44
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_1
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 253
+        width: 30
+        height: 41
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_2
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 253
+        width: 30
+        height: 42
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_3
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 253
+        width: 30
+        height: 39
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_4
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 253
+        width: 30
+        height: 40
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_5
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 253
+        width: 30
+        height: 39
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_6
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 261
+        width: 15
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_7
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 262
+        width: 7
+        height: 30
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_8
+      rect:
+        serializedVersion: 2
+        x: 301
+        y: 261
+        width: 15
+        height: 30
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_9
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 253
+        width: 30
+        height: 44
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_10
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 253
+        width: 38
+        height: 59
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_11
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 253
+        width: 38
+        height: 61
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_12
+      rect:
+        serializedVersion: 2
+        x: 492
+        y: 255
+        width: 16
+        height: 29
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_13
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 255
+        width: 14
+        height: 40
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_14
+      rect:
+        serializedVersion: 2
+        x: 541
+        y: 255
+        width: 14
+        height: 40
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_15
+      rect:
+        serializedVersion: 2
+        x: 569
+        y: 264
+        width: 14
+        height: 24
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_16
+      rect:
+        serializedVersion: 2
+        x: 592
+        y: 270
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_17
+      rect:
+        serializedVersion: 2
+        x: 617
+        y: 272
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_18
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 249
+        width: 8
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_19
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 249
+        width: 8
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_20
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 249
+        width: 8
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_21
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 181
+        width: 29
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_22
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 181
+        width: 30
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_23
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 181
+        width: 27
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_24
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 181
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_25
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 181
+        width: 39
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_26
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 181
+        width: 49
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_27
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 193
+        width: 30
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_28
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 197
+        width: 30
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_29
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 192
+        width: 30
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_30
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 181
+        width: 40
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_31
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 181
+        width: 27
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_32
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 181
+        width: 25
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_33
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 181
+        width: 8
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_34
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 181
+        width: 8
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_35
+      rect:
+        serializedVersion: 2
+        x: 367
+        y: 181
+        width: 8
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_36
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 110
+        width: 30
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_37
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 110
+        width: 30
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_38
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 110
+        width: 30
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_39
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 110
+        width: 32
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_40
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 110
+        width: 32
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_41
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 110
+        width: 32
+        height: 48
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_42
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 110
+        width: 15
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_43
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 110
+        width: 9
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_44
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 110
+        width: 15
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_45
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 112
+        width: 32
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_46
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 112
+        width: 36
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_47
+      rect:
+        serializedVersion: 2
+        x: 411
+        y: 112
+        width: 36
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_48
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 112
+        width: 16
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_49
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 112
+        width: 14
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_50
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 112
+        width: 14
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_51
+      rect:
+        serializedVersion: 2
+        x: 547
+        y: 121
+        width: 14
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_52
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 127
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_53
+      rect:
+        serializedVersion: 2
+        x: 595
+        y: 129
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_54
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 70
+        width: 44
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_55
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 70
+        width: 45
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_56
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 70
+        width: 44
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_57
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 9
+        width: 30
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_58
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 9
+        width: 30
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_59
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 9
+        width: 30
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet2_60
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 9
+        width: 30
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

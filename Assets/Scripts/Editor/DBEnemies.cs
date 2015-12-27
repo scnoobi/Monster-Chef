@@ -18,7 +18,7 @@ public class DBEnemies : EditorWindow
     JsonWriter jsonWriter;
     StreamReader textReader;
     StreamWriter textWriter;
-    string itemFileName = "/StreamingAssets/Characters.json";
+    string itemFileName = "/StreamingAssets/Enemies.json";
     Enemies tempEnemy;
     object tempStruct;
     List<int> charAbilities;
@@ -26,7 +26,7 @@ public class DBEnemies : EditorWindow
     int tasteToStats = 0;
 
     // Add menu named "My Window" to the Window menu
-    [MenuItem("Window/DBCharacter")]
+    [MenuItem("Window/DBEnemies")]
     static void Init()
     {
         // Get existing open window or if none, make a new one:
@@ -57,7 +57,7 @@ public class DBEnemies : EditorWindow
     void OnGUI()
     {
         Type targetType;
-        charScript = AssetDatabase.LoadAssetAtPath<MonoScript>("Assets/Scripts/Character/Enemies.cs");
+        charScript = AssetDatabase.LoadAssetAtPath<MonoScript>("Assets/Scripts/Enemies/Enemies.cs");
         if (jsonSerializer == null)
         {
             Start();

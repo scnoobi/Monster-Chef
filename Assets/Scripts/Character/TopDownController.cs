@@ -15,16 +15,20 @@ public class TopDownController : MonoBehaviour {
     private Rigidbody2D myRig;
     private Inventory inv;
     private Character character;
+    private Animator animator;
+    private bool facingLeft;
 
     void Start()
     {
+        facingLeft = false;
         CharacterDatabase charDB = GameObject.Find("Databases").GetComponent<CharacterDatabase>();
         character = charDB.getCharacterById(0);
         character.Initialize();
         character.setController(this);
         myRig = GetComponent<Rigidbody2D>(); 
-        inv = inventoryMenu.GetComponent<Inventory>(); 
-	}
+        inv = inventoryMenu.GetComponent<Inventory>();
+        animator = GetComponent<Animator>();
+    }
 
     public void setMaxSpeed(float maxSpeed) { this.maxSpeed = maxSpeed; }
 
@@ -34,10 +38,19 @@ public class TopDownController : MonoBehaviour {
 	void Update () {
         playerMovement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")); //get Movement input and set it into a directio vector
 
+        if(Input.GetButton("Horizontal") || Input.GetButton("Vertical")){
+            animator.SetBool("walking", true);
+            SetCorrectAnimationDirection(playerMovement);
+        }
+        else
+        {
+            animator.SetBool("walking", false);
+        }
+        animator.SetBool("attacking", false);
         //handle input
         if (Input.GetButtonDown("Fire1") && !onAMenu)
         {
-            Debug.Log("do attack");
+            animator.SetBool("attacking", true);
         }
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -98,5 +111,28 @@ public class TopDownController : MonoBehaviour {
             if (inv.addPickupToInventory(pickup)) //add the item pickup to the inventory
                 Destroy(coll.gameObject); //destroy the pickup item on the ground
         }
+    }
+
+    void SetCorrectAnimationDirection(Vector2 input)
+    {
+        animator.SetFloat("inputX", input.x);
+        animator.SetFloat("inputY", input.y);
+        if (input.x < 0 && !facingLeft)
+        {
+            facingLeft = true;
+            Flip();
+        }
+        else if (input.x > 0 && facingLeft) {
+            facingLeft = false;
+            Flip();
+        }
+    }
+
+    void Flip()
+    {
+        Vector3 currScale = transform.localScale;
+        currScale.x *= -1;
+        transform.localScale = currScale;
+
     }
 }
