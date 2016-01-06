@@ -32,10 +32,8 @@ public class SkillMenu : MonoBehaviour {
             size = character.getFoodAbilities().Count;
         else
             size = character.getCharAbilities().Count;
-        Debug.Log(size);
         for (int i = 0; i < size; i++)
         {
-            Debug.Log(i);
             GameObject skillSlot = (GameObject)Instantiate(skillSlotPrefab);
             slots.Add(skillSlot);
             skillSlot.transform.SetParent(transform);

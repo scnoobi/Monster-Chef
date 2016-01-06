@@ -14,6 +14,10 @@ public class Enemies : Actor
         public float CurrHP { get; set; }
         public float AttackSpeed { get; set; }
         public float MovementSpeed { get; set; }
+        public float Armor { get; set; }
+        public float FireResist { get; set; }
+        public float PoisonResist { get; set; }
+        public float IceResist { get; set; }
 
         public void FuseStats(EnemyStats statsToAdd)
         {
@@ -21,6 +25,10 @@ public class Enemies : Actor
             CurrHP += statsToAdd.CurrHP;
             AttackSpeed += statsToAdd.AttackSpeed;
             MovementSpeed += statsToAdd.MovementSpeed;
+            Armor += statsToAdd.Armor;
+            FireResist += statsToAdd.FireResist;
+            IceResist += statsToAdd.IceResist;
+            PoisonResist += statsToAdd.PoisonResist;
         }
     }
 
@@ -49,11 +57,31 @@ public class Enemies : Actor
     #region events
 
     // Your current method for taking damage
+
     public override void TakeDamage(float damage)
     {
-        enemyStats.CurrHP -= damage;
+        enemyStats.CurrHP -= damage * (100 - enemyStats.Armor);
         if (OnDamageTaken != null) OnDamageTaken(this, EventArgs.Empty);// basically, call this every time you want this event to fire (for all abilities)
     }
+
+    public override void TakeFireDamage(float damage)
+    {
+        enemyStats.CurrHP -= damage * (100 - enemyStats.FireResist);
+        if (OnFireDamageTaken != null) OnFireDamageTaken(this, EventArgs.Empty);// basically, call this every time you want this event to fire (for all abilities)
+    }
+
+    public override void TakePoisonDamage(float damage)
+    {
+        enemyStats.CurrHP -= damage * (100 - enemyStats.PoisonResist);
+        if (OnPoisonDamageTaken != null) OnPoisonDamageTaken(this, EventArgs.Empty);// basically, call this every time you want this event to fire (for all abilities)
+    }
+
+    public override void TakeIceDamage(float damage)
+    {
+        enemyStats.CurrHP -= damage * (100 - enemyStats.IceResist);
+        if (OnIceDamageTaken != null) OnIceDamageTaken(this, EventArgs.Empty);// basically, call this every time you want this event to fire (for all abilities)
+    }
+
     #endregion
 
 }

@@ -1,12 +1,14 @@
 fileFormatVersion: 2
 guid: cafba7b032a25604db7c9ba1be40668c
-timeCreated: 1449534061
+timeCreated: 1452044441
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: reflect_Damage
     21300002: Shoot
     21300004: ice_ball
+    21300006: Fire_Resist
+    21300008: Cooking_Perfection
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -80,6 +82,26 @@ TextureImporter:
         y: 767
         width: 128
         height: 133
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Fire_Resist
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 1664
+        width: 129
+        height: 128
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Cooking_Perfection
+      rect:
+        serializedVersion: 2
+        x: 2815
+        y: 129
+        width: 130
+        height: 126
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}

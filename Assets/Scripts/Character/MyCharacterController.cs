@@ -2,55 +2,64 @@
 using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class TopDownController : MonoBehaviour {
+public class MyCharacterController : TopDownController {
 
-    public float maxSpeed;    //speed of character
     public GameObject inventoryMenu;    //UI of inventory
     public GameObject cookingMenu;      //UI of cooking
     public GameObject mealPlanMenu;      //UI of mealPlan
     bool onAMenu = false;   //is any menu UI on
 
-    private Vector2 playerMovement;
-
-    private Rigidbody2D myRig;
     private Inventory inv;
     private Character character;
-    private Animator animator;
-    private bool facingLeft;
 
     void Start()
     {
-        facingLeft = false;
-        CharacterDatabase charDB = GameObject.Find("Databases").GetComponent<CharacterDatabase>();
-        character = charDB.getCharacterById(0);
-        character.Initialize();
-        character.setController(this);
-        myRig = GetComponent<Rigidbody2D>(); 
+        //init controller stuff
+        myRig = GetComponent<Rigidbody2D>();
         inv = inventoryMenu.GetComponent<Inventory>();
         animator = GetComponent<Animator>();
+        facingLeft = false;
+
+        //init character stuff
+        CharacterDatabase charDB = GameObject.Find("Databases").GetComponent<CharacterDatabase>();
+        character = charDB.getCharacterById(6);
+        character.Initialize(this);
+    }
+
+    public CookingMenuSlot getCookingSlot() {
+        return cookingMenu.GetComponentsInChildren<CookingMenuSlot>(true)[0];
     }
 
     public void setMaxSpeed(float maxSpeed) { this.maxSpeed = maxSpeed; }
 
     public Character getCharacter() { return character; }
 
-	// Update is called once per frame
-	void Update () {
-        playerMovement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")); //get Movement input and set it into a directio vector
+    public bool CanMove() { return canMove || !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"); }
 
-        if(Input.GetButton("Horizontal") || Input.GetButton("Vertical")){
+    public bool CanAttack() { return canAttack && !onAMenu; }
+
+    // Update is called once per frame
+    void Update () {
+        movementVector = new Vector2(0, 0);
+        if ((Input.GetButton("Horizontal") || Input.GetButton("Vertical")) && CanMove())
+        {
+            movementVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             animator.SetBool("walking", true);
-            SetCorrectAnimationDirection(playerMovement);
+            SetCorrectAnimationDirection(movementVector);
         }
-        else
+        else if(animator.GetBool("walking"))
         {
             animator.SetBool("walking", false);
         }
-        animator.SetBool("attacking", false);
+
         //handle input
-        if (Input.GetButtonDown("Fire1") && !onAMenu)
+        if (Input.GetButtonDown("Fire1") && CanAttack())
         {
             animator.SetBool("attacking", true);
+            character.Attack();
+        }
+        else if(animator.GetBool("attacking") && animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")){
+            animator.SetBool("attacking", false);
         }
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -100,7 +109,7 @@ public class TopDownController : MonoBehaviour {
 
     void FixedUpdate()
     {
-        myRig.MovePosition(myRig.position + playerMovement.normalized * maxSpeed * Time.deltaTime); //move player 
+        myRig.MovePosition(myRig.position + movementVector.normalized * maxSpeed * Time.deltaTime); //move player 
     }
 
     void OnCollisionEnter2D(Collision2D coll)
@@ -111,6 +120,11 @@ public class TopDownController : MonoBehaviour {
             if (inv.addPickupToInventory(pickup)) //add the item pickup to the inventory
                 Destroy(coll.gameObject); //destroy the pickup item on the ground
         }
+
+        if (coll.gameObject.tag == "Enemy" && character.attacksMelee && animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+        {
+            coll.gameObject.GetComponent<Enemies>().TakeDamage(character.characterStats.AttackDamage); 
+        } 
     }
 
     void SetCorrectAnimationDirection(Vector2 input)

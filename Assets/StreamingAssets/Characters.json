@@ -3,12 +3,19 @@
     "$type": "Character, Assembly-CSharp",
     "characterStats": {
       "$type": "Character+Stats, Assembly-CSharp",
-      "MaxHP": 50.0,
-      "CurrHP": 50.0,
       "MaxHunger": 0.0,
       "CurrHunger": 0.0,
+      "MaxHP": 50.0,
+      "CurrHP": 50.0,
+      "MaxStamina": 0.0,
+      "CurrStamina": 0.0,
+      "Armor": 0.0,
+      "AttackDamage": 0.0,
       "AttackSpeed": 0.6,
-      "MovementSpeed": 0.6
+      "MovementSpeed": 0.6,
+      "FireResist": 0.0,
+      "IceResist": 0.0,
+      "PoisonResist": 0.0
     },
     "tasteTranslater": {
       "$type": "SimpleTasteTranslation, Assembly-CSharp"
@@ -18,18 +25,28 @@
     "innateAbilities": [],
     "statusEffects": null,
     "OnDamageTaken": null,
+    "OnFireDamageTaken": null,
+    "OnPoisonDamageTaken": null,
+    "OnIceDamageTaken": null,
     "worldTicker": null
   },
   {
     "$type": "Character, Assembly-CSharp",
     "characterStats": {
       "$type": "Character+Stats, Assembly-CSharp",
-      "MaxHP": 80.0,
-      "CurrHP": 80.0,
       "MaxHunger": 0.0,
       "CurrHunger": 0.0,
+      "MaxHP": 80.0,
+      "CurrHP": 80.0,
+      "MaxStamina": 0.0,
+      "CurrStamina": 0.0,
+      "Armor": 0.0,
+      "AttackDamage": 0.0,
       "AttackSpeed": 0.3,
-      "MovementSpeed": 0.3
+      "MovementSpeed": 0.3,
+      "FireResist": 0.0,
+      "IceResist": 0.0,
+      "PoisonResist": 0.0
     },
     "tasteTranslater": {
       "$type": "SimpleTasteTranslation, Assembly-CSharp"
@@ -39,39 +56,28 @@
     "innateAbilities": [],
     "statusEffects": null,
     "OnDamageTaken": null,
+    "OnFireDamageTaken": null,
+    "OnPoisonDamageTaken": null,
+    "OnIceDamageTaken": null,
     "worldTicker": null
   },
   {
     "$type": "Character, Assembly-CSharp",
     "characterStats": {
       "$type": "Character+Stats, Assembly-CSharp",
-      "MaxHP": 66.0,
-      "CurrHP": 66.0,
       "MaxHunger": 0.0,
       "CurrHunger": 0.0,
-      "AttackSpeed": 0.666,
-      "MovementSpeed": 0.666
-    },
-    "tasteTranslater": {
-      "$type": "SimpleTasteTranslation, Assembly-CSharp"
-    },
-    "charAbilitiesIndex": [],
-    "name": "Demon Culinary Chef",
-    "innateAbilities": [],
-    "statusEffects": null,
-    "OnDamageTaken": null,
-    "worldTicker": null
-  },
-  {
-    "$type": "Character, Assembly-CSharp",
-    "characterStats": {
-      "$type": "Character+Stats, Assembly-CSharp",
       "MaxHP": 40.0,
       "CurrHP": 40.0,
-      "MaxHunger": 0.0,
-      "CurrHunger": 0.0,
+      "MaxStamina": 0.0,
+      "CurrStamina": 0.0,
+      "Armor": 0.0,
+      "AttackDamage": 0.0,
       "AttackSpeed": 0.5,
-      "MovementSpeed": 0.5
+      "MovementSpeed": 0.5,
+      "FireResist": 0.0,
+      "IceResist": 0.0,
+      "PoisonResist": 0.0
     },
     "tasteTranslater": {
       "$type": "SimpleTasteTranslation, Assembly-CSharp"
@@ -81,18 +87,28 @@
     "innateAbilities": [],
     "statusEffects": null,
     "OnDamageTaken": null,
+    "OnFireDamageTaken": null,
+    "OnPoisonDamageTaken": null,
+    "OnIceDamageTaken": null,
     "worldTicker": null
   },
   {
     "$type": "Character, Assembly-CSharp",
     "characterStats": {
       "$type": "Character+Stats, Assembly-CSharp",
-      "MaxHP": 40.0,
-      "CurrHP": 40.0,
       "MaxHunger": 0.0,
       "CurrHunger": 0.0,
+      "MaxHP": 40.0,
+      "CurrHP": 40.0,
+      "MaxStamina": 0.0,
+      "CurrStamina": 0.0,
+      "Armor": 0.0,
+      "AttackDamage": 0.0,
       "AttackSpeed": 0.7,
-      "MovementSpeed": 0.7
+      "MovementSpeed": 0.7,
+      "FireResist": 0.0,
+      "IceResist": 0.0,
+      "PoisonResist": 0.0
     },
     "tasteTranslater": {
       "$type": "SimpleTasteTranslation, Assembly-CSharp"
@@ -102,18 +118,28 @@
     "innateAbilities": [],
     "statusEffects": null,
     "OnDamageTaken": null,
+    "OnFireDamageTaken": null,
+    "OnPoisonDamageTaken": null,
+    "OnIceDamageTaken": null,
     "worldTicker": null
   },
   {
     "$type": "Character, Assembly-CSharp",
     "characterStats": {
       "$type": "Character+Stats, Assembly-CSharp",
-      "MaxHP": 70.0,
-      "CurrHP": 70.0,
       "MaxHunger": 0.0,
       "CurrHunger": 0.0,
+      "MaxHP": 70.0,
+      "CurrHP": 70.0,
+      "MaxStamina": 0.0,
+      "CurrStamina": 0.0,
+      "Armor": 0.0,
+      "AttackDamage": 0.0,
       "AttackSpeed": 0.7,
-      "MovementSpeed": 0.7
+      "MovementSpeed": 0.7,
+      "FireResist": 0.0,
+      "IceResist": 0.0,
+      "PoisonResist": 0.0
     },
     "tasteTranslater": {
       "$type": "SimpleTasteTranslation, Assembly-CSharp"
@@ -123,18 +149,28 @@
     "innateAbilities": [],
     "statusEffects": null,
     "OnDamageTaken": null,
+    "OnFireDamageTaken": null,
+    "OnPoisonDamageTaken": null,
+    "OnIceDamageTaken": null,
     "worldTicker": null
   },
   {
     "$type": "Character, Assembly-CSharp",
     "characterStats": {
       "$type": "Character+Stats, Assembly-CSharp",
-      "MaxHP": 70.0,
-      "CurrHP": 70.0,
       "MaxHunger": 0.0,
       "CurrHunger": 0.0,
+      "MaxHP": 70.0,
+      "CurrHP": 70.0,
+      "MaxStamina": 0.0,
+      "CurrStamina": 0.0,
+      "Armor": 0.0,
+      "AttackDamage": 0.0,
       "AttackSpeed": 0.45,
-      "MovementSpeed": 0.45
+      "MovementSpeed": 0.45,
+      "FireResist": 0.0,
+      "IceResist": 0.0,
+      "PoisonResist": 0.0
     },
     "tasteTranslater": {
       "$type": "SimpleTasteTranslation, Assembly-CSharp"
@@ -144,6 +180,43 @@
     "innateAbilities": [],
     "statusEffects": null,
     "OnDamageTaken": null,
+    "OnFireDamageTaken": null,
+    "OnPoisonDamageTaken": null,
+    "OnIceDamageTaken": null,
+    "worldTicker": null
+  },
+  {
+    "$type": "Character, Assembly-CSharp",
+    "characterStats": {
+      "$type": "Character+Stats, Assembly-CSharp",
+      "MaxHunger": 0.0,
+      "CurrHunger": 0.0,
+      "MaxHP": 50.0,
+      "CurrHP": 50.0,
+      "MaxStamina": 50.0,
+      "CurrStamina": 50.0,
+      "Armor": 10.0,
+      "AttackDamage": 55.0,
+      "AttackSpeed": 1.60,
+      "MovementSpeed": 1.70,
+      "FireResist": 0.0,
+      "IceResist": 0.0,
+      "PoisonResist": 0.0
+    },
+    "tasteTranslater": {
+      "$type": "SpicyTasteTranslation, Assembly-CSharp"
+    },
+    "charAbilitiesIndex": [
+      2,
+      3
+    ],
+    "name": "Demon Culinary Chef",
+    "innateAbilities": [],
+    "statusEffects": null,
+    "OnDamageTaken": null,
+    "OnFireDamageTaken": null,
+    "OnPoisonDamageTaken": null,
+    "OnIceDamageTaken": null,
     "worldTicker": null
   }
 ]

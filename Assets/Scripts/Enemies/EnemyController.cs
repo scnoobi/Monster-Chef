@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : TopDownController
 {
-    private Rigidbody2D myRig;
     private Enemies enemy;
 
     void Start()

@@ -17,6 +17,8 @@ public class CookingMenuSlot : MonoBehaviour, IDropHandler
     public const float MEDIUM = 1f/2f;
     public const float WELL_DONE = 3f/4f;
     public const float BURNT = 9f/10f;
+    public bool canBurn = true;
+    public bool canCook = true;
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -98,13 +100,13 @@ public class CookingMenuSlot : MonoBehaviour, IDropHandler
         else if(time < WELL_DONE) { //ponto
             Debug.Log("medium");
         }
-        else if(time < BURNT) //bem passado
+        else if(time < BURNT || (time > BURNT && !canBurn)) //bem passado
         {
             Debug.Log("well done");
             food.strenghtenTaste();
             food.weakenAbility();
         }
-        else //queimado
+        else if(canBurn) //queimado
         {
             Debug.Log("burned");
         }

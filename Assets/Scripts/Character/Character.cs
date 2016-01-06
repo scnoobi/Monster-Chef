@@ -10,26 +10,174 @@ public class Character : Actor {
     {
         private float maxHP;
         private float currHP;
-        private float maxHunger;
-        private float currHunger;
+        private float maxStamina;
+        private float currStamina;
+        private float armor;
+        private float attackDamage;
         private float attackSpeed;
         private float movementSpeed;
+        private float fireResist;
+        private float iceResist;
+        private float poisonResist;
+        private Character character;
 
-        public float MaxHP { get { return maxHP; } set { maxHP = value; } }
-        public float CurrHP { get { return currHP; } set { currHP = value; } }
-        public float MaxHunger { get { return maxHunger; } set { maxHunger = value; } }
-        public float CurrHunger { get { return currHunger; } set { currHunger = value; } }
-        public float AttackSpeed { get { return attackSpeed; } set { attackSpeed = value; } }
-        public float MovementSpeed { get { return movementSpeed; } set { movementSpeed = value; } }
+        public float MaxHunger { get; set; }
+        public float CurrHunger { get; set; }
 
+        public float MaxHP
+        {
+            get
+            {
+                return maxHP;
+            }
+
+            set
+            {
+                maxHP = value;
+            }
+        }
+        public float CurrHP
+        {
+            get
+            {
+                return currHP;
+            }
+
+            set
+            {
+                currHP = value;
+            }
+        }
+        public float MaxStamina
+        {
+            get
+            {
+                return maxStamina;
+            }
+
+            set
+            {
+                maxStamina = value;
+            }
+        }
+        public float CurrStamina
+        {
+            get
+            {
+                return currStamina;
+            }
+
+            set
+            {
+                currStamina = value;
+            }
+        }
+        public float Armor
+        {
+            get
+            {
+                return armor;
+            }
+
+            set
+            {
+                armor = value;
+            }
+        }
+        public float AttackDamage
+        {
+            get
+            {
+                return attackDamage;
+            }
+
+            set
+            {
+                attackDamage = value;
+            }
+        }
+        public float AttackSpeed
+        {
+            get
+            {
+                return attackSpeed;
+            }
+
+            set
+            {
+                attackSpeed = value;
+                if(character != null)
+                    character.topDownController.animator.SetFloat("attackSpeed", value);
+            }
+        }
+        public float MovementSpeed
+        {
+            get
+            {
+                return movementSpeed;
+            }
+
+            set
+            {
+                movementSpeed = value;
+                if (character != null)
+                {
+                    character.topDownController.maxSpeed = value;
+                    character.topDownController.animator.SetFloat("movementSpeed", value);
+                }
+            }
+        }
+        public float FireResist
+        {
+            get
+            {
+                return fireResist;
+            }
+
+            set
+            {
+                fireResist = value;
+            }
+        }
+        public float IceResist
+        {
+            get
+            {
+                return iceResist;
+            }
+
+            set
+            {
+                iceResist = value;
+            }
+        }
+        public float PoisonResist
+        {
+            get
+            {
+                return poisonResist;
+            }
+
+            set
+            {
+                poisonResist = value;
+            }
+        }
+    
+        public void setChar(Character character) { this.character = character; }
         public void FuseStats(Stats statsToAdd)
         {
             MaxHP += statsToAdd.MaxHP;
             CurrHP += statsToAdd.CurrHP;
-            MaxHunger += statsToAdd.MaxHunger;
-            CurrHunger += statsToAdd.CurrHunger;
+            MaxStamina += statsToAdd.MaxStamina;
+            CurrStamina += statsToAdd.CurrStamina;
+            Armor += statsToAdd.Armor;
+            AttackDamage += statsToAdd.AttackDamage;
             AttackSpeed += statsToAdd.AttackSpeed;
             MovementSpeed += statsToAdd.MovementSpeed;
+            FireResist += statsToAdd.FireResist;
+            IceResist += statsToAdd.IceResist;
+            PoisonResist += statsToAdd.PoisonResist;
         }
     }
 
@@ -37,10 +185,11 @@ public class Character : Actor {
     public TasteToStats tasteTranslater;
     public List<int> charAbilitiesIndex;
 
-    TopDownController controller;
     List<Ability> foodAbilities;
     AbilityDatabase abDB;
     SkillMenu skillMenu;
+    SimpleAttack attack;
+    public bool attacksMelee = true;
 
     // Use this for initialization
     public Character()
@@ -49,8 +198,11 @@ public class Character : Actor {
         foodAbilities = new List<Ability>();
     }
 
-    public void Initialize()
+    public void Initialize(MyCharacterController controller)
     {
+        characterStats.setChar(this);
+        this.topDownController = controller;
+
         skillMenu = GameObject.Find("Food Skills").GetComponent<SkillMenu>();
         skillMenu.SetCharacter(this);
         abDB = GameObject.Find("Databases").GetComponent<AbilityDatabase>();
@@ -64,17 +216,19 @@ public class Character : Actor {
         skillMenu.updateSkillList();
         characterSkills.updateSkillList();
         worldTicker = GameObject.Find("Databases").GetComponent<WorldTicker>();
+        //to refresh their setter
+        characterStats.MovementSpeed = characterStats.MovementSpeed;
+        characterStats.AttackSpeed = characterStats.AttackSpeed;
     }
 
-    public void setController(TopDownController controller)
+    public MyCharacterController getController()
     {
-        this.controller = controller;
-        this.controller.setMaxSpeed(characterStats.MovementSpeed);
+        return (MyCharacterController)topDownController;
     }
 
     public Transform getTransform()
     {
-        return controller.transform;
+        return topDownController.transform;
     }
 
     public void addCharAbilities(Ability charAbility)
@@ -127,14 +281,36 @@ public class Character : Actor {
             castAbility.castAbility();
     }
 
+    public void Attack()
+    {
+        //attack.Attack(characterStats.AttackDamage);
+    }
+
     #region events
     // Your current method for taking damage
     public override void TakeDamage(float damage)
     {
-        characterStats.CurrHP -= damage;
+        characterStats.CurrHP -= damage*(100-characterStats.Armor);
         if (OnDamageTaken != null) OnDamageTaken(this, EventArgs.Empty);// basically, call this every time you want this event to fire (for all abilities)
     }
-    
-    
+
+    public override void TakeFireDamage(float damage)
+    {
+        characterStats.CurrHP -= damage * (100 - characterStats.FireResist);
+        if (OnFireDamageTaken != null) OnFireDamageTaken(this, EventArgs.Empty);// basically, call this every time you want this event to fire (for all abilities)
+    }
+
+    public override void TakePoisonDamage(float damage)
+    {
+        characterStats.CurrHP -= damage * (100 - characterStats.PoisonResist);
+        if (OnPoisonDamageTaken != null) OnPoisonDamageTaken(this, EventArgs.Empty);// basically, call this every time you want this event to fire (for all abilities)
+    }
+
+    public override void TakeIceDamage(float damage)
+    {
+        characterStats.CurrHP -= damage * (100 - characterStats.IceResist);
+        if (OnIceDamageTaken != null) OnIceDamageTaken(this, EventArgs.Empty);// basically, call this every time you want this event to fire (for all abilities)
+    }
+
     #endregion
 }

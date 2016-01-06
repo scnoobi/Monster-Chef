@@ -27,7 +27,7 @@ class CharacterDatabase : MonoBehaviour
 
         if (database == null)
             database = new List<Character>();
-
+       
         textReader.Close();
         textReader.Dispose();
         jsonReader.Close();

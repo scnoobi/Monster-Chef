@@ -10,6 +10,7 @@ class DamageOverTime : StatusEffects
     float damage;
     float hitsPerSecond;
     Actor afflictedActor;
+    float duration;
 
     float lastTick = 0f;
     float time;
@@ -30,7 +31,7 @@ class DamageOverTime : StatusEffects
 
     public void setAfflicted(Actor actor)
     {
-        actor.statusEffects.Add(this);
+        actor.applyStatusEffect(this);
         afflictedActor = actor;
         actor.registerTimedEvent(timedEvent);
         time += Time.deltaTime;
@@ -38,7 +39,7 @@ class DamageOverTime : StatusEffects
 
     public void unsetAfflicted(Actor actor)
     {
-        actor.statusEffects.Remove(this);
+        actor.unapplyStatusEffect(this);
         afflictedActor = null;
         actor.unregisterTimedEvent(timedEvent);
     }

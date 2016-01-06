@@ -11,5 +11,15 @@
     "projectileName": "Ice_Ball",
     "isActiveAbility": true,
     "realName": "ice_ball"
+  },
+  {
+    "$type": "CookingPerfection, Assembly-CSharp",
+    "isActiveAbility": false,
+    "realName": "Cooking_Perfection"
+  },
+  {
+    "$type": "FireResistanceIncrease, Assembly-CSharp",
+    "isActiveAbility": false,
+    "realName": "Fire_Resist"
   }
 ]

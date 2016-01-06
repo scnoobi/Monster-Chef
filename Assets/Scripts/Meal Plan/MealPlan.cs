@@ -20,7 +20,7 @@ public class MealPlan : MonoBehaviour {
             slot.transform.SetParent(this.transform);
             slot.transform.localScale = this.transform.localScale;
         }
-        character = GameObject.FindGameObjectWithTag("Player").GetComponent<TopDownController>().getCharacter();
+        character = GameObject.FindGameObjectWithTag("Player").GetComponent<MyCharacterController>().getCharacter();
     }
 
     public void ConsumeMealPlan() {
