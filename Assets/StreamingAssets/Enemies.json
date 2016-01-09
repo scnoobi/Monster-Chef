@@ -1,0 +1,50 @@
+[
+  {
+    "$type": "Enemies, Assembly-CSharp",
+    "enemyStats": {
+      "$type": "Enemies+EnemyStats, Assembly-CSharp",
+      "MaxHP": 10.0,
+      "CurrHP": 10.0,
+      "AttackSpeed": 10.0,
+      "MovementSpeed": 10.0,
+      "Armor": 10.0,
+      "FireResist": 10.0,
+      "PoisonResist": 10.0,
+      "IceResist": 10.0
+    },
+    "charAbilitiesIndex": [],
+    "name": "test",
+    "innateAbilities": [],
+    "affectedStatusEffects": [],
+    "onHitStatusEffects": [],
+    "topDownController": null,
+    "OnDamageTaken": null,
+    "OnFireDamageTaken": null,
+    "OnPoisonDamageTaken": null,
+    "OnIceDamageTaken": null
+  },
+  {
+    "$type": "Enemies, Assembly-CSharp",
+    "enemyStats": {
+      "$type": "Enemies+EnemyStats, Assembly-CSharp",
+      "MaxHP": 10.0,
+      "CurrHP": 10.0,
+      "AttackSpeed": 10.0,
+      "MovementSpeed": 10.0,
+      "Armor": 10.0,
+      "FireResist": 10.0,
+      "PoisonResist": 10.0,
+      "IceResist": 10.0
+    },
+    "charAbilitiesIndex": [],
+    "name": "dasd",
+    "innateAbilities": [],
+    "affectedStatusEffects": [],
+    "onHitStatusEffects": [],
+    "topDownController": null,
+    "OnDamageTaken": null,
+    "OnFireDamageTaken": null,
+    "OnPoisonDamageTaken": null,
+    "OnIceDamageTaken": null
+  }
+]

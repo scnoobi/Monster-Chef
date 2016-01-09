@@ -35,7 +35,7 @@ class CharacterDatabase : MonoBehaviour
 
     public Character getCharacterById(int id)
     {
-        return database[id];
+        return new Character(database[id]);
     }
 
 

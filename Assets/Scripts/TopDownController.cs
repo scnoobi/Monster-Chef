@@ -16,5 +16,6 @@ public class TopDownController : MonoBehaviour
     public bool canAttack = true;
     protected Vector2 movementVector;
     public float maxSpeed;
+    public WorldTicker worldTicker;
 }
 

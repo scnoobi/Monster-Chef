@@ -36,7 +36,7 @@ class EnemyDatabase : MonoBehaviour
 
     public Enemies getEnemyByID(int id)
     {
-        return database[id];
+        return new Enemies(database[id]);
     }
 
 }

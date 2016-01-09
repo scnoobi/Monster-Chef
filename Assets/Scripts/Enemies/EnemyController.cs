@@ -10,6 +10,8 @@ public class EnemyController : TopDownController
 
     void Start()
     {
+        worldTicker = GameObject.Find("GameManager").GetComponent<WorldTicker>();
+
         EnemyDatabase enemyDB = GameObject.Find("Databases").GetComponent<EnemyDatabase>();
         enemy = enemyDB.getEnemyByID(0); //This, with some work, can be passed to EnemyDatabase so it only runs once
         enemy.Initialize();
@@ -18,6 +20,10 @@ public class EnemyController : TopDownController
     }
 
 
+    public Enemies getEnemy()
+    {
+        return enemy;
+    }
 
 
 

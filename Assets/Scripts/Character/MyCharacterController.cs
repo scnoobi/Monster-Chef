@@ -24,6 +24,7 @@ public class MyCharacterController : TopDownController {
         CharacterDatabase charDB = GameObject.Find("Databases").GetComponent<CharacterDatabase>();
         character = charDB.getCharacterById(6);
         character.Initialize(this);
+        GetComponentInChildren<AttackTrigger>().setCharacter(character);
     }
 
     public CookingMenuSlot getCookingSlot() {
@@ -61,6 +62,7 @@ public class MyCharacterController : TopDownController {
         else if(animator.GetBool("attacking") && animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")){
             animator.SetBool("attacking", false);
         }
+
 
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -120,11 +122,6 @@ public class MyCharacterController : TopDownController {
             if (inv.addPickupToInventory(pickup)) //add the item pickup to the inventory
                 Destroy(coll.gameObject); //destroy the pickup item on the ground
         }
-
-        if (coll.gameObject.tag == "Enemy" && character.attacksMelee && animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
-        {
-            coll.gameObject.GetComponent<Enemies>().TakeDamage(character.characterStats.AttackDamage); 
-        } 
     }
 
     void SetCorrectAnimationDirection(Vector2 input)

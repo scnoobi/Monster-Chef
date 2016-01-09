@@ -184,6 +184,7 @@ public class Character : Actor {
     public Stats characterStats;
     public TasteToStats tasteTranslater;
     public List<int> charAbilitiesIndex;
+    //public List<int> statusEffectsIndex;
 
     List<Ability> foodAbilities;
     AbilityDatabase abDB;
@@ -196,6 +197,8 @@ public class Character : Actor {
     {
         innateAbilities = new List<Ability>();
         foodAbilities = new List<Ability>();
+        affectedStatusEffects = new List<StatusEffects>();
+        onHitStatusEffects = new List<StatusEffects>();
     }
 
     public void Initialize(MyCharacterController controller)
@@ -215,10 +218,30 @@ public class Character : Actor {
         tasteTranslater = new SimpleTasteTranslation();
         skillMenu.updateSkillList();
         characterSkills.updateSkillList();
-        worldTicker = GameObject.Find("Databases").GetComponent<WorldTicker>();
         //to refresh their setter
         characterStats.MovementSpeed = characterStats.MovementSpeed;
         characterStats.AttackSpeed = characterStats.AttackSpeed;
+
+        DamageOverTime dot = new DamageOverTime();
+        dot.duration = 3;
+        dot.damage = 1;
+        dot.hitsPerSecond = 1;
+        dot.ChanceOfApplying = 25;
+        dot.typeOfDamage = TypeOfEffects.fire;
+        onHitStatusEffects.Add(dot);
+    }
+
+    public Character(Character character)
+    {
+        this.name = character.name;
+        this.tasteTranslater = character.tasteTranslater;
+        this.characterStats = character.characterStats;
+        this.charAbilitiesIndex = new List<int>(character.charAbilitiesIndex);
+        //this.statusEffectsIndex = new List<int>(character.statusEffectsIndex);
+        innateAbilities = new List<Ability>();
+        foodAbilities = new List<Ability>();
+        affectedStatusEffects = new List<StatusEffects>();
+        onHitStatusEffects = new List<StatusEffects>();
     }
 
     public MyCharacterController getController()
