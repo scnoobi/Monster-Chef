@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public enum TypeOfEffects {fire, ice, poison, chilled, slowed, frozen, rooted, stunned, paralyzed};
+public enum TypeOfEffects {none, fire, ice, poison, chilled, slowed, frozen, rooted, stunned, paralyzed};
 public interface StatusEffects
 {
     float ChanceOfApplying { get; set; }

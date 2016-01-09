@@ -223,8 +223,8 @@ public class Character : Actor {
         characterStats.AttackSpeed = characterStats.AttackSpeed;
 
         DamageOverTime dot = new DamageOverTime();
-        dot.duration = 3;
-        dot.damage = 1;
+        dot.duration = 6;
+        dot.damage = 20;
         dot.hitsPerSecond = 1;
         dot.ChanceOfApplying = 25;
         dot.typeOfDamage = TypeOfEffects.fire;

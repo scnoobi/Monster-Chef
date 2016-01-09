@@ -23,7 +23,6 @@ public abstract class Actor {
 
     public bool applyStatusEffect(StatusEffects statusEffect)
     {
- 
         return HandleEffects(statusEffect);
     }
 
