@@ -313,12 +313,14 @@ public class Character : Actor {
     // Your current method for taking damage
     public override void TakeDamage(float damage)
     {
+        Debug.Log("ouchie");
         characterStats.CurrHP -= damage*(100-characterStats.Armor);
         if (OnDamageTaken != null) OnDamageTaken(this, EventArgs.Empty);// basically, call this every time you want this event to fire (for all abilities)
     }
 
     public override void TakeFireDamage(float damage)
     {
+        Debug.Log("fire ouchie");
         characterStats.CurrHP -= damage * (100 - characterStats.FireResist);
         if (OnFireDamageTaken != null) OnFireDamageTaken(this, EventArgs.Empty);// basically, call this every time you want this event to fire (for all abilities)
     }

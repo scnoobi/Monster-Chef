@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 27eff8edebe5e514f8fe765421e7c52e
-timeCreated: 1450913273
+timeCreated: 1452470792
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -208,6 +208,8 @@ TextureImporter:
     21300402: fixedSpritesheet1_223
     21300404: fixedSpritesheet1_224
     21300406: fixedSpritesheet1_0
+    21300408: fixedSpritesheet1_1
+    21300410: fixedSpritesheet1_2
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -261,8 +263,8 @@ TextureImporter:
         y: 1117
         width: 29
         height: 47
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .551573813, y: .151834697}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: attackR0
       rect:
@@ -271,8 +273,8 @@ TextureImporter:
         y: 1117
         width: 33
         height: 47
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .497999936, y: .132843673}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: attackR1
       rect:
@@ -281,8 +283,8 @@ TextureImporter:
         y: 1117
         width: 32
         height: 47
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .545068264, y: .146624625}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: attackR2
       rect:
@@ -291,8 +293,8 @@ TextureImporter:
         y: 1117
         width: 60
         height: 46
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .256384015, y: .148137629}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: attackR3
       rect:
@@ -301,8 +303,8 @@ TextureImporter:
         y: 1117
         width: 66
         height: 43
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .24765639, y: .159176841}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: attackR4
       rect:
@@ -311,8 +313,8 @@ TextureImporter:
         y: 1117
         width: 66
         height: 43
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .256290317, y: .160709828}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: attackR5
       rect:
@@ -321,8 +323,8 @@ TextureImporter:
         y: 1117
         width: 32
         height: 47
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .524256706, y: .149338737}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: fixedSpritesheet1_7
       rect:
@@ -541,8 +543,8 @@ TextureImporter:
         y: 993
         width: 24
         height: 47
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .295487881, y: .141093805}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: walkR1
       rect:
@@ -551,8 +553,8 @@ TextureImporter:
         y: 993
         width: 27
         height: 48
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .42768833, y: .157184601}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: walkR2
       rect:
@@ -561,8 +563,8 @@ TextureImporter:
         y: 993
         width: 39
         height: 46
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .406625986, y: .143268093}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: walkR3
       rect:
@@ -571,8 +573,8 @@ TextureImporter:
         y: 993
         width: 26
         height: 48
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .482377261, y: .0553131104}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: walkR4
       rect:
@@ -581,8 +583,8 @@ TextureImporter:
         y: 993
         width: 32
         height: 47
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .453526497, y: .119109459}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: walkR5
       rect:
@@ -591,8 +593,8 @@ TextureImporter:
         y: 993
         width: 40
         height: 46
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .551832557, y: .127343222}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: fixedSpritesheet1_35
       rect:
@@ -951,8 +953,8 @@ TextureImporter:
         y: 763
         width: 46
         height: 48
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .339193106, y: .120268501}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: attackU0
       rect:
@@ -961,8 +963,8 @@ TextureImporter:
         y: 763
         width: 38
         height: 48
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .415714055, y: .122408547}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: attackU1
       rect:
@@ -971,8 +973,8 @@ TextureImporter:
         y: 763
         width: 28
         height: 55
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .425298423, y: .127122909}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: attackU2
       rect:
@@ -981,8 +983,8 @@ TextureImporter:
         y: 763
         width: 29
         height: 67
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .556747973, y: .0895595253}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: attackU3
       rect:
@@ -991,8 +993,8 @@ TextureImporter:
         y: 763
         width: 29
         height: 67
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .533630371, y: .0896979943}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: attackU4
       rect:
@@ -1001,8 +1003,8 @@ TextureImporter:
         y: 763
         width: 28
         height: 55
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .441782266, y: .125297412}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: fixedSpritesheet1_83
       rect:
@@ -1251,8 +1253,8 @@ TextureImporter:
         y: 619
         width: 38
         height: 49
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .448666632, y: .130364865}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: walkU1
       rect:
@@ -1261,8 +1263,8 @@ TextureImporter:
         y: 619
         width: 42
         height: 46
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .519557059, y: .1861559}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: walkU2
       rect:
@@ -1271,8 +1273,8 @@ TextureImporter:
         y: 619
         width: 42
         height: 46
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .41738674, y: .216510281}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: walkU3
       rect:
@@ -1281,8 +1283,8 @@ TextureImporter:
         y: 619
         width: 41
         height: 45
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .492490441, y: .228462726}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: walkU4
       rect:
@@ -1291,8 +1293,8 @@ TextureImporter:
         y: 619
         width: 38
         height: 50
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .528641522, y: .198538825}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: walkU5
       rect:
@@ -1301,8 +1303,8 @@ TextureImporter:
         y: 619
         width: 31
         height: 53
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .528478801, y: .193908691}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: fixedSpritesheet1_115
       rect:
@@ -1641,8 +1643,8 @@ TextureImporter:
         y: 366
         width: 41
         height: 47
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .578944206, y: .151223034}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: attackD0
       rect:
@@ -1651,8 +1653,8 @@ TextureImporter:
         y: 366
         width: 34
         height: 48
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .502329648, y: .176202774}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: attackD1
       rect:
@@ -1661,8 +1663,8 @@ TextureImporter:
         y: 366
         width: 34
         height: 45
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .441527873, y: .187866211}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: attackD2
       rect:
@@ -1671,8 +1673,8 @@ TextureImporter:
         y: 353
         width: 26
         height: 52
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .474378735, y: .411474973}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: attackD3
       rect:
@@ -1681,8 +1683,8 @@ TextureImporter:
         y: 348
         width: 24
         height: 60
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .477003098, y: .492421985}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: attackD4
       rect:
@@ -1691,8 +1693,8 @@ TextureImporter:
         y: 347
         width: 24
         height: 60
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .409229904, y: .504163623}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: fixedSpritesheet1_159
       rect:
@@ -1701,8 +1703,8 @@ TextureImporter:
         y: 359
         width: 34
         height: 45
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .456568986, y: .187881127}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: fixedSpritesheet1_160
       rect:
@@ -1821,8 +1823,8 @@ TextureImporter:
         y: 285
         width: 36
         height: 43
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .50836587, y: .236398384}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: walkD1
       rect:
@@ -1831,8 +1833,8 @@ TextureImporter:
         y: 285
         width: 39
         height: 48
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .476833045, y: .246067688}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: walkD2
       rect:
@@ -1841,8 +1843,8 @@ TextureImporter:
         y: 285
         width: 37
         height: 46
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .481778115, y: .267074585}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: walkD3
       rect:
@@ -1851,8 +1853,8 @@ TextureImporter:
         y: 285
         width: 41
         height: 43
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .442007303, y: .260752827}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: walkD4
       rect:
@@ -1861,8 +1863,8 @@ TextureImporter:
         y: 285
         width: 36
         height: 48
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .498502523, y: .23127301}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: walkD5
       rect:
@@ -1871,8 +1873,8 @@ TextureImporter:
         y: 285
         width: 35
         height: 46
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .540579677, y: .2288699}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: fixedSpritesheet1_177
       rect:
@@ -2291,6 +2293,26 @@ TextureImporter:
         y: 723
         width: 4
         height: 58
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet1_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 839
+        height: 1185
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: fixedSpritesheet1_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 839
+        height: 1185
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -35,7 +35,7 @@ public class MyCharacterController : TopDownController {
 
     public Character getCharacter() { return character; }
 
-    public bool CanMove() { return canMove || !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"); }
+    public bool CanMove() { return canMove && !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"); }
 
     public bool CanAttack() { return canAttack && !onAMenu; }
 
